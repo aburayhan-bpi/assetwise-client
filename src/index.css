@@ -7,3 +7,8 @@
 body {
   font-family: "Poppins", serif;
 }
+
+a.active {
+  /* text-white bg-blue-700 */
+  color: blue;
+}
