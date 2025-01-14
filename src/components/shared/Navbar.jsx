@@ -156,7 +156,7 @@ const Navbar = () => {
   );
 
   return (
-    <div>
+    <div className="fixed z-50 w-full">
       <nav className="bg-gray-100 border-b border-gray-100 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link to="/">

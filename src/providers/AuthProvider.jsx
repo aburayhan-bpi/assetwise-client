@@ -11,89 +11,91 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
 import { app } from "../firebase/firebase.config";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 export const AuthContext = createContext();
 
 const auth = getAuth(app);
-// const googleProvider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({
-    email: "aburayhan.bpi@gmail.com",
-    displayName: "Md Abu Rayhan",
-  });
-  console.log(user);
+  // const [user, setUser] = useState({
+  //   email: "aburayhan.bpi@gmail.com",
+  //   displayName: "Md Abu Rayhan",
+  // });
   // const axiosPublic = useAxiosSecure();
-  // const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  console.log(user);
 
   // create user
-  // const createUser = (email, password) => {
-  //   setLoading(true);
-  //   return createUserWithEmailAndPassword(auth, email, password);
-  // };
+  const createUser = (email, password) => {
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
 
   // update profile
-  // const updateUserProfile = (name, photoURL) => {
-  //   return updateProfile(auth.currentUser, {
-  //     displayName: name,
-  //     photoURL: photoURL,
-  //   });
-  // };
+  const updateUserProfile = (name, photoURL) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photoURL,
+    });
+  };
 
   // create user with google
-  // const googleRegister = () => {
-  //   setLoading(true);
-  //   return signInWithPopup(auth, googleProvider);
-  // };
+  const googleRegister = () => {
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
+  };
 
   // login user
-  // const loginUser = (email, password) => {
-  //   setLoading(true);
-  //   return signInWithEmailAndPassword(auth, email, password);
-  // };
+  const loginUser = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
-  // const logOut = () => {
-  //   setLoading(true);
-  //   return signOut(auth);
-  // };
+  // logout user
+  const logOut = () => {
+    setLoading(true);
+    return signOut(auth);
+  };
 
-  // useEffect(() => {
-  //   const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-  //     setUser(currentUser);
-  //     setLoading(false);
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      console.log(currentUser?.email);
+      setLoading(false);
 
-  //     // if (currentUser) {
-  //     //   // get token and store client
-  //     //   const userInfo = { email: currentUser?.email };
-  //     //   axiosPublic.post("/jwt", userInfo).then((res) => {
-  //     //     if (res.data?.token) {
-  //     //       localStorage.setItem("access-token", res.data?.token);
-  //     //       setLoading(false);
-  //     //     }
-  //     //   });
-  //     // } else {
-  //     //   // remove token
-  //     //   localStorage.removeItem("access-token");
-  //     //   setLoading(false);
-  //     // }
+      if (currentUser) {
+        // get token and store client
+        const userInfo = { email: currentUser?.email };
+        axiosPublic.post("/jwt", userInfo).then((res) => {
+          if (res.data?.token) {
+            localStorage.setItem("access-token", res.data?.token);
+            setLoading(false);
+          }
+        });
+      } else {
+        // remove token
+        localStorage.removeItem("access-token");
+        setLoading(false);
+      }
 
-  //     console.log(currentUser?.email);
-  //   });
+      console.log(currentUser?.email);
+    });
 
-  //   return () => unSubscribe();
-  // }, []);
+    return () => unSubscribe();
+  }, []);
 
   const allInfo = {
     user,
-    // loading,
-    // createUser,
-    // googleRegister,
-    // updateUserProfile,
-    // loginUser,
-    // logOut,
+    loading,
+    createUser,
+    googleRegister,
+    updateUserProfile,
+    loginUser,
+    logOut,
   };
 
   return (

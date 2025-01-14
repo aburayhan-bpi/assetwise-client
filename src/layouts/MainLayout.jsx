@@ -3,13 +3,13 @@ import Navbar from "../components/shared/Navbar";
 import Footer from "../components/shared/Footer";
 const MainLayout = () => {
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
 
   return (
     <div className="bg-white">
       {location?.pathname === "/login" ? "" : <Navbar />}
-
-      <div className="pt-10 min-h-[calc(100vh-72px)]">
+      {/* min-h-[calc(100vh-1px)] */}
+      <div className="pt-20 min-h-screen">
         <Outlet />
       </div>
       {location?.pathname === "/login" ? "" : <Footer />}
