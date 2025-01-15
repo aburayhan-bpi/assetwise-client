@@ -9,7 +9,7 @@ const MainLayout = () => {
     <div className="bg-white">
       {location?.pathname === "/login" ? "" : <Navbar />}
       {/* min-h-[calc(100vh-1px)] */}
-      <div className="pt-20 min-h-screen">
+      <div className="pt-20 min-h-screen px-4">
         <Outlet />
       </div>
       {location?.pathname === "/login" ? "" : <Footer />}

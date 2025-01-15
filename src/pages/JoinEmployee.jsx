@@ -41,9 +41,9 @@ const JoinEmployee = () => {
             // save user to db
             axiosPublic.post("/employee", employeeInfo).then((result) => {
               console.log(result);
-              if (res.data.insertedId) {
+              if (result.data.insertedId) {
                 toast.success("Successfully created employee account!");
-                reset();
+                // reset();
               }
             });
           })

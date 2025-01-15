@@ -48,7 +48,7 @@ const JoinHRManager = () => {
               if (res.data?.insertedId) {
                 toast.success("HR Account Created!");
 
-                reset();
+                // reset();
                 // navigate("/");
               }
             });

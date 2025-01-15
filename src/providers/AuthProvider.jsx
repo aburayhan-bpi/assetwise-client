@@ -92,6 +92,7 @@ const AuthProvider = ({ children }) => {
   const allInfo = {
     user,
     loading,
+    setLoading,
     createUser,
     googleRegister,
     updateUserProfile,

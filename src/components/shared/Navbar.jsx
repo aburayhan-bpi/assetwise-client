@@ -1,13 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useUser from "../../hooks/useUser";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  console.log(currentUser);
   const dropdownRef = useRef(null);
+  const [users] = useUser();
+
+  useEffect(() => {
+    const currentUser = users.find((u) => u?.email === user?.email);
+    setCurrentUser(currentUser);
+  }, [user, users]);
 
   // Toggle Menu for mobile view
   const toggleMenu = () => {
@@ -49,33 +58,153 @@ const Navbar = () => {
   // Links to be rendered
   const links = (
     <>
-      <li>
-        <NavLink
-          to="/"
-          className="block py-2 px-3 rounded md:bg-transparent"
-          aria-current="page"
-        >
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/join-employee"
-          className="block py-2 px-3 rounded md:bg-transparent"
-          aria-current="page"
-        >
-          Join as Employee
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to="/join-hr"
-          className="block py-2 px-3 rounded md:bg-transparent"
-          aria-current="page"
-        >
-          Join as HR Manager
-        </NavLink>
-      </li>
+      {!user && (
+        <>
+          <li>
+            <NavLink
+              to="/"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/join-employee"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              Join as Employee
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/join-hr"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              Join as HR Manager
+            </NavLink>
+          </li>
+        </>
+      )}
+      {user && currentUser?.role === "employee" && (
+        <>
+          <li>
+            <NavLink
+              to="/"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/my-assets"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              My Assets
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/my-team"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              My Team
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/request-asset"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              Request for an Asset
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/profile"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              Profile
+            </NavLink>
+          </li>
+        </>
+      )}
+      {user && currentUser?.role === "hr" && (
+        <>
+          <li>
+            <NavLink
+              to="/"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/asset-list"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              Asset List
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/add-asset"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              Add Asset
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/all-requests"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              All Requests
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/my-employee-list"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              My Employee List
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/add-employee"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              Add Employee
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/profile"
+              className="block py-2 px-3 rounded md:bg-transparent"
+              aria-current="page"
+            >
+              Profile
+            </NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 

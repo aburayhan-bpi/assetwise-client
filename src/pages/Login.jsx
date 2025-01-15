@@ -14,26 +14,28 @@ const Login = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const {user, loginUser, loading } = useAuth();
+  const { user, loginUser, loading, setLoading } = useAuth();
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
   if (loading) return <Loader />;
   if (user) return <Navigate to={from} replace={true} />;
 
-  const [error, setError] = useState("");
-
   const onSubmit = async (data) => {
     setError("");
+
     loginUser(data?.email, data?.password)
       .then((result) => {
         console.log(result);
         toast.success("Login successfull!");
+        navigate(from, { replace: true });
         navigate("/");
       })
       .catch((err) => {
         if (err.code === "auth/invalid-credential") {
           setError("Please provide valid credentails!");
+          setLoading(false);
         } else {
           console.log("something wrong:::", err.message);
         }
@@ -101,18 +103,28 @@ const Login = () => {
                   type="submit"
                   className="w-full bg-blue-400 text-black bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
-                  Sign Up
+                  Login
                 </button>
               </form>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Already have an account?{" "}
-                <Link
-                  to="/login"
-                  className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                >
-                  Login here
-                </Link>
-              </p>
+
+              <div className=" text-sm font-light text-gray-500 dark:text-gray-400">
+                Don't have an account?{" "}
+                <div className="flex flex-col mt-1">
+                  {" "}
+                  <Link
+                    to="/join-employee"
+                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  >
+                    Join as Employee
+                  </Link>
+                  <Link
+                    to="/join-hr"
+                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  >
+                    Join as HR
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
