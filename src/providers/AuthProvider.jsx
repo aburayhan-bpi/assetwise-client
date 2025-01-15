@@ -13,6 +13,7 @@ import {
 } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 export const AuthContext = createContext();
 
@@ -24,7 +25,7 @@ const AuthProvider = ({ children }) => {
   //   email: "aburayhan.bpi@gmail.com",
   //   displayName: "Md Abu Rayhan",
   // });
-  // const axiosPublic = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   console.log(user);

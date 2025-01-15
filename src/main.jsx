@@ -16,13 +16,11 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        {/* RouterProvider should wrap the AuthProvider */}
         <AuthProvider>
-          <RouterProvider router={router}>
-            <Toaster position="top-right" reverseOrder={false} />
-          </RouterProvider>
+          <RouterProvider router={router}></RouterProvider>
         </AuthProvider>
       </QueryClientProvider>
+      <Toaster position="top-right" reverseOrder={false} />
     </HelmetProvider>
   </StrictMode>
 );

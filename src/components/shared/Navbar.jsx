@@ -1,13 +1,52 @@
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logOut } = useAuth();
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
+  // Toggle Menu for mobile view
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
+  // Toggle Dropdown for user menu
+  const toggleDropdown = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  // Close Dropdown when clicking outside of it
+  const closeDropdown = () => {
+    setIsOpen(false);
+  };
+
+  // Listen for outside clicks and close dropdown if clicked outside
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false); // Close dropdown when clicking outside
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  // Sign out user
+  const handleSignOut = () => {
+    logOut().then(() => {
+      console.log("sign out done");
+      navigate("/");
+    });
+  };
+
+  // Links to be rendered
   const links = (
     <>
       <li>
@@ -38,121 +77,6 @@ const Navbar = () => {
         </NavLink>
       </li>
     </>
-
-    // for normal employee routes
-    // <>
-    //   <li>
-    //     <NavLink
-    //       to="/"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       Home
-    //     </NavLink>
-    //   </li>
-    //   <li>
-    //     <NavLink
-    //       to="/my-assets"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       My Assets
-    //     </NavLink>
-    //   </li>
-    //   <li>
-    //     <NavLink
-    //       to="/my-team"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       My Team
-    //     </NavLink>
-    //   </li>
-    //   <li>
-    //     <NavLink
-    //       to="/request-asset"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       Request for an Asset
-    //     </NavLink>
-    //   </li>
-    //   <li>
-    //     <NavLink
-    //       to="/profile"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       Profile
-    //     </NavLink>
-    //   </li>
-    // </>
-    // for HR Manager routes
-    // <>
-    //   <li>
-    //     <NavLink
-    //       to="/"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       Home
-    //     </NavLink>
-    //   </li>
-    //   <li>
-    //     <NavLink
-    //       to="/asset-list"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       Asset List
-    //     </NavLink>
-    //   </li>
-    //   <li>
-    //     <NavLink
-    //       to="/add-asset"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       Add Asset
-    //     </NavLink>
-    //   </li>
-    //   <li>
-    //     <NavLink
-    //       to="/all-requests"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       All Requests
-    //     </NavLink>
-    //   </li>
-    //   <li>
-    //     <NavLink
-    //       to="/my-employee-list"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       My Employee List
-    //     </NavLink>
-    //   </li>
-    //   <li>
-    //     <NavLink
-    //       to="/add-employee"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       Add Employee
-    //     </NavLink>
-    //   </li>
-    //   <li>
-    //     <NavLink
-    //       to="/profile"
-    //       className="block py-2 px-3 rounded md:bg-transparent"
-    //       aria-current="page"
-    //     >
-    //       Profile
-    //     </NavLink>
-    //   </li>
-    // </>
   );
 
   return (
@@ -167,14 +91,63 @@ const Navbar = () => {
             />
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <Link to="/login">
-              <button
-                type="button"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Login
-              </button>
-            </Link>
+            {user ? (
+              <div ref={dropdownRef} className="dropdown dropdown-end">
+                {/* Dropdown Toggle Button */}
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="p-0 m-0 rounded-full overflow-hidden"
+                  onClick={toggleDropdown}
+                >
+                  {user && user?.photoURL ? (
+                    <img
+                      className="object-cover rounded-full w-10 h-10"
+                      src={user?.photoURL}
+                      alt={user?.displayName}
+                    />
+                  ) : (
+                    <img
+                      className="object-cover rounded-full w-10 h-10"
+                      src="https://i.ibb.co/47rYJsQ/images-removebg-preview.png"
+                      alt={user?.displayName}
+                    />
+                  )}
+                </div>
+
+                {/* Dropdown Menu */}
+                {isOpen && (
+                  <ul
+                    tabIndex={0}
+                    className="dropdown-content menu bg-base-100 rounded-lg z-[1] w-32 p-2 shadow"
+                  >
+                    <div>
+                      <p className="pb-1 border-b font-semibold text-xs">
+                        {user?.displayName}
+                      </p>
+                    </div>
+                    <div className="pt-2 rounded-sm">
+                      <div
+                        onClick={handleSignOut}
+                        className="cursor-pointer hover:bg-transparent hover:text-red-400"
+                      >
+                        Sign Out
+                      </div>
+                    </div>
+                  </ul>
+                )}
+              </div>
+            ) : (
+              <Link to="/login">
+                <button
+                  type="button"
+                  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Login
+                </button>
+              </Link>
+            )}
+
             <button
               onClick={toggleMenu}
               type="button"
@@ -199,6 +172,8 @@ const Navbar = () => {
               </svg>
             </button>
           </div>
+
+          {/* Mobile Menu */}
           <div
             className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
               isMenuOpen ? "block" : "hidden"

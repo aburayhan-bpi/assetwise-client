@@ -1,11 +1,14 @@
 import Lottie from "lottie-react";
 import lottieAnimation from "../../public/register.json";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import imageUpload from "../hooks/imageUpload";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../hooks/useAuth";
+import useAxiosPublic from "../hooks/useAxiosPublic";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 const JoinEmployee = () => {
   const {
     register,
@@ -15,7 +18,8 @@ const JoinEmployee = () => {
   } = useForm();
 
   const { createUser, googleRegister, updateUserProfile } = useAuth();
-
+  const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     const photo = await imageUpload(data?.photo[0]);
     const employeeInfo = {
@@ -23,6 +27,7 @@ const JoinEmployee = () => {
       email: data?.email,
       birthdate: data?.birthdate,
       photo,
+      role: "employee",
     };
     console.log(employeeInfo);
 
@@ -33,6 +38,14 @@ const JoinEmployee = () => {
         updateUserProfile(employeeInfo?.name, employeeInfo?.photo)
           .then((result) => {
             console.log(result);
+            // save user to db
+            axiosPublic.post("/employee", employeeInfo).then((result) => {
+              console.log(result);
+              if (res.data.insertedId) {
+                toast.success("Successfully created employee account!");
+                reset();
+              }
+            });
           })
           .catch((err) => {
             console.log("update failed", err.message);
@@ -40,7 +53,42 @@ const JoinEmployee = () => {
       })
       .catch((err) => {
         console.log("user create failed", err.message);
+        if (err.code === "auth/email-already-in-use") {
+          toast.error("User already exist!");
+        } else {
+          console.log("something wrong:::", err.message);
+        }
       });
+  };
+  // google register
+  const googleSignIn = async () => {
+    try {
+      const result = await googleRegister();
+      console.log(result);
+
+      const employeeInfo = {
+        name: result.user?.displayName,
+        email: result.user?.email,
+        birthdate: result.user?.birthdate || "Not provided",
+        photo: result.user?.photoURL,
+        role: "employee",
+      };
+
+      // Save user to database
+      const response = await axiosPublic.post("/employee", employeeInfo);
+
+      if (response.data.insertedId) {
+        toast.success("SignUp Successfull!");
+        navigate("/");
+      }
+    } catch (error) {
+      if (error.response?.status === 403) {
+        toast.error(error.response.data?.message || "Something went wrong");
+      } else {
+        console.error("Error during employee creation:", error.message);
+        toast.error("An error occurred. Please try again.");
+      }
+    }
   };
 
   return (
@@ -162,7 +210,10 @@ const JoinEmployee = () => {
               </form>
               <div className="divider">OR</div>
               <div>
-                <button className="btn w-full bg-transparent border">
+                <button
+                  onClick={googleSignIn}
+                  className="btn w-full bg-transparent border"
+                >
                   <FcGoogle className="size-7" />
                   Sign in with Google
                 </button>
