@@ -3,8 +3,8 @@ import aboutImage from "../../../public/about-us.json";
 import Lottie from "lottie-react";
 const AboutUs = () => {
   return (
-    <div className="mt-5">
-      <h2 className="font-bold text-3xl text-center">About Us</h2>
+    <div className="bg-green-50 rounded-md p-3">
+      <h2 className="font-bold text-3xl text-center my-8">About Us</h2>
       <div className="md:flex gap-6 justify-between items-center">
         {/* side image */}
         <div className="flex-1">

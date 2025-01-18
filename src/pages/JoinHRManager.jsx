@@ -33,7 +33,7 @@ const JoinHRManager = () => {
       birthdate: data?.birthdate,
       companyPhoto,
       package: parseInt(data?.package),
-      // limit: parseInt(20),
+      limit: parseInt(0),
       role: "hr",
     };
 

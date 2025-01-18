@@ -7,8 +7,7 @@ const Home = () => {
   const currentUser = useCurrentUser();
   console.log(currentUser);
   return (
-    <div className="max-w-screen-xl mx-auto">
-      <h2>Home page</h2>
+    <div className="max-w-screen-xl mx-auto mt-6">
       {/* Banner / Carousel */}
       <Banner />
       {/* Packages Section */}
