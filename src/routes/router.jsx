@@ -13,6 +13,7 @@ import AddAsset from "../pages/HRManagerPages.jsx/AddAsset";
 import AllRequests from "../pages/HRManagerPages.jsx/AllRequests";
 import MyEmployeeList from "../pages/HRManagerPages.jsx/MyEmployeeList";
 import AddEmployee from "../pages/HRManagerPages.jsx/AddEmployee";
+import Payment from "../pages/Payment/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ export const router = createBrowserRouter([
       {
         path: "add-employee",
         element: <AddEmployee />,
+      },
+      {
+        path: "payment",
+        element: <Payment />,
       },
     ],
   },

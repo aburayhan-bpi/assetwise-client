@@ -32,7 +32,8 @@ const JoinHRManager = () => {
       email: data?.email,
       birthdate: data?.birthdate,
       companyPhoto,
-      package: data?.package,
+      package: parseInt(data?.package),
+      // limit: parseInt(20),
       role: "hr",
     };
 
@@ -48,15 +49,10 @@ const JoinHRManager = () => {
               if (res.data?.insertedId) {
                 toast.success("HR Account Created!");
 
-                // reset();
-                // navigate("/");
+                reset();
+                navigate("/payment");
               }
             });
-            // .catch((err) => {
-            //   toast.error(
-            //     err.response?.data?.message || "Something wrong..."
-            //   );
-            // });
           })
           .catch((err) => {
             console.log("update failed", err.message);
@@ -236,10 +232,11 @@ const JoinHRManager = () => {
                     {...register("package", { required: true })}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required=""
+                    defaultValue="5"
                   >
-                    <option value="5members">5 Members - $5</option>
-                    <option value="10members">10 Members - $8</option>
-                    <option value="20members">20 Members - $15</option>
+                    <option value="5">5 Members - $5</option>
+                    <option value="8">10 Members - $8</option>
+                    <option value="15">20 Members - $15</option>
                   </select>
                   {errors.package && (
                     <p className="text-red-500 text-sm">

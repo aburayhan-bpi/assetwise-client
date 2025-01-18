@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useUser from "../../hooks/useUser";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -9,7 +10,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  console.log(currentUser);
+  // console.log(currentUser);
   const dropdownRef = useRef(null);
   const [users] = useUser();
 
@@ -51,6 +52,7 @@ const Navbar = () => {
   const handleSignOut = () => {
     logOut().then(() => {
       console.log("sign out done");
+      toast.success("Logged Out!");
       navigate("/");
     });
   };
@@ -143,7 +145,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/"
-              className="block py-2 px-3 rounded md:bg-transparent"
+              className="block  rounded md:bg-transparent"
               aria-current="page"
             >
               Home
@@ -152,7 +154,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/asset-list"
-              className="block py-2 px-3 rounded md:bg-transparent"
+              className="block  rounded md:bg-transparent"
               aria-current="page"
             >
               Asset List
@@ -161,7 +163,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/add-asset"
-              className="block py-2 px-3 rounded md:bg-transparent"
+              className="block  rounded md:bg-transparent"
               aria-current="page"
             >
               Add Asset
@@ -170,7 +172,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/all-requests"
-              className="block py-2 px-3 rounded md:bg-transparent"
+              className="block  rounded md:bg-transparent"
               aria-current="page"
             >
               All Requests
@@ -179,7 +181,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/my-employee-list"
-              className="block py-2 px-3 rounded md:bg-transparent"
+              className="block  rounded md:bg-transparent"
               aria-current="page"
             >
               My Employee List
@@ -188,7 +190,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/add-employee"
-              className="block py-2 px-3 rounded md:bg-transparent"
+              className="block  rounded md:bg-transparent"
               aria-current="page"
             >
               Add Employee
@@ -197,7 +199,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/profile"
-              className="block py-2 px-3 rounded md:bg-transparent"
+              className="block  rounded md:bg-transparent"
               aria-current="page"
             >
               Profile
@@ -211,13 +213,21 @@ const Navbar = () => {
   return (
     <div className="fixed z-50 w-full">
       <nav className="bg-gray-100 border-b border-gray-100 dark:bg-gray-900">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 px-4 xl:px-0">
           <Link to="/">
-            <img
-              className="w-32 rounded-md"
-              src="./assetwise.jpg"
-              alt="company_logo"
-            />
+            {user && currentUser?.role === "hr" ? (
+              <img
+                className="w-32 h-10 overflow-hidden rounded-md"
+                src={currentUser?.companyPhoto}
+                alt="company_logo"
+              />
+            ) : (
+              <img
+                className="w-32 object-contain rounded-md"
+                src="./assetwise.jpg"
+                alt="company_logo"
+              />
+            )}
           </Link>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {user ? (
@@ -280,7 +290,7 @@ const Navbar = () => {
             <button
               onClick={toggleMenu}
               type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               aria-expanded={isMenuOpen}
             >
               <span className="sr-only">Open main menu</span>
@@ -304,11 +314,11 @@ const Navbar = () => {
 
           {/* Mobile Menu */}
           <div
-            className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
+            className={`items-center justify-between w-full lg:flex md:w-auto md:order-1 ${
               isMenuOpen ? "block" : "hidden"
             }`}
           >
-            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg lg:space-x-8 rtl:space-x-reverse lg:flex-row lg:mt-0 md:border-0">
               {links}
             </ul>
           </div>
