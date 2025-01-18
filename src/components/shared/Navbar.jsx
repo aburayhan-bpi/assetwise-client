@@ -10,13 +10,15 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  // console.log(currentUser);
   const dropdownRef = useRef(null);
   const [users] = useUser();
 
+  // Update current user whenever user or users change
   useEffect(() => {
-    const currentUser = users.find((u) => u?.email === user?.email);
-    setCurrentUser(currentUser);
+    if (user) {
+      const currentUser = users.find((u) => u?.email === user?.email);
+      setCurrentUser(currentUser);
+    }
   }, [user, users]);
 
   // Toggle Menu for mobile view
@@ -57,7 +59,7 @@ const Navbar = () => {
     });
   };
 
-  // Links to be rendered
+  // Links to be rendered based on user and currentUser role
   const links = (
     <>
       {!user && (

@@ -6,6 +6,8 @@ import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import Loader from "../components/shared/Loader";
+import { FcGoogle } from "react-icons/fc";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const Login = () => {
   const {
@@ -14,10 +16,11 @@ const Login = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const { user, loginUser, loading, setLoading } = useAuth();
+  const { user, loginUser, loading, setLoading, googleRegister } = useAuth();
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosPublic = useAxiosPublic();
   const from = location?.state?.from?.pathname || "/";
   if (loading) return <Loader />;
   if (user) return <Navigate to={from} replace={true} />;
@@ -41,6 +44,32 @@ const Login = () => {
         }
       });
     console.log(data);
+  };
+  const googleSignIn = async () => {
+    try {
+      googleRegister().then(async (result) => {
+        console.log(result);
+        toast.success("Login Successfull!");
+        navigate("/");
+
+        const employeeInfo = {
+          name: result.user?.displayName,
+          email: result.user?.email,
+          birthdate: result.user?.birthdate || "Not provided",
+          photo: result.user?.photoURL,
+          role: "employee",
+        };
+
+        // Save user to database
+        await axiosPublic.post("/employee", employeeInfo);
+
+        // if (response.data) {
+        // }
+      });
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong!");
+    }
   };
 
   return (
@@ -106,6 +135,16 @@ const Login = () => {
                   Login
                 </button>
               </form>
+              <div className="divider">OR</div>
+              <div>
+                <button
+                  onClick={googleSignIn}
+                  className="btn w-full bg-transparent border"
+                >
+                  <FcGoogle className="size-7" />
+                  Sign in with Google
+                </button>
+              </div>
 
               <div className=" text-sm font-light text-gray-500 dark:text-gray-400">
                 Don't have an account?{" "}
