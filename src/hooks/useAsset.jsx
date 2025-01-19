@@ -4,23 +4,22 @@ import useAxiosSecure from "./useAxiosSecure";
 import useAxiosPublic from "./useAxiosPublic";
 import useAuth from "./useAuth";
 
-const useUser = () => {
+const useAsset = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const [currentUser, setCurrentUser] = useState(null);
   const {
-    data: users = [],
+    data: assets = [],
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["users", user],
+    queryKey: ["assets", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get("/users");
+      const res = await axiosSecure.get("/assets");
       return res.data;
     },
   });
-  return [users, refetch, isLoading];
+  return [assets, refetch, isLoading];
 };
 
-export default useUser;
+export default useAsset;
