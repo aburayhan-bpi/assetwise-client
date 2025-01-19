@@ -11,20 +11,36 @@ const AssetList = () => {
   const { user } = useAuth();
   const currentUser = useCurrentUser();
   const [assets, refetch, isLoading] = useAsset();
+  console.log(assets);
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
   // search state
   const [searchText, setSearchText] = useState("");
+  const [filterOption, setFilterOption] = useState("");
+  const [sortOption, setSortOption] = useState("");
+  console.log(sortOption);
   const [filteredAsset, setFilteredAsset] = useState(assets);
   // console.log(searchText);
 
   // show search based result
   useEffect(() => {
     axiosSecure.get(`/assets?search=${searchText}`).then((res) => {
-      // console.log(res.data);
       setFilteredAsset(res.data);
     });
-  }, [searchText]);
+  }, [searchText, refetch, assets]);
+
+  // show search based filter
+  useEffect(() => {
+    axiosSecure.get(`/assets?filterOption=${filterOption}`).then((res) => {
+      setFilteredAsset(res.data);
+    });
+  }, [filterOption, refetch, assets]);
+
+  useEffect(() => {
+    axiosSecure.get(`/assets?sortOption=${sortOption}`).then((res) => {
+      setFilteredAsset(res.data);
+    });
+  }, [sortOption, refetch, assets]);
 
   const handleDelete = (id) => {
     // console.log(id);
@@ -86,6 +102,7 @@ const AssetList = () => {
           <div>
             <select
               id="productType"
+              onChange={(e) => setFilterOption(e.target.value)}
               className="mt-1 block w-full rounded-md border p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Search by filter</option>
@@ -99,11 +116,16 @@ const AssetList = () => {
           <div>
             <select
               id="productType"
+              onChange={(e) => setSortOption(e.target.value)}
               className="mt-1 block w-full rounded-md border p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Sort by Quantity</option>
-              <option value="asc">Ascending</option>
-              <option value="dsc">Descending</option>
+              <option value="asc">
+                Ascending <span>(low-high)</span>
+              </option>
+              <option value="desc">
+                Descending <span>(high-low)</span>
+              </option>
             </select>
           </div>
         </div>
