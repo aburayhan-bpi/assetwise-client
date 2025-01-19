@@ -22,7 +22,7 @@ const Login = () => {
   const location = useLocation();
   const axiosPublic = useAxiosPublic();
   const from = location?.state?.from?.pathname || "/";
-  if (loading) return <Loader />;
+  // if (loading) return <Loader />;
   if (user) return <Navigate to={from} replace={true} />;
 
   const onSubmit = async (data) => {

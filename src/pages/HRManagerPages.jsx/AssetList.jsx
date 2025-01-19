@@ -6,6 +6,7 @@ import useCurrentUser from "../../hooks/useCurrentUser";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Link } from "react-router-dom";
 
 const AssetList = () => {
   const { user } = useAuth();
@@ -202,7 +203,7 @@ const AssetList = () => {
 
                       <td className="px-6 py-4 flex gap-2">
                         <button className="font-medium bg-blue-50 hover:bg-blue-100 px-3 rounded-md text-blue-600 dark:text-blue-500 transition-all duration-200">
-                          Edit
+                          <Link to={`/update/${filteredAsset?._id}`}>Edit</Link>
                         </button>
                         <button
                           onClick={() => handleDelete(filteredAsset?._id)}
