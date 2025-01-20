@@ -15,6 +15,7 @@ import MyEmployeeList from "../pages/HRManagerPages.jsx/MyEmployeeList";
 import AddEmployee from "../pages/HRManagerPages.jsx/AddEmployee";
 import Payment from "../pages/Payment/Payment";
 import UpdateAsset from "../pages/HRManagerPages.jsx/UpdateAsset";
+import IncreaseLimit from "../pages/payment/IncreaseLimitPayment/IncreaseLimit";
 
 export const router = createBrowserRouter([
   {
@@ -82,6 +83,10 @@ export const router = createBrowserRouter([
       {
         path: "payment",
         element: <Payment />,
+      },
+      {
+        path: "increase-limit",
+        element: <IncreaseLimit />,
       },
     ],
   },
