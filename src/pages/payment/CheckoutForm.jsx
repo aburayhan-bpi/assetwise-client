@@ -5,8 +5,10 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutForm = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
@@ -122,11 +124,15 @@ const CheckoutForm = () => {
         // update hr user info after payment success
 
         axiosSecure
-          .patch(`/update-hr/${currentUser?._id}`, { limit: parseInt(members), package: packagePrice })
+          .patch(`/update-hr/${currentUser?._id}`, {
+            limit: parseInt(members),
+            package: packagePrice,
+          })
           .then((res) => {
             console.log(res.data);
           });
       }
+      navigate("/");
     }
   };
 

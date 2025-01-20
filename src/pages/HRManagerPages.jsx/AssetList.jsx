@@ -24,24 +24,39 @@ const AssetList = () => {
   const [filteredAsset, setFilteredAsset] = useState(assets);
   // console.log(searchText);
 
+  useEffect(() => {
+    if (currentUser && currentUser?.email) {
+      const userAssets = assets.filter(
+        (asset) => asset?.email === currentUser?.email
+      );
+      setFilteredAsset(userAssets);
+    }
+  }, [assets, currentUser]);
+
   // show search based result
   useEffect(() => {
     axiosSecure.get(`/assets?search=${searchText}`).then((res) => {
-      // const exactData = res.data.filter((data)=> data?.email === currentUser?.email)
-      setFilteredAsset(res.data);
+      const exactData = res.data.filter((data)=> data?.email === currentUser?.email)
+      setFilteredAsset(exactData);
     });
   }, [searchText, refetch, assets]);
 
   // show search based filter
   useEffect(() => {
     axiosSecure.get(`/assets?filterOption=${filterOption}`).then((res) => {
-      setFilteredAsset(res.data);
+      const exactData = res.data.filter(
+        (data) => data?.email === currentUser?.email
+      );
+      setFilteredAsset(exactData);
     });
   }, [filterOption, refetch, assets]);
 
   useEffect(() => {
     axiosSecure.get(`/assets?sortOption=${sortOption}`).then((res) => {
-      setFilteredAsset(res.data);
+      const exactData = res.data.filter(
+        (data) => data?.email === currentUser?.email
+      );
+      setFilteredAsset(exactData);
     });
   }, [sortOption, refetch, assets]);
 

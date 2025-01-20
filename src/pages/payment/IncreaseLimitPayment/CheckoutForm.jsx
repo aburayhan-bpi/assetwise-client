@@ -5,6 +5,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 // import React, { useEffect, useState } from "react";
 // import useCurrentUser from "../../hooks/useCurrentUser";
 // import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -13,6 +14,7 @@ import toast from "react-hot-toast";
 // import toast from "react-hot-toast";
 
 const CheckoutForm = ({ newPackage }) => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
@@ -32,7 +34,7 @@ const CheckoutForm = ({ newPackage }) => {
     axiosSecure.get(`/payment/${currentUser?.email}`).then((res) => {
       setPaymentInfo(res.data);
     });
-  }, [currentUser, user]);
+  }, [currentUser, user, newPackage]);
 
   //   console.log(newPackageLimit);
 
@@ -120,9 +122,9 @@ const CheckoutForm = ({ newPackage }) => {
           })
           .catch((err) => {
             console.log(err);
-            if (err.response.data.message) {
-              toast.error("Already paid for this package!");
-            }
+            // if (err.response.data.message) {
+            //   toast.error("Already paid for this package!");
+            // }
           });
 
         // update hr user info after payment success
@@ -135,6 +137,8 @@ const CheckoutForm = ({ newPackage }) => {
           .then((res) => {
             console.log(res.data);
           });
+
+        navigate("/add-employee");
       }
     }
   };
@@ -171,7 +175,8 @@ const CheckoutForm = ({ newPackage }) => {
             disabled={
               !stripe ||
               !clientSecret ||
-              (currentUser?.limit && Number(currentUser?.limit) >= 20)
+              (currentUser?.limit && Number(currentUser?.limit) >= 20) ||
+              !paymentInfo
             }
 
             // disabled={!stripe || !clientSecret}

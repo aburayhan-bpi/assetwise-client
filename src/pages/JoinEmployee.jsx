@@ -44,6 +44,7 @@ const JoinEmployee = () => {
               if (result.data.insertedId) {
                 toast.success("Successfully created employee account!");
                 // reset();
+                navigate('/')
               }
             });
           })
