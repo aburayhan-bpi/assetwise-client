@@ -50,7 +50,7 @@ const AddEmployee = () => {
             <h2 className="text-2xl font-bold">Employee Limits</h2>
             <p className="text-lg">
               Current Members:{" "}
-              <span className="font-semibold">8 / {currentUser?.limit}</span>
+              <span className="font-semibold">static0 / {currentUser?.limit}</span>
             </p>
           </div>
           {currentUser?.limit >= 20 ? (
@@ -59,7 +59,7 @@ const AddEmployee = () => {
                 disabled
                 className="border bg-red-100 text-red-600 px-2 py-1 rounded-lg cursor-not-allowed"
               >
-                Max limit reached
+                Max package limit reached
               </button>
             </div>
           ) : (

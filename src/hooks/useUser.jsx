@@ -7,14 +7,16 @@ import useAuth from "./useAuth";
 const useUser = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [currentUser, setCurrentUser] = useState(null);
   const {
     data: users = [],
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["users", user],
+    queryKey: ["users", user?.email],
+    enabled:
+      !loading && !!user?.email && !!localStorage.getItem("access-token"),
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
       return res.data;

@@ -1,15 +1,15 @@
 import { loadStripe } from "@stripe/stripe-js";
 
 import { Elements } from "@stripe/react-stripe-js";
-// import CheckoutForm from "./CheckoutForm copy";
+import CheckoutForm from "./CheckoutForm";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
-const Payment = ({ price }) => {
-  console.log(price);
+const Payment = ({ newPackage }) => {
+  // console.log(price);
   return (
     <div>
       <Elements stripe={stripePromise}>
-        {/* <CheckoutForm></CheckoutForm> */}
+        <CheckoutForm newPackage={newPackage}></CheckoutForm>
       </Elements>
     </div>
   );

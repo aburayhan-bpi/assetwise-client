@@ -12,6 +12,7 @@ const AssetList = () => {
   const { user } = useAuth();
   const currentUser = useCurrentUser();
   const [assets, refetch, isLoading] = useAsset();
+
   console.log(assets);
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
@@ -26,6 +27,7 @@ const AssetList = () => {
   // show search based result
   useEffect(() => {
     axiosSecure.get(`/assets?search=${searchText}`).then((res) => {
+      // const exactData = res.data.filter((data)=> data?.email === currentUser?.email)
       setFilteredAsset(res.data);
     });
   }, [searchText, refetch, assets]);

@@ -114,15 +114,15 @@ const CheckoutForm = () => {
           })
           .catch((err) => {
             console.log(err);
-            if(err.response.data.message){
-              toast.error('Already paid for this package!')
+            if (err.response.data.message) {
+              toast.error("Already paid for this package!");
             }
           });
 
         // update hr user info after payment success
 
         axiosSecure
-          .patch(`/update-hr/${currentUser?._id}`, { limit: parseInt(members) })
+          .patch(`/update-hr/${currentUser?._id}`, { limit: parseInt(members), package: packagePrice })
           .then((res) => {
             console.log(res.data);
           });

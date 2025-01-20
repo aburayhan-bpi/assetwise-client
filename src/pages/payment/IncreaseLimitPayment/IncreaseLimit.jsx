@@ -4,10 +4,15 @@ import Payment from "./Payment";
 const IncreaseLimit = () => {
   const [selectedPackage, setSelectedPackage] = useState(null);
 
-  const handleSelectPackage = (pkg) => {
-    setSelectedPackage(pkg);
+  const handleSelectPackage = (pkgAmount, limit) => {
+    const updatedPackage = {
+      package: pkgAmount,
+      limit,
+    };
+    setSelectedPackage(updatedPackage);
   };
-//   console.log(selectedPackage);
+
+  //   console.log(selectedPackage);
   return (
     <div className="max-w-7xl mx-auto p-8 space-y-12">
       {/* Header Section */}
@@ -32,7 +37,7 @@ const IncreaseLimit = () => {
             <li>Upgrade anytime</li>
           </ul>
           <button
-            onClick={() => handleSelectPackage(5)}
+            onClick={() => handleSelectPackage(5, 5)}
             className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition"
           >
             Select Package
@@ -49,7 +54,7 @@ const IncreaseLimit = () => {
             <li>Upgrade anytime</li>
           </ul>
           <button
-            onClick={() => handleSelectPackage(8)}
+            onClick={() => handleSelectPackage(8, 10)}
             className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition"
           >
             Select Package
@@ -66,7 +71,7 @@ const IncreaseLimit = () => {
             <li>Priority access to features</li>
           </ul>
           <button
-            onClick={() => handleSelectPackage(15)}
+            onClick={() => handleSelectPackage(15, 20)}
             className="bg-white text-blue-600 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition"
           >
             Select Package
@@ -78,7 +83,7 @@ const IncreaseLimit = () => {
       <div className="bg-gray-50 p-8 rounded-lg shadow-lg mt-12">
         <h2 className="text-3xl text-center font-bold">Make Payment</h2>
         {/* Payment Form Section */}
-        <Payment price={selectedPackage}></Payment>
+        <Payment newPackage={selectedPackage}></Payment>
       </div>
     </div>
   );

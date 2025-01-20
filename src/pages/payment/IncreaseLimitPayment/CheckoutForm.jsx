@@ -1,45 +1,51 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useEffect, useState } from "react";
-import useCurrentUser from "../../hooks/useCurrentUser";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../../../hooks/useAuth";
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useCurrentUser from "../../../hooks/useCurrentUser";
 import toast from "react-hot-toast";
+// import React, { useEffect, useState } from "react";
+// import useCurrentUser from "../../hooks/useCurrentUser";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosPublic from "../../hooks/useAxiosPublic";
+// import useAuth from "../../hooks/useAuth";
+// import toast from "react-hot-toast";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ newPackage }) => {
   const { user } = useAuth();
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
-  const [members, setMembers] = useState("");
+  const [paymentInfo, setPaymentInfo] = useState(null);
+
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
   const currentUser = useCurrentUser();
   const packagePrice = currentUser?.package;
-  console.log(currentUser);
-  // members count according to package price
+  const newPackagePrice = newPackage?.package;
+  const newPackageLimit = newPackage?.limit;
+  console.log("Payment info", paymentInfo);
+  console.log("Current user", currentUser);
+  useEffect(() => {
+    axiosSecure.get(`/payment/${currentUser?.email}`).then((res) => {
+      setPaymentInfo(res.data);
+    });
+  }, [currentUser, user]);
+
+  //   console.log(newPackageLimit);
 
   useEffect(() => {
-    if (packagePrice === 5) {
-      setMembers("5");
-    } else if (packagePrice === 8) {
-      setMembers("10");
-    } else if (packagePrice === 15) {
-      setMembers("20");
-    }
-  }, [packagePrice]);
-
-  useEffect(() => {
-    if (packagePrice > 0) {
+    if (newPackage?.package > 0) {
       axiosSecure
-        .post("/create-payment-intent", { price: packagePrice })
+        .post("/create-payment-intent", { price: newPackagePrice })
         .then((res) => {
           console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         });
     }
-  }, [axiosSecure, packagePrice]);
+  }, [axiosSecure, newPackage]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,21 +100,21 @@ const CheckoutForm = () => {
             </div>
           </>
         );
-        // save payment info into database
-        const paymentData = {
+        // update payment info into database
+        const newPaymentData = {
           email: currentUser?.email,
           companyName: currentUser?.company,
           name: currentUser?.name,
           role: currentUser?.role,
-          package: packagePrice,
+          package: newPackagePrice,
           transactionId: paymentIntent.id,
           date: new Date(),
           status: "paid",
-          limit: parseInt(members),
+          limit: parseInt(newPackageLimit),
         };
 
         axiosSecure
-          .post("/payment", paymentData)
+          .patch(`/update-payment/${paymentInfo?._id}`, newPaymentData)
           .then((res) => {
             console.log(res.data);
           })
@@ -122,7 +128,10 @@ const CheckoutForm = () => {
         // update hr user info after payment success
 
         axiosSecure
-          .patch(`/update-hr/${currentUser?._id}`, { limit: parseInt(members) })
+          .patch(`/update-hr/${currentUser?._id}`, {
+            limit: parseInt(newPackageLimit),
+            package: parseInt(newPackagePrice),
+          })
           .then((res) => {
             console.log(res.data);
           });
@@ -169,7 +178,7 @@ const CheckoutForm = () => {
           >
             {currentUser?.limit >= 20
               ? "Max package limit reached"
-              : `Pay $${packagePrice}`}
+              : `Pay $${newPackage ? newPackagePrice : 0}`}
           </button>
 
           {error && (
