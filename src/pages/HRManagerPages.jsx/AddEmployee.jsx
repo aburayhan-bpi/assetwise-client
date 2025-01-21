@@ -7,12 +7,18 @@ import Swal from "sweetalert2";
 import useEmployees from "../../hooks/useEmployees";
 import Loader from "../../components/shared/Loader";
 
+import useTeam from "../../hooks/useTeam";
+import useHr from "../../hooks/useHr";
+
 const AddEmployee = () => {
   const axiosSecure = useAxiosSecure();
   const [employees, employeesLoading, refetch] = useEmployees();
   // const [employees, setEmployees] = useState([]);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const currentUser = useCurrentUser();
+  const hr = useHr();
+  const [team, refetchTeam] = useTeam();
+  console.log("team", team);
 
   // Fetch non-affiliated employees
   // useEffect(() => {
@@ -24,7 +30,7 @@ const AddEmployee = () => {
   //   });
   // }, []);
 
-  console.log(employees);
+  console.log("Employees", employees);
   // Handle employee selection
   const handleSelectEmployee = (empId) => {
     setSelectedEmployees((prevSelected) => {
@@ -62,6 +68,7 @@ const AddEmployee = () => {
           confirmButtonText: "OK",
         });
         refetch();
+        refetchTeam();
       } else {
         Swal.fire({
           title: "Error",
@@ -96,6 +103,7 @@ const AddEmployee = () => {
           confirmButtonText: "OK",
         });
         refetch();
+        refetchTeam();
         setSelectedEmployees([]); // Clear selected employees after adding
       } else {
         Swal.fire({
@@ -136,7 +144,8 @@ const AddEmployee = () => {
             <p className="text-lg">
               Current Members:{" "}
               <span className="font-semibold">
-                static0 / {currentUser?.limit}
+                {currentUser?.role === "hr" && hr && team?.members?.length} /{" "}
+                {currentUser?.limit}
               </span>
             </p>
           </div>
@@ -167,7 +176,7 @@ const AddEmployee = () => {
         {employeesLoading && <Loader></Loader>}
         <div className="bg-white p-8 rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">
-            Available Employees
+            Available Employees - ({employees.length})
           </h2>
           <p className="text-gray-600 mb-8">
             Select employees to add to your team.
