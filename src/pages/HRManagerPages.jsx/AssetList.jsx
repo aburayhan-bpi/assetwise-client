@@ -20,6 +20,7 @@ const AssetList = () => {
   const [searchText, setSearchText] = useState("");
   const [filterOption, setFilterOption] = useState("");
   const [sortOption, setSortOption] = useState("");
+
   console.log(sortOption);
   const [filteredAsset, setFilteredAsset] = useState(assets);
   // console.log(searchText);
@@ -36,7 +37,9 @@ const AssetList = () => {
   // show search based result
   useEffect(() => {
     axiosSecure.get(`/assets?search=${searchText}`).then((res) => {
-      const exactData = res.data.filter((data)=> data?.email === currentUser?.email)
+      const exactData = res.data.filter(
+        (data) => data?.email === currentUser?.email
+      );
       setFilteredAsset(exactData);
     });
   }, [searchText, refetch, assets]);

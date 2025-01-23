@@ -3,7 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import JoinEmployee from "../pages/JoinEmployee";
 import Login from "../pages/Login";
 import JoinHRManager from "../pages/JoinHRManager";
-import Home from "../pages/Home";
+import Home from "../pages/Home/Home";
 import MyAssets from "../pages/NormalEmployeePages/MyAssets";
 import MyTeam from "../pages/NormalEmployeePages/MyTeam";
 import RequestAsset from "../pages/NormalEmployeePages/RequestAsset";

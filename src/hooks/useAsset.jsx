@@ -12,7 +12,7 @@ const useAsset = () => {
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["assets", user?.email], // Add email to queryKey for caching
+    queryKey: ["assets", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/assets`, {
         params: {

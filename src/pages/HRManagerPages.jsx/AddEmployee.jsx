@@ -18,8 +18,8 @@ const AddEmployee = () => {
   const currentUser = useCurrentUser();
   const hr = useHr();
   const [team, refetchTeam] = useTeam();
-  console.log("team", team);
-
+  console.log(team);
+  console.log(selectedEmployees);
   // Fetch non-affiliated employees
   // useEffect(() => {
   //   axiosSecure.get("/users").then((res) => {
@@ -144,7 +144,7 @@ const AddEmployee = () => {
             <p className="text-lg">
               Current Members:{" "}
               <span className="font-semibold">
-                {currentUser?.role === "hr" && hr && team?.members?.length} /{" "}
+                {currentUser?.role === "hr" && hr && team?.length} /{" "}
                 {currentUser?.limit}
               </span>
             </p>
@@ -191,8 +191,9 @@ const AddEmployee = () => {
                 <input
                   onClick={() => handleSelectEmployee(emp?._id)}
                   disabled={
-                    selectedEmployees.length >= currentUser?.limit &&
-                    !selectedEmployees.includes(emp?._id)
+                    emp?.affiliatedWith === currentUser?.email ||
+                    (selectedEmployees.length >= currentUser?.limit &&
+                      !selectedEmployees.includes(emp?._id))
                   }
                   type="checkbox"
                   className="checkbox checkbox-md mr-3"
@@ -204,7 +205,7 @@ const AddEmployee = () => {
                 />
                 <div className="flex-grow">
                   <h3 className="font-bold text-gray-800">{emp?.name}</h3>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-red-700">
                     {emp?.affiliatedWith
                       ? `Affiliated With: ${emp?.affiliatedWith}`
                       : "Not Affiliated"}
@@ -212,6 +213,11 @@ const AddEmployee = () => {
                 </div>
                 <button
                   onClick={() => handleAddEmployeeToTeam(emp?._id)}
+                  disabled={
+                    emp?.affiliatedWith === currentUser?.email ||
+                    team.length >= currentUser?.limit ||
+                    selectedEmployees.length + team?.length > currentUser?.limit
+                  }
                   className="bg-blue-600 text-white font-medium px-4 py-2 rounded-md hover:bg-blue-700 transition"
                 >
                   Add to Team
@@ -222,6 +228,10 @@ const AddEmployee = () => {
 
           <button
             onClick={handleAddSelectedEmployees}
+            disabled={
+              team.length >= currentUser?.limit ||
+              selectedEmployees.length + team?.length > currentUser?.limit
+            }
             className="bg-blue-600 text-white font-semibold w-full py-3 rounded-lg hover:bg-blue-700 transition"
           >
             Add Selected Members to the Team

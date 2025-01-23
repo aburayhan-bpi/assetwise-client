@@ -3,23 +3,49 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useUser from "../../hooks/useUser";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useCurrentUser from "../../hooks/useCurrentUser";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  // const currentUser = useCurrentUser();
   const dropdownRef = useRef(null);
   const [users] = useUser();
+  const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
+  const [companyPhoto, setCompanyPhoto] = useState("");
 
   // Update current user whenever user or users change
+  // useEffect(() => {
+  //   if (user) {
+  //     const currentUser = users.find((u) => u?.email === user?.email);
+  //     setCurrentUser(currentUser);
+  //   }
+  // }, [user, users]);
+
   useEffect(() => {
-    if (user) {
-      const currentUser = users.find((u) => u?.email === user?.email);
-      setCurrentUser(currentUser);
+    axiosPublic.get(`/current-user?email=${user?.email}`).then((res) => {
+      setCurrentUser(res.data);
+    });
+  }, [user?.email]);
+
+  // company info or logo for affiliatedWith employee company
+  useEffect(() => {
+    if (user?.email && currentUser?.affiliatedWith) {
+      axiosSecure
+        .get(`/company-info?email=${currentUser?.affiliatedWith}`)
+        .then((res) => {
+          setCompanyPhoto(res.data);
+        });
     }
-  }, [user, users]);
+  }, [user, currentUser, localStorage.getItem("access-token")]);
+
+  // console.log(currentUser);
 
   // Toggle Menu for mobile view
   const toggleMenu = () => {
@@ -62,7 +88,7 @@ const Navbar = () => {
   // Links to be rendered based on user and currentUser role
   const links = (
     <>
-      {!user && (
+      {!user && !localStorage.getItem("access-token") && (
         <>
           <li>
             <NavLink
@@ -93,144 +119,165 @@ const Navbar = () => {
           </li>
         </>
       )}
-      {user && currentUser?.role === "employee" && (
-        <>
-          <li>
-            <NavLink
-              to="/"
-              className="block py-2 px-3 rounded md:bg-transparent"
-              aria-current="page"
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/my-assets"
-              className="block py-2 px-3 rounded md:bg-transparent"
-              aria-current="page"
-            >
-              My Assets
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/my-team"
-              className="block py-2 px-3 rounded md:bg-transparent"
-              aria-current="page"
-            >
-              My Team
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/request-asset"
-              className="block py-2 px-3 rounded md:bg-transparent"
-              aria-current="page"
-            >
-              Request for an Asset
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/profile"
-              className="block py-2 px-3 rounded md:bg-transparent"
-              aria-current="page"
-            >
-              Profile
-            </NavLink>
-          </li>
-        </>
-      )}
-      {user && currentUser?.role === "hr" && (
-        <>
-          <li>
-            <NavLink
-              to="/"
-              className="block  rounded md:bg-transparent"
-              aria-current="page"
-            >
-              Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/asset-list"
-              className="block  rounded md:bg-transparent"
-              aria-current="page"
-            >
-              Asset List
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/add-asset"
-              className="block  rounded md:bg-transparent"
-              aria-current="page"
-            >
-              Add Asset
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/all-requests"
-              className="block  rounded md:bg-transparent"
-              aria-current="page"
-            >
-              All Requests
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/my-employee-list"
-              className="block  rounded md:bg-transparent"
-              aria-current="page"
-            >
-              My Employee List
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/add-employee"
-              className="block  rounded md:bg-transparent"
-              aria-current="page"
-            >
-              Add Employee
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/profile"
-              className="block  rounded md:bg-transparent"
-              aria-current="page"
-            >
-              Profile
-            </NavLink>
-          </li>
-        </>
-      )}
+      {user &&
+        currentUser?.role === "employee" &&
+        localStorage.getItem("access-token") && (
+          <>
+            <li>
+              <NavLink
+                to="/"
+                className="block py-2 px-3 rounded md:bg-transparent"
+                aria-current="page"
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/my-assets"
+                className="block py-2 px-3 rounded md:bg-transparent"
+                aria-current="page"
+              >
+                My Assets
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/my-team"
+                className="block py-2 px-3 rounded md:bg-transparent"
+                aria-current="page"
+              >
+                My Team
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/request-asset"
+                className="block py-2 px-3 rounded md:bg-transparent"
+                aria-current="page"
+              >
+                Request for an Asset
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/profile"
+                className="block py-2 px-3 rounded md:bg-transparent"
+                aria-current="page"
+              >
+                Profile
+              </NavLink>
+            </li>
+          </>
+        )}
+      {user &&
+        currentUser?.role === "hr" &&
+        localStorage.getItem("access-token") && (
+          <>
+            <li>
+              <NavLink
+                to="/"
+                className="block  rounded md:bg-transparent"
+                aria-current="page"
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/asset-list"
+                className="block  rounded md:bg-transparent"
+                aria-current="page"
+              >
+                Asset List
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/add-asset"
+                className="block  rounded md:bg-transparent"
+                aria-current="page"
+              >
+                Add Asset
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/all-requests"
+                className="block  rounded md:bg-transparent"
+                aria-current="page"
+              >
+                All Requests
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/my-employee-list"
+                className="block  rounded md:bg-transparent"
+                aria-current="page"
+              >
+                My Employee List
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/add-employee"
+                className="block  rounded md:bg-transparent"
+                aria-current="page"
+              >
+                Add Employee
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/profile"
+                className="block  rounded md:bg-transparent"
+                aria-current="page"
+              >
+                Profile
+              </NavLink>
+            </li>
+          </>
+        )}
     </>
   );
-
+  //  user === 'hr' ? 'hr photo' :
   return (
     <div className="fixed z-50 w-full">
       <nav className="bg-gray-100 border-b border-gray-100 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 px-4 xl:px-0">
           <Link to="/">
-            {user && currentUser?.role === "hr" ? (
-              <img
-                className="w-32 h-10 overflow-hidden rounded-md"
-                src={currentUser?.companyPhoto}
-                alt="company_logo"
-              />
+            {user ? (
+              currentUser?.role === "hr" && currentUser?.companyPhoto ? (
+                <img
+                  className="w-32 h-10 overflow-hidden rounded-md"
+                  src={currentUser.companyPhoto}
+                  alt="hr_company_logo"
+                />
+              ) : currentUser?.role === "employee" &&
+                currentUser?.affiliatedWith &&
+                companyPhoto ? (
+                <img
+                  className="w-32 h-10 overflow-hidden rounded-md"
+                  src={companyPhoto}
+                  alt="employee_affiliated_company_logo"
+                />
+              ) : (
+                <img
+                  className="w-32 object-contain rounded-md"
+                  src="./assetwise.jpg"
+                  alt="default_company_logo"
+                />
+              )
             ) : (
               <img
                 className="w-32 object-contain rounded-md"
                 src="./assetwise.jpg"
-                alt="company_logo"
+                alt="default_company_logo"
               />
             )}
           </Link>
+
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {user ? (
               <div ref={dropdownRef} className="dropdown dropdown-end">
