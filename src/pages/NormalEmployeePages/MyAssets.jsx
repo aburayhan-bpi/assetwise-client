@@ -16,24 +16,6 @@ const MyAssets = () => {
   //   });
   // }, [searchText, refetch, hrAssets]);
 
-  // Example data (replace this with dynamic data from server)
-  const assets = [
-    {
-      name: "Laptop",
-      type: "Returnable",
-      requestDate: "Jan 1, 2025",
-      approvalDate: "Jan 5, 2025",
-      status: "Approved",
-    },
-    {
-      name: "Keyboard",
-      type: "Non-returnable",
-      requestDate: "Jan 3, 2025",
-      approvalDate: "Pending",
-      status: "Pending",
-    },
-  ];
-
   return (
     <div className="max-w-screen-xl mx-auto p-8 bg-gray-50 min-h-screen">
       {/* Title and Subtitle */}
@@ -85,21 +67,31 @@ const MyAssets = () => {
           </thead>
           {/* Table Body */}
           <tbody>
-            {assets.map((asset, index) => (
+            {myReqAssets.map((asset, index) => (
               <tr key={index}>
-                <td>{asset.name}</td>
-                <td>{asset.type}</td>
-                <td>{asset.requestDate}</td>
-                <td>{asset.approvalDate}</td>
+                <td>{asset?.productName}</td>
+                <td>
+                  <p
+                    className={`${
+                      asset?.productType === "returnable"
+                        ? "text-green-600 bg-green-100 w-fit p-1 rounded-lg text-xs capitalize"
+                        : "text-yellow-600 bg-yellow-100 w-fit p-1 rounded-lg text-xs capitalize"
+                    }`}
+                  >
+                    {asset?.productType}
+                  </p>
+                </td>
+                <td>{asset?.requestDate}</td>
+                <td>{asset?.approvalDate ? asset?.approvalDate : "N/A"}</td>
                 <td>
                   <span
                     className={`badge ${
-                      asset.status === "Approved"
-                        ? "badge-success"
-                        : "badge-warning"
+                      asset?.status === "Approved"
+                        ? "badge-success capitalize"
+                        : "badge-warning capitalize"
                     }`}
                   >
-                    {asset.status}
+                    {asset?.status ? asset?.status : "N/A"}
                   </span>
                 </td>
                 <td>
