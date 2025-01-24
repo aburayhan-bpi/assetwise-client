@@ -1,29 +1,32 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import useAxiosSecure from "./useAxiosSecure";
 import useAuth from "./useAuth";
+import useAxiosSecure from "./useAxiosSecure";
 import useCurrentUser from "./useCurrentUser";
 
-const useMyHRAssets = () => {
+const useEmpReqAssets = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const currentUser = useCurrentUser();
 
   const {
-    data: hrAssets = [],
+    data: myReqAssets = [],
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["hrAssets", user?.email, currentUser],
+    queryKey: ["myReqAssets", user?.email, currentUser],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/my-hr-assets?email=${currentUser?.affiliatedWith}`
+        `/my-req-assets?email=${
+          currentUser?.affiliatedWith &&
+          currentUser?.role === "employee" &&
+          currentUser?.email
+        }`
       );
       return res.data;
     },
   });
 
-  return [hrAssets, refetch, isLoading];
+  return [myReqAssets, refetch, isLoading];
 };
 
-export default useMyHRAssets;
+export default useEmpReqAssets;
