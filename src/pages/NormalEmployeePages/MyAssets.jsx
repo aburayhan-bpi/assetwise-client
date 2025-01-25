@@ -1,20 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useEmpReqAssets from "../../hooks/useEmpReqAssets";
+import useCurrentUser from "../../hooks/useCurrentUser";
+import Loader from "../../components/shared/Loader";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyAssets = () => {
   const [myReqAssets, refetch, isLoading] = useEmpReqAssets();
+  const [filteredAsset, setFilteredAsset] = useState(myReqAssets);
+  const axiosSecure = useAxiosSecure();
+  const currentUser = useCurrentUser();
+
   const [searchText, setSearchText] = useState("");
   const [filterOption, setFilterOption] = useState("");
-  console.log(myReqAssets);
+  // console.log(filteredAsset);
+
+  useEffect(() => {
+    if (myReqAssets.length > 0) {
+      setFilteredAsset(myReqAssets);
+    }
+  }, [myReqAssets]);
+
   // show search based result
-  // useEffect(() => {
-  //   axiosSecure.get(`/my-hr-assets?search=${searchText}`).then((res) => {
-  //     const exactData = res.data.filter(
-  //       (data) => data?.email === currentUser?.affiliatedWith
-  //     );
-  //     setFilteredAsset(exactData);
-  //   });
-  // }, [searchText, refetch, hrAssets]);
+  useEffect(() => {
+    axiosSecure.get(`my-req-assets?search=${searchText}`).then((res) => {
+      const exactData = res.data.filter(
+        (data) => data?.requesterEmail === currentUser?.email
+      );
+      setFilteredAsset(exactData);
+      // setFilteredAsset(res.data);
+    });
+  }, [searchText, refetch, myReqAssets]);
+
+  // filter based result
+  useEffect(() => {
+    axiosSecure
+      .get(`my-req-assets?filterOption=${filterOption}`)
+      .then((res) => {
+        const exactData = res.data.filter(
+          (data) => data?.requesterEmail === currentUser?.email
+        );
+        setFilteredAsset(exactData);
+        // setFilteredAsset(res.data);
+      });
+  }, [filterOption, refetch, myReqAssets]);
 
   return (
     <div className="max-w-screen-xl mx-auto p-8 bg-gray-50 min-h-screen">
@@ -27,13 +55,18 @@ const MyAssets = () => {
           Easily track your asset requests and their current status.
         </p>
       </div>
-
+      {filteredAsset && (
+        <h2 className="font-semibold mb-2">
+          Total Assets: ({filteredAsset.length})
+        </h2>
+      )}
       {/* Search and Filter Section */}
       <div className="flex flex-col md:flex-row items-center gap-4 mb-6">
         {/* Search Bar */}
+
         <input
           type="text"
-          onChange={(e) => searchText(e.target.value)}
+          onChange={(e) => setSearchText(e.target.value)}
           placeholder="Search by asset name"
           className="input input-bordered w-full md:w-1/3"
         />
@@ -50,7 +83,6 @@ const MyAssets = () => {
           <option value="approved">Approved</option>
         </select>
       </div>
-
       {/* Assets Table */}
       <div className="overflow-x-auto">
         <table className="table w-full">
@@ -66,8 +98,16 @@ const MyAssets = () => {
             </tr>
           </thead>
           {/* Table Body */}
+
           <tbody>
-            {myReqAssets.map((asset, index) => (
+            {isLoading && (
+              <tr>
+                <td colSpan="6">
+                  <Loader />
+                </td>
+              </tr>
+            )}
+            {filteredAsset.map((asset, index) => (
               <tr key={index}>
                 <td>{asset?.productName}</td>
                 <td>

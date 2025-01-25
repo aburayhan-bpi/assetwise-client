@@ -1,29 +1,28 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import useAxiosSecure from "./useAxiosSecure";
 import useAuth from "./useAuth";
+import useAxiosSecure from "./useAxiosSecure";
 import useCurrentUser from "./useCurrentUser";
 
-const useMyHRAssets = () => {
+const useAllRequests = () => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const currentUser = useCurrentUser();
 
   const {
-    data: myReqAssets = [],
+    data: allRequests = [],
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["myReqAssets", user?.email, currentUser],
+    queryKey: ["allRequests", user?.email, currentUser],
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/my-req-assets?email=${currentUser?.email}`
+        `/all-requests?email=${currentUser?.email}`
       );
       return res.data;
     },
   });
 
-  return [myReqAssets, refetch, isLoading];
+  return [allRequests, refetch, isLoading];
 };
 
-export default useMyHRAssets;
+export default useAllRequests;

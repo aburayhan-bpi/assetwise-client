@@ -28,7 +28,7 @@ const RequestAsset = () => {
 
   // show search based result
   useEffect(() => {
-    axiosSecure.get(`/my-hr-assets?search=${searchText}`).then((res) => {
+    axiosSecure.get(`assets?search=${searchText}`).then((res) => {
       const exactData = res.data.filter(
         (data) => data?.email === currentUser?.affiliatedWith
       );
