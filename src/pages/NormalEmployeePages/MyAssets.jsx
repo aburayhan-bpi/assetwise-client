@@ -3,6 +3,10 @@ import useEmpReqAssets from "../../hooks/useEmpReqAssets";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import Loader from "../../components/shared/Loader";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { FaPrint } from "react-icons/fa";
+import AssetPrintDocument from "./AssetPrintDocument";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { ClipLoader, ScaleLoader } from "react-spinners";
 
 const MyAssets = () => {
   const [myReqAssets, refetch, isLoading] = useEmpReqAssets();
@@ -12,6 +16,7 @@ const MyAssets = () => {
 
   const [searchText, setSearchText] = useState("");
   const [filterOption, setFilterOption] = useState("");
+  const [companyInfo, setCompanyInfo] = useState(null);
   // console.log(filteredAsset);
 
   useEffect(() => {
@@ -44,6 +49,16 @@ const MyAssets = () => {
       });
   }, [filterOption, refetch, myReqAssets]);
 
+  // get company info
+  useEffect(() => {
+    axiosSecure
+      .get(`company-details?email=${currentUser?.affiliatedWith}`)
+      .then((res) => {
+        // console.log(res.data);
+        setCompanyInfo(res.data);
+      });
+  }, [currentUser]);
+  console.log(companyInfo);
   return (
     <div className="max-w-screen-xl mx-auto p-8 bg-gray-50 min-h-screen">
       {/* Title and Subtitle */}
@@ -126,18 +141,46 @@ const MyAssets = () => {
                 <td>
                   <span
                     className={`badge ${
-                      asset?.status === "Approved"
-                        ? "badge-success capitalize"
-                        : "badge-warning capitalize"
+                      asset?.status === "approved"
+                        ? "bg-green-100 text-green-500 capitalize text-xs"
+                        : asset?.status === "rejected"
+                        ? "bg-red-100 text-red-500 text-xs capitalize"
+                        : "bg-yellow-100 text-yellow-700 text-xs capitalize"
                     }`}
                   >
                     {asset?.status ? asset?.status : "N/A"}
                   </span>
                 </td>
                 <td>
-                  <button className="btn btn-sm btn-primary">
-                    View Details
-                  </button>
+                  {asset?.status === "approved" ? (
+                    <PDFDownloadLink
+                      document={
+                        <AssetPrintDocument
+                          asset={asset}
+                          companyInfo={companyInfo}
+                        />
+                      }
+                      fileName={`${asset.productName}-details.pdf`}
+                    >
+                      {({ loading }) =>
+                        loading ? (
+                          <ClipLoader />
+                        ) : (
+                          <button className="flex items-center justify-center gap-2 bg-blue-100 text-blue-500 px-3 py-2 rounded-md transition-all duration-200">
+                            <FaPrint size={20} />
+                          </button>
+                        )
+                      }
+                    </PDFDownloadLink>
+                  ) : asset?.status === "pending" ? (
+                    <div>
+                      <button>cancel</button>
+                    </div>
+                  ) : (
+                    <h2 className="bg-red-100 text-red-500 w-fit px-3 py-1 text-xs rounded-xl">
+                      Rejected
+                    </h2>
+                  )}
                 </td>
               </tr>
             ))}
