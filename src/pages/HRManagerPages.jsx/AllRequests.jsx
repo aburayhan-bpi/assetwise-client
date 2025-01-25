@@ -5,14 +5,17 @@ import { useEffect, useState } from "react";
 import Loader from "../../components/shared/Loader";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useCurrentUser from "../../hooks/useCurrentUser";
+import toast from "react-hot-toast";
 
 const AllRequests = () => {
   const [allRequests, refetch, isLoading] = useAllRequests();
   const [filteredAsset, setFilteredAsset] = useState(allRequests);
   const [searchText, setSearchText] = useState("");
+
   const axiosSecure = useAxiosSecure();
   const currentUser = useCurrentUser();
 
+  // show data by default
   useEffect(() => {
     if (allRequests.length > 0) {
       setFilteredAsset(allRequests);
@@ -25,13 +28,36 @@ const AllRequests = () => {
       const exactData = res.data.filter(
         (data) => data?.requesterAffiliatedWith === currentUser?.email
       );
-      console.log(exactData);
+      // console.log(exactData);
       setFilteredAsset(exactData);
       // setFilteredAsset(res.data);
     });
   }, [searchText, refetch, allRequests]);
 
-  console.log(searchText);
+  //  handleAction for approve / reject
+  const handleApprove = (id) => {
+    // console.log(id);
+    axiosSecure
+      .patch(`update-asset-status/${id}?status=approved`)
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          toast.success("Request approved!");
+          refetch();
+        }
+      });
+  };
+  const handleReject = (id) => {
+    // console.log(id);
+    axiosSecure
+      .patch(`update-asset-status/${id}?status=rejected`)
+      .then((res) => {
+        if (res.data.modifiedCount) {
+          toast.error("Request Rejected!");
+          refetch();
+        }
+      });
+  };
+
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
       {/* Title and Subtitle */}
@@ -89,7 +115,7 @@ const AllRequests = () => {
               <th scope="col" className="px-6 py-3"></th>
             </tr>
           </thead>
-          {isLoading && <div className="p-3">{isLoading && <Loader />}</div>}
+          {isLoading && isLoading && <Loader />}
           <tbody>
             {filteredAsset.map((request, index) => (
               <tr
@@ -149,19 +175,43 @@ const AllRequests = () => {
 
                 <td className="px-6 py-4 flex gap-4">
                   {/* <div className="flex gap-3 justify-center"> */}
-                  {request?.status === "pending" ? (
-                    <button className="bg-green-200 hover:bg-green-300 px-3 py-2 rounded-md text-green-500 hover:text-green-600 text-xl w-fit">
+                  {request?.status === "pending" && (
+                    <button
+                      onClick={() => handleApprove(request?._id)}
+                      disabled={!request?.status === "pending"}
+                      className="bg-green-200 hover:bg-green-300 px-3 py-2 rounded-md text-green-500 hover:text-green-600 text-xl w-fit"
+                    >
                       <MdOutlineDone />
                     </button>
-                  ) : (
-                    <button className="bg-green-200 hover:bg-green-300 px-3 py-2 rounded-md text-green-500 hover:text-green-600 text-xl w-fit">
+                  )}
+
+                  {request?.status === "approved" && (
+                    <button
+                      disabled={request?.status === "approved"}
+                      className={`${
+                        request?.status === "approved" && "cursor-not-allowed"
+                      } bg-green-200 hover:bg-green-300 px-3 py-2 rounded-md text-green-500 hover:text-green-600 text-xl w-fit`}
+                    >
                       <MdOutlineDoneAll />
                     </button>
                   )}
 
-                  <button className="bg-red-200 hover:bg-red-300 px-3 py-2 rounded-md text-red-500 hover:text-red-600 text-xl w-fit">
+                  <button
+                    onClick={() => handleReject(request?._id)}
+                    disabled={
+                      request?.status === "rejected" ||
+                      request?.status === "approved"
+                    }
+                    className={`${
+                      request?.status === "rejected" ||
+                      request?.status === "approved"
+                        ? "cursor-not-allowed opacity-50"
+                        : "hover:bg-red-300"
+                    } bg-red-200 px-3 py-2 rounded-md text-red-500 hover:text-red-600 text-xl w-fit`}
+                  >
                     <RxCross2 />
                   </button>
+
                   {/* </div> */}
                 </td>
               </tr>
