@@ -1,12 +1,6 @@
-import { useState } from "react";
-import useAuth from "../hooks/useAuth";
-import useCurrentUser from "../hooks/useCurrentUser";
+
 
 const Profile = () => {
-  const [name, setName] = useState("");
-  const { user } = useAuth();
-  const currentUser = useCurrentUser();
-  console.log(name);
   return (
     <div className="max-w-2xl mx-auto mt-20 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
@@ -18,9 +12,9 @@ const Profile = () => {
         <label className="block text-gray-600 font-semibold">Full Name</label>
         <input
           type="text"
-          onChange={(e) => setName(e.target.value)}
-          defaultValue={user?.displayName}
+          value="John Doe"
           className="w-full p-2 border border-gray-300 rounded-md mt-2"
+          disabled
         />
       </div>
 
@@ -32,7 +26,6 @@ const Profile = () => {
           value="johndoe@example.com"
           className="w-full p-2 border border-gray-300 rounded-md mt-2"
           readOnly
-          disabled
         />
       </div>
 

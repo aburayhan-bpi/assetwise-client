@@ -86,6 +86,7 @@ const RequestAsset = () => {
                 text: "Asset request has been success!",
                 icon: "success",
               });
+              refetch();
             }
           });
       }

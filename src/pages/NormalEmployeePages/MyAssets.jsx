@@ -7,6 +7,9 @@ import { FaPrint } from "react-icons/fa";
 import AssetPrintDocument from "./AssetPrintDocument";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { ClipLoader, ScaleLoader } from "react-spinners";
+import { RxCross2 } from "react-icons/rx";
+import { IoMdReturnLeft } from "react-icons/io";
+import toast from "react-hot-toast";
 
 const MyAssets = () => {
   const [myReqAssets, refetch, isLoading] = useEmpReqAssets();
@@ -57,8 +60,62 @@ const MyAssets = () => {
         // console.log(res.data);
         setCompanyInfo(res.data);
       });
-  }, [currentUser]);
-  console.log(companyInfo);
+  }, [currentUser, filteredAsset, refetch]);
+
+  // cancel asset
+const handleCancel = (assetId, reqAssetId) => {
+  // Send the request to cancel the asset
+  axiosSecure
+    .patch(`/cancel-request/${assetId}?reqAssetId=${reqAssetId}`)
+    .then((res) => {
+      if (res.data.acknowledged) {
+        toast.success("Cancelled asset request!");
+
+        // Update filteredAsset state after cancellation
+        setFilteredAsset((prevAssets) =>
+          prevAssets.map((asset) =>
+            asset._id === reqAssetId
+              ? {
+                  ...asset,
+                  status: "cancelled",
+                  cancelledDate: new Date().toISOString(),
+                }
+              : asset
+          )
+        );
+      }
+    })
+    .catch((err) => {
+      toast.error("Error cancelling asset request!");
+      console.error(err);
+    });
+};
+
+
+  // return asset
+const handleReturn = (assetId, reqAssetId) => {
+  // Send the request to return the asset
+  axiosSecure
+    .patch(`/return-request/${assetId}?reqAssetId=${reqAssetId}`)
+    .then((res) => {
+      if (res.data.modifiedCount > 0) {
+        toast.success("Asset request returned!");
+
+        // Update filteredAsset state after return
+        setFilteredAsset((prevAssets) =>
+          prevAssets.map((asset) =>
+            asset._id === reqAssetId ? { ...asset, status: "returned" } : asset
+          )
+        );
+      }
+    })
+    .catch((err) => {
+      toast.error("Error returning asset request!");
+      console.error(err);
+    });
+};
+
+  // console.log(companyInfo)
   return (
     <div className="max-w-screen-xl mx-auto p-8 bg-gray-50 min-h-screen">
       {/* Title and Subtitle */}
@@ -145,6 +202,8 @@ const MyAssets = () => {
                         ? "bg-green-100 text-green-500 capitalize text-xs"
                         : asset?.status === "rejected"
                         ? "bg-red-100 text-red-500 text-xs capitalize"
+                        : asset?.status === "returned"
+                        ? "bg-violet-100 text-violet-500 text-xs capitalize"
                         : "bg-yellow-100 text-yellow-700 text-xs capitalize"
                     }`}
                   >
@@ -153,31 +212,59 @@ const MyAssets = () => {
                 </td>
                 <td>
                   {asset?.status === "approved" ? (
-                    <PDFDownloadLink
-                      document={
-                        <AssetPrintDocument
-                          asset={asset}
-                          companyInfo={companyInfo}
-                        />
-                      }
-                      fileName={`${asset.productName}-details.pdf`}
-                    >
-                      {({ loading }) =>
-                        loading ? (
-                          <ClipLoader />
-                        ) : (
-                          <button className="flex items-center justify-center gap-2 bg-blue-100 text-blue-500 px-3 py-2 rounded-md transition-all duration-200">
-                            <FaPrint size={20} />
-                          </button>
-                        )
-                      }
-                    </PDFDownloadLink>
+                    <div className="flex items-center">
+                      <PDFDownloadLink
+                        document={
+                          <AssetPrintDocument
+                            asset={asset}
+                            companyInfo={companyInfo}
+                          />
+                        }
+                        fileName={`${asset.productName}-details.pdf`}
+                      >
+                        {({ loading }) =>
+                          loading ? (
+                            <ClipLoader />
+                          ) : (
+                            <button className="flex items-center justify-center gap-2 bg-blue-100 text-blue-500 hover:bg-blue-200 px-2 py-1 rounded-md transition-all duration-200">
+                              <FaPrint size={20} />
+                            </button>
+                          )
+                        }
+                      </PDFDownloadLink>
+                      {asset?.productType === "returnable" && (
+                        <button
+                          onClick={() =>
+                            handleReturn(asset?.assetId, asset?._id)
+                          }
+                          disabled={asset?.status === "returned"}
+                          className={`${
+                            asset?.status === "returned" && "cursor-not-allowed"
+                          } bg-red-100 text-red-500 ml-2 px-2 py-1 rounded-md hover:bg-red-200 transition-all duration-200`}
+                        >
+                          Return
+                        </button>
+                      )}
+                    </div>
                   ) : asset?.status === "pending" ? (
                     <div>
-                      <button>cancel</button>
+                      <button
+                        onClick={() => handleCancel(asset?.assetId, asset?._id)}
+                        className="bg-red-100 px-2 py-1 rounded-md text-red-500 hover:bg-red-200 w-fit transition-all duration-200"
+                      >
+                        Cancel
+                      </button>
                     </div>
+                  ) : asset?.status === "cancelled" ? (
+                    <h2 className="bg-yellow-100 text-yellow-700 w-fit px-2 py-1 text-xs rounded-xl">
+                      Cancelled
+                    </h2>
+                  ) : asset?.status === "returned" ? (
+                    <h2 className="bg-violet-100 text-violet-500 w-fit px-2 py-1 text-xs rounded-xl">
+                      Returned
+                    </h2>
                   ) : (
-                    <h2 className="bg-red-100 text-red-500 w-fit px-3 py-1 text-xs rounded-xl">
+                    <h2 className="bg-red-100 text-red-500 w-fit px-2 py-1 text-xs rounded-xl">
                       Rejected
                     </h2>
                   )}
