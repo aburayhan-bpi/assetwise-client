@@ -14,6 +14,8 @@ import { Helmet } from "react-helmet";
 import { useEffect } from "react";
 import LimitedStock from "./HRHome/LimitedStock";
 import PieChart from "./HRHome/PieChart";
+import HRAccordion from "./HRHome/HRAccordion";
+import RejectedRequests from "./HRHome/RejectedRequests";
 
 const Home = () => {
   const { user } = useAuth();
@@ -79,6 +81,8 @@ const Home = () => {
           <Pending />
           <MostRequested />
           <LimitedStock />
+          {/* <HRAccordion /> */}
+          <RejectedRequests />
         </>
       )}
     </div>
