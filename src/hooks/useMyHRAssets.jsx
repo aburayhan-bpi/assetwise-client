@@ -4,7 +4,7 @@ import useAxiosSecure from "./useAxiosSecure";
 import useAuth from "./useAuth";
 import useCurrentUser from "./useCurrentUser";
 
-const useMyHRAssets = () => {
+const useMyHRAssets = (searchText, filterOption) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const currentUser = useCurrentUser();
@@ -14,11 +14,18 @@ const useMyHRAssets = () => {
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["hrAssets", user?.email, currentUser],
+    queryKey: ["hrAssets", user?.email, currentUser, searchText, filterOption],
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/my-hr-assets?email=${currentUser?.affiliatedWith}`
-      );
+      // const res = await axiosSecure.get(
+      //   `/my-hr-assets?email=${currentUser?.affiliatedWith}`
+      // );
+      const res = await axiosSecure.get("/my-hr-assets", {
+        params: {
+          email: currentUser?.affiliatedWith,
+          searchQuery: searchText,
+          filterOption: filterOption,
+        },
+      });
       return res.data;
     },
   });

@@ -13,38 +13,41 @@ const RequestAsset = () => {
   const { user } = useAuth();
   const currentUser = useCurrentUser();
   const axiosSecure = useAxiosSecure();
-  const [hrAssets, refetch, isLoading] = useMyHRAssets();
-  const [filteredAsset, setFilteredAsset] = useState([]);
+  // const [filteredAsset, setFilteredAsset] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filterOption, setFilterOption] = useState("");
   const [noteText, setNoteText] = useState("");
   const [selectedAsset, setSelectedAsset] = useState(null);
+  const [hrAssets, refetch, isLoading] = useMyHRAssets(
+    searchText,
+    filterOption
+  );
   // console.log(filteredAsset);
 
-  useEffect(() => {
-    if (hrAssets.length > 0) {
-      setFilteredAsset(hrAssets);
-    }
-  }, [hrAssets]);
+  // useEffect(() => {
+  //   if (hrAssets.length > 0) {
+  //     setFilteredAsset(hrAssets);
+  //   }
+  // }, [hrAssets]);
 
   // show search based result
-  useEffect(() => {
-    axiosSecure.get(`assets?search=${searchText}`).then((res) => {
-      const exactData = res.data.filter(
-        (data) => data?.email === currentUser?.affiliatedWith
-      );
-      setFilteredAsset(exactData);
-    });
-  }, [searchText, refetch, hrAssets]);
+  // useEffect(() => {
+  //   axiosSecure.get(`assets?search=${searchText}`).then((res) => {
+  //     const exactData = res.data.filter(
+  //       (data) => data?.email === currentUser?.affiliatedWith
+  //     );
+  //     setFilteredAsset(exactData);
+  //   });
+  // }, [searchText, refetch, hrAssets]);
 
-  useEffect(() => {
-    axiosSecure.get(`/assets?filterOption=${filterOption}`).then((res) => {
-      const exactData = res.data.filter(
-        (data) => data?.email === currentUser?.affiliatedWith
-      );
-      setFilteredAsset(exactData);
-    });
-  }, [filterOption, refetch, hrAssets]);
+  // useEffect(() => {
+  //   axiosSecure.get(`/assets?filterOption=${filterOption}`).then((res) => {
+  //     const exactData = res.data.filter(
+  //       (data) => data?.email === currentUser?.affiliatedWith
+  //     );
+  //     setFilteredAsset(exactData);
+  //   });
+  // }, [filterOption, refetch, hrAssets]);
 
   const handleRequestModal = (asset) => {
     setNoteText("");
@@ -112,7 +115,11 @@ const RequestAsset = () => {
             Easily search, filter, and request assets that suit your needs.
           </p>
         </div>
-
+        {hrAssets && (
+          <>
+            <p className="font-semibold">Assets: ({hrAssets.length})</p>
+          </>
+        )}
         <div className="grid mb-6 grid-cols-1 md:grid-cols-3 gap-5 w-full">
           {/* Search box */}
           <div>
@@ -141,12 +148,12 @@ const RequestAsset = () => {
         {isLoading && <Loader />}
         {/* Assets Section */}
         {user && currentUser?.role === "employee" ? (
-          filteredAsset.length === 0 ? (
+          hrAssets.length === 0 ? (
             <div colSpan="5" className="text-center text-red-500 text-md">
               No Asset Available
             </div>
           ) : (
-            filteredAsset.map((singleAsset, index) => (
+            hrAssets.map((singleAsset, index) => (
               <div key={index} className="space-y-6 mb-3">
                 <div className="flex justify-between items-center p-4 bg-white shadow-md rounded-lg">
                   <div className="flex flex-col">
