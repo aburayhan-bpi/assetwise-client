@@ -13,45 +13,48 @@ import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
 
 const MyAssets = () => {
-  const [myReqAssets, refetch, isLoading] = useEmpReqAssets();
-  const [filteredAsset, setFilteredAsset] = useState(myReqAssets);
+  // const [filteredAsset, setFilteredAsset] = useState(myReqAssets);
   const axiosSecure = useAxiosSecure();
   const currentUser = useCurrentUser();
 
   const [searchText, setSearchText] = useState("");
   const [filterOption, setFilterOption] = useState("");
+  const [myReqAssets, refetch, isLoading] = useEmpReqAssets(
+    searchText,
+    filterOption
+  );
   const [companyInfo, setCompanyInfo] = useState(null);
   // console.log(filteredAsset);
 
-  useEffect(() => {
-    if (myReqAssets.length > 0) {
-      setFilteredAsset(myReqAssets);
-    }
-  }, [myReqAssets]);
+  // useEffect(() => {
+  //   if (myReqAssets.length > 0) {
+  //     setFilteredAsset(myReqAssets);
+  //   }
+  // }, [myReqAssets]);
 
-  // show search based result
-  useEffect(() => {
-    axiosSecure.get(`my-req-assets?search=${searchText}`).then((res) => {
-      const exactData = res.data.filter(
-        (data) => data?.requesterEmail === currentUser?.email
-      );
-      setFilteredAsset(exactData);
-      // setFilteredAsset(res.data);
-    });
-  }, [searchText, refetch, myReqAssets]);
+  // // show search based result
+  // useEffect(() => {
+  //   axiosSecure.get(`my-req-assets?search=${searchText}`).then((res) => {
+  //     const exactData = res.data.filter(
+  //       (data) => data?.requesterEmail === currentUser?.email
+  //     );
+  //     setFilteredAsset(exactData);
+  //     // setFilteredAsset(res.data);
+  //   });
+  // }, [searchText, refetch, myReqAssets]);
 
-  // filter based result
-  useEffect(() => {
-    axiosSecure
-      .get(`my-req-assets?filterOption=${filterOption}`)
-      .then((res) => {
-        const exactData = res.data.filter(
-          (data) => data?.requesterEmail === currentUser?.email
-        );
-        setFilteredAsset(exactData);
-        // setFilteredAsset(res.data);
-      });
-  }, [filterOption, refetch, myReqAssets]);
+  // // filter based result
+  // useEffect(() => {
+  //   axiosSecure
+  //     .get(`my-req-assets?filterOption=${filterOption}`)
+  //     .then((res) => {
+  //       const exactData = res.data.filter(
+  //         (data) => data?.requesterEmail === currentUser?.email
+  //       );
+  //       setFilteredAsset(exactData);
+  //       // setFilteredAsset(res.data);
+  //     });
+  // }, [filterOption, refetch, myReqAssets]);
 
   // get company info
   useEffect(() => {
@@ -61,7 +64,7 @@ const MyAssets = () => {
         // console.log(res.data);
         setCompanyInfo(res.data);
       });
-  }, [currentUser, filteredAsset, refetch]);
+  }, [currentUser, myReqAssets, refetch]);
 
   // cancel asset
   const handleCancel = (assetId, reqAssetId) => {
@@ -71,19 +74,19 @@ const MyAssets = () => {
       .then((res) => {
         if (res.data.acknowledged) {
           toast.success("Cancelled asset request!");
-
+          refetch();
           // Update filteredAsset state after cancellation
-          setFilteredAsset((prevAssets) =>
-            prevAssets.map((asset) =>
-              asset._id === reqAssetId
-                ? {
-                    ...asset,
-                    status: "cancelled",
-                    cancelledDate: new Date().toISOString(),
-                  }
-                : asset
-            )
-          );
+          // setFilteredAsset((prevAssets) =>
+          //   prevAssets.map((asset) =>
+          //     asset._id === reqAssetId
+          //       ? {
+          //           ...asset,
+          //           status: "cancelled",
+          //           cancelledDate: new Date().toISOString(),
+          //         }
+          //       : asset
+          //   )
+          // );
         }
       })
       .catch((err) => {
@@ -100,15 +103,15 @@ const MyAssets = () => {
       .then((res) => {
         if (res.data.modifiedCount > 0) {
           toast.success("Asset request returned!");
-
+          refetch();
           // Update filteredAsset state after return
-          setFilteredAsset((prevAssets) =>
-            prevAssets.map((asset) =>
-              asset._id === reqAssetId
-                ? { ...asset, status: "returned" }
-                : asset
-            )
-          );
+          // setFilteredAsset((prevAssets) =>
+          //   prevAssets.map((asset) =>
+          //     asset._id === reqAssetId
+          //       ? { ...asset, status: "returned" }
+          //       : asset
+          //   )
+          // );
         }
       })
       .catch((err) => {
@@ -132,9 +135,9 @@ const MyAssets = () => {
           Easily track your asset requests and their current status.
         </p>
       </div>
-      {filteredAsset && (
+      {myReqAssets && (
         <h2 className="font-semibold mb-2">
-          Total Assets: ({filteredAsset.length})
+          Total Assets: ({myReqAssets.length})
         </h2>
       )}
       {/* Search and Filter Section */}
@@ -177,14 +180,11 @@ const MyAssets = () => {
           {/* Table Body */}
 
           <tbody>
-            {isLoading && (
-              <tr>
-                <td colSpan="6">
-                  <Loader />
-                </td>
-              </tr>
+            {myReqAssets.length === 0 && !isLoading && (
+              <p>No assets found for the selected criteria.</p>
             )}
-            {filteredAsset.map((asset, index) => (
+
+            {myReqAssets.map((asset, index) => (
               <tr key={index}>
                 <td>{asset?.productName}</td>
                 <td>
