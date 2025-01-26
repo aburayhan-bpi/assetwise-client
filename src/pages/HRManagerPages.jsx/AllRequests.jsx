@@ -9,31 +9,31 @@ import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
 
 const AllRequests = () => {
-  const [allRequests, refetch, isLoading] = useAllRequests();
-  const [filteredAsset, setFilteredAsset] = useState(allRequests);
+  // const [filteredAsset, setFilteredAsset] = useState(allRequests);
   const [searchText, setSearchText] = useState("");
-
+  
   const axiosSecure = useAxiosSecure();
   const currentUser = useCurrentUser();
-
+  
+  const [allRequests, refetch, isLoading] = useAllRequests(searchText);
   // show data by default
-  useEffect(() => {
-    if (allRequests.length > 0) {
-      setFilteredAsset(allRequests);
-    }
-  }, [allRequests]);
+  // useEffect(() => {
+  //   if (allRequests.length > 0) {
+  //     setFilteredAsset(allRequests);
+  //   }
+  // }, [allRequests]);
 
   // search based result
-  useEffect(() => {
-    axiosSecure.get(`all-requests?search=${searchText}`).then((res) => {
-      const exactData = res.data.filter(
-        (data) => data?.requesterAffiliatedWith === currentUser?.email
-      );
-      // console.log(exactData);
-      setFilteredAsset(exactData);
-      // setFilteredAsset(res.data);
-    });
-  }, [searchText, refetch, allRequests]);
+  // useEffect(() => {
+  //   axiosSecure.get(`all-requests?search=${searchText}`).then((res) => {
+  //     const exactData = res.data.filter(
+  //       (data) => data?.requesterAffiliatedWith === currentUser?.email
+  //     );
+  //     // console.log(exactData);
+  //     setFilteredAsset(exactData);
+  //     // setFilteredAsset(res.data);
+  //   });
+  // }, [searchText, refetch, allRequests]);
 
   //  handleAction for approve / reject
   const handleApprove = (id) => {
@@ -120,9 +120,9 @@ const AllRequests = () => {
               <th scope="col" className="px-6 py-3"></th>
             </tr>
           </thead>
-          {isLoading && isLoading && <Loader />}
+          {/* {isLoading && isLoading && <Loader />} */}
           <tbody>
-            {filteredAsset.map((request, index) => (
+            {allRequests.map((request, index) => (
               <tr
                 key={index}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"

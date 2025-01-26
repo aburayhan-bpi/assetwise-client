@@ -26,7 +26,7 @@ const AssetList = () => {
     filterOption,
     sortOption
   );
-  console.log(assets);
+  // console.log(assets);
   // const [filteredAsset, setFilteredAsset] = useState([]);
   // console.log(currentUser);
   // useEffect(() => {
