@@ -2,35 +2,35 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useCurrentUser from "../../../hooks/useCurrentUser";
+import LimitedStockCard from "./LimitedStockCard";
 import { Link } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa";
-import LimitedStockCard from "./LimitedStockCard";
 
-const LimitedStock = () => {
+const TopQuantityAssets = () => {
   const { user } = useAuth();
   const currentUser = useCurrentUser();
   const axiosPublic = useAxiosPublic();
 
-  const { data: limitedStock = [] } = useQuery({
-    queryKey: ["limitedStock", currentUser?.email],
+  const { data: topQuantAssets = [] } = useQuery({
+    queryKey: ["topQuantAssets", currentUser?.email],
     queryFn: async () => {
       const res = await axiosPublic.get(
-        `limited-stock-assets?email=${
+        `top-quantity-assets?email=${
           currentUser?.role === "hr" && currentUser?.email
         }`
       );
       return res.data;
     },
   });
-  // console.log(limitedStock);
+  console.log(topQuantAssets);
   return (
     <div className="bg-sky-200 mt-10 pt-10 pb-4 px-3 rounded-md">
       <div className="flex flex-col justify-center items-center">
         <h2 className="mb-8 text-center text-3xl font-bold">
-          Limited Stock Assets
+          Top Quantity Assets
         </h2>
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:px-3">
-          {limitedStock.map((asset) => (
+          {topQuantAssets.map((asset) => (
             <LimitedStockCard key={asset?._id} asset={asset}></LimitedStockCard>
           ))}
         </div>
@@ -45,4 +45,4 @@ const LimitedStock = () => {
   );
 };
 
-export default LimitedStock;
+export default TopQuantityAssets;

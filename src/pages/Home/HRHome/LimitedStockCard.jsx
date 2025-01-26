@@ -34,7 +34,7 @@ const LimitedStockCard = ({ asset }) => {
 
       {/* Product Details */}
       <div className="text-gray-600 text-sm space-y-2 mb-4">
-        <p>
+        <p className="capitalize">
           <strong>Type:</strong> {productType || "N/A"}
         </p>
         <p className="flex items-center gap-2">

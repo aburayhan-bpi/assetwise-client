@@ -16,6 +16,7 @@ import LimitedStock from "./HRHome/LimitedStock";
 import PieChart from "./HRHome/PieChart";
 import HRAccordion from "./HRHome/HRAccordion";
 import RejectedRequests from "./HRHome/RejectedRequests";
+import TopQuantityAssets from "./HRHome/TopQuantityAssets";
 
 const Home = () => {
   const { user } = useAuth();
@@ -83,6 +84,7 @@ const Home = () => {
           <LimitedStock />
           {/* <HRAccordion /> */}
           <RejectedRequests />
+          <TopQuantityAssets />
         </>
       )}
     </div>
