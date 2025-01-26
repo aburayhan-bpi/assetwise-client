@@ -6,6 +6,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const CheckoutForm = () => {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ const CheckoutForm = () => {
     if (confirmError) {
       // console.log("confirm error");
     } else {
-      console.log("payment intent", paymentIntent);
+      // console.log("payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
         card.clear();
         toast.success(
@@ -138,6 +139,9 @@ const CheckoutForm = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Payment</title>
+      </Helmet>
       <div className="max-w-xs mx-auto mt-10 border border-yellow-700 p-6 rounded-lg shadow-lg bg-white">
         <form onSubmit={handleSubmit}>
           {/* Wrapper for CardElement */}

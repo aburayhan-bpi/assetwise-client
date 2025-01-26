@@ -7,11 +7,11 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const AssetList = () => {
   const { user } = useAuth();
   const currentUser = useCurrentUser();
-  const [assets, refetch, isLoading] = useAsset();
 
   // console.log(assets);
   const axiosSecure = useAxiosSecure();
@@ -21,47 +21,54 @@ const AssetList = () => {
   const [filterOption, setFilterOption] = useState("");
   const [sortOption, setSortOption] = useState("");
 
-  // console.log(sortOption);
-  const [filteredAsset, setFilteredAsset] = useState(assets);
-  // console.log(searchText);
-
-  useEffect(() => {
-    if (currentUser && currentUser?.email) {
-      const userAssets = assets.filter(
-        (asset) => asset?.email === currentUser?.email
-      );
-      setFilteredAsset(userAssets);
-    }
-  }, [assets, currentUser]);
+  const [assets, refetch, isLoading] = useAsset(
+    searchText,
+    filterOption,
+    sortOption
+  );
+  console.log(assets);
+  // const [filteredAsset, setFilteredAsset] = useState([]);
+  // console.log(currentUser);
+  // useEffect(() => {
+  //   setFilteredAsset(assets);
+  // }, [assets]);
+  // useEffect(() => {
+  //   if (currentUser && currentUser?.email) {
+  //     const userAssets = assets.filter(
+  //       (asset) => asset?.email === currentUser?.email
+  //     );
+  //     setFilteredAsset(userAssets);
+  //   }
+  // }, [assets, currentUser]);
 
   // show search based result
-  useEffect(() => {
-    axiosSecure.get(`/assets?search=${searchText}`).then((res) => {
-      const exactData = res.data.filter(
-        (data) => data?.email === currentUser?.email
-      );
-      setFilteredAsset(exactData);
-    });
-  }, [searchText, refetch, assets]);
+  // useEffect(() => {
+  //   axiosSecure.get(`/assets?search=${searchText}`).then((res) => {
+  //     const exactData = res.data.filter(
+  //       (data) => data?.email === currentUser?.email
+  //     );
+  //     setFilteredAsset(exactData);
+  //   });
+  // }, [searchText, refetch, assets]);
 
-  // show search based filter
-  useEffect(() => {
-    axiosSecure.get(`/assets?filterOption=${filterOption}`).then((res) => {
-      const exactData = res.data.filter(
-        (data) => data?.email === currentUser?.email
-      );
-      setFilteredAsset(exactData);
-    });
-  }, [filterOption, refetch, assets]);
+  // // show search based filter
+  // useEffect(() => {
+  //   axiosSecure.get(`/assets?filterOption=${filterOption}`).then((res) => {
+  //     const exactData = res.data.filter(
+  //       (data) => data?.email === currentUser?.email
+  //     );
+  //     setFilteredAsset(exactData);
+  //   });
+  // }, [filterOption, refetch, assets]);
 
-  useEffect(() => {
-    axiosSecure.get(`/assets?sortOption=${sortOption}`).then((res) => {
-      const exactData = res.data.filter(
-        (data) => data?.email === currentUser?.email
-      );
-      setFilteredAsset(exactData);
-    });
-  }, [sortOption, refetch, assets]);
+  // useEffect(() => {
+  //   axiosSecure.get(`/assets?sortOption=${sortOption}`).then((res) => {
+  //     const exactData = res.data.filter(
+  //       (data) => data?.email === currentUser?.email
+  //     );
+  //     setFilteredAsset(exactData);
+  //   });
+  // }, [sortOption, refetch, assets]);
 
   const handleDelete = (id) => {
     // console.log(id);
@@ -92,12 +99,15 @@ const AssetList = () => {
     });
   };
   // show loader while data is loadingg
-  if (isLoading) {
-    return <Loader />;
-  }
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   return (
     <div className="max-w-screen-xl mx-auto p-6">
+      <Helmet>
+        <title>Asset List</title>
+      </Helmet>
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">
           Asset Inventory
@@ -158,7 +168,7 @@ const AssetList = () => {
                 <th scope="col" className="px-6 py-3">
                   Sl No.{" "}
                   <span className="text-gray-600">
-                    ({filteredAsset.length})
+                    ({assets.length})
                   </span>
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -180,7 +190,7 @@ const AssetList = () => {
             </thead>
             <tbody>
               {user && currentUser?.role === "hr" ? (
-                filteredAsset.length === 0 ? (
+                assets.length === 0 ? (
                   <tr>
                     <td
                       colSpan="5"
@@ -190,7 +200,7 @@ const AssetList = () => {
                     </td>
                   </tr>
                 ) : (
-                  filteredAsset.map((filteredAsset, index) => (
+                  assets.map((filteredAsset, index) => (
                     <tr
                       key={index}
                       className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

@@ -79,7 +79,7 @@ const Navbar = () => {
   // Sign out user
   const handleSignOut = () => {
     logOut().then(() => {
-      console.log("sign out done");
+      // console.log("sign out done");
       toast.success("Logged Out!");
       navigate("/");
     });

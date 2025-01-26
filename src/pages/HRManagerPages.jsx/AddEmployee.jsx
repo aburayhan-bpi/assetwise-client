@@ -9,6 +9,7 @@ import Loader from "../../components/shared/Loader";
 
 import useTeam from "../../hooks/useTeam";
 import useHr from "../../hooks/useHr";
+import { Helmet } from "react-helmet";
 
 const AddEmployee = () => {
   const axiosSecure = useAxiosSecure();
@@ -78,7 +79,7 @@ const AddEmployee = () => {
         });
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       Swal.fire({
         title: "Server Error",
         text: "Something went wrong.",
@@ -114,7 +115,7 @@ const AddEmployee = () => {
         });
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       Swal.fire({
         title: "Server Error",
         text: "Something went wrong.",
@@ -126,6 +127,9 @@ const AddEmployee = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-8 space-y-12">
+      <Helmet>
+        <title>Add Employee</title>
+      </Helmet>
       {/* Header Section */}
       <div className="text-center">
         <h1 className="text-4xl font-extrabold text-gray-800">

@@ -23,7 +23,7 @@ const Pending = () => {
       return res.data;
     },
   });
-  console.log(pendingAssets);
+  // console.log(pendingAssets);
   return (
     <div className="bg-sky-200 pt-10 pb-4 px-3 rounded-md">
       <div className="flex flex-col justify-center items-center">

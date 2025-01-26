@@ -23,7 +23,7 @@ const MostRequested = () => {
       return res.data;
     },
   });
-  console.log(mostRequested);
+  // console.log(mostRequested);
   return (
     <div className="bg-sky-200 mt-10 pt-10 pb-4 px-3 rounded-md">
       <div className="flex flex-col justify-center items-center">

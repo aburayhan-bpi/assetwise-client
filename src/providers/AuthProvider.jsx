@@ -28,7 +28,7 @@ const AuthProvider = ({ children }) => {
   const axiosPublic = useAxiosPublic();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log(user);
+  // console.log(user);
 
   // create user
   const createUser = (email, password) => {
@@ -65,7 +65,7 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log(currentUser?.email);
+      // console.log(currentUser?.email);
       setLoading(false);
 
       if (currentUser) {
@@ -83,7 +83,7 @@ const AuthProvider = ({ children }) => {
         setLoading(false);
       }
 
-      console.log(currentUser?.email);
+      // console.log(currentUser?.email);
     });
 
     return () => unSubscribe();

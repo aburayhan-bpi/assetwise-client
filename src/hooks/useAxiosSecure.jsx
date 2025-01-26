@@ -37,10 +37,10 @@ const useAxiosSecure = () => {
           error.response &&
           (error.response.status === 401 || error.response.status === 403)
         ) {
-          console.log(
-            "Error caught from axios interceptor -->",
-            error.response
-          );
+          // console.log(
+          //   "Error caught from axios interceptor -->",
+          //   error.response
+          // );
           localStorage.removeItem("access-token"); // Clear token on unauthorized
           await logOut(); // Call logout function
           navigate("/login"); // Redirect to login page

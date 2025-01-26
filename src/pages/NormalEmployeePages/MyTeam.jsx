@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import useMyTeam from "../../hooks/useMyTeam";
 import { FaUsers } from "react-icons/fa";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { Helmet } from "react-helmet";
 
 const MyTeam = () => {
   const [myTeam, refetchTeam, isLoading] = useMyTeam();
@@ -12,6 +13,9 @@ const MyTeam = () => {
   // console.log("My team info", myTeam);
   return (
     <div className="bg-gray-100 min-h-screen">
+      <Helmet>
+        <title>My Team</title>
+      </Helmet>
       {/* Header */}
       <header className="text-center bg-gradient-to-r from-teal-700 to-cyan-500 text-white py-12">
         <h1 className="text-4xl font-bold">Meet Our Team</h1>

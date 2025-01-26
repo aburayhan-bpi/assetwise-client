@@ -6,6 +6,7 @@ import useCurrentUser from "../../hooks/useCurrentUser";
 import useAsset from "../../hooks/useAsset";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 const UpdateAsset = () => {
   const axiosSecure = useAxiosSecure();
   const currentUser = useCurrentUser();
@@ -62,7 +63,7 @@ const UpdateAsset = () => {
           }
         });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
 
     // console.log("Updated Asset Data:", newAssetData);
@@ -70,6 +71,9 @@ const UpdateAsset = () => {
   // console.log(currentAsset)
   return (
     <div className="max-w-screen-md mx-auto p-6">
+      <Helmet>
+        <title>Update Asset</title>
+      </Helmet>
       {/* Page Header */}
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">

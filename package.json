@@ -19,6 +19,7 @@
     "firebase": "^11.1.0",
     "flowbite-react": "^0.10.2",
     "localforage": "^1.10.0",
+    "lodash": "^4.17.21",
     "lottie-react": "^2.4.0",
     "match-sorter": "^8.0.0",
     "moment": "^2.30.1",

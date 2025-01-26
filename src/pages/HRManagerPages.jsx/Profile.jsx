@@ -1,8 +1,12 @@
+import { Helmet } from "react-helmet";
 
 
 const Profile = () => {
   return (
     <div className="max-w-2xl mx-auto mt-20 p-6 bg-white shadow-lg rounded-lg">
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
         Profile Page
       </h2>

@@ -6,6 +6,7 @@ import Loader from "../../components/shared/Loader";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const AllRequests = () => {
   const [allRequests, refetch, isLoading] = useAllRequests();
@@ -57,10 +58,13 @@ const AllRequests = () => {
         }
       });
   };
-  console.log(filteredAsset);
+  // console.log(filteredAsset);
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
+      <Helmet>
+        <title>All Requests</title>
+      </Helmet>
       {/* Title and Subtitle */}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-semibold text-blue-500">

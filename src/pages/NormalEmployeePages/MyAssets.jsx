@@ -10,6 +10,7 @@ import { ClipLoader, ScaleLoader } from "react-spinners";
 import { RxCross2 } from "react-icons/rx";
 import { IoMdReturnLeft } from "react-icons/io";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const MyAssets = () => {
   const [myReqAssets, refetch, isLoading] = useEmpReqAssets();
@@ -63,61 +64,65 @@ const MyAssets = () => {
   }, [currentUser, filteredAsset, refetch]);
 
   // cancel asset
-const handleCancel = (assetId, reqAssetId) => {
-  // Send the request to cancel the asset
-  axiosSecure
-    .patch(`/cancel-request/${assetId}?reqAssetId=${reqAssetId}`)
-    .then((res) => {
-      if (res.data.acknowledged) {
-        toast.success("Cancelled asset request!");
+  const handleCancel = (assetId, reqAssetId) => {
+    // Send the request to cancel the asset
+    axiosSecure
+      .patch(`/cancel-request/${assetId}?reqAssetId=${reqAssetId}`)
+      .then((res) => {
+        if (res.data.acknowledged) {
+          toast.success("Cancelled asset request!");
 
-        // Update filteredAsset state after cancellation
-        setFilteredAsset((prevAssets) =>
-          prevAssets.map((asset) =>
-            asset._id === reqAssetId
-              ? {
-                  ...asset,
-                  status: "cancelled",
-                  cancelledDate: new Date().toISOString(),
-                }
-              : asset
-          )
-        );
-      }
-    })
-    .catch((err) => {
-      toast.error("Error cancelling asset request!");
-      console.error(err);
-    });
-};
-
+          // Update filteredAsset state after cancellation
+          setFilteredAsset((prevAssets) =>
+            prevAssets.map((asset) =>
+              asset._id === reqAssetId
+                ? {
+                    ...asset,
+                    status: "cancelled",
+                    cancelledDate: new Date().toISOString(),
+                  }
+                : asset
+            )
+          );
+        }
+      })
+      .catch((err) => {
+        toast.error("Error cancelling asset request!");
+        // console.error(err);
+      });
+  };
 
   // return asset
-const handleReturn = (assetId, reqAssetId) => {
-  // Send the request to return the asset
-  axiosSecure
-    .patch(`/return-request/${assetId}?reqAssetId=${reqAssetId}`)
-    .then((res) => {
-      if (res.data.modifiedCount > 0) {
-        toast.success("Asset request returned!");
+  const handleReturn = (assetId, reqAssetId) => {
+    // Send the request to return the asset
+    axiosSecure
+      .patch(`/return-request/${assetId}?reqAssetId=${reqAssetId}`)
+      .then((res) => {
+        if (res.data.modifiedCount > 0) {
+          toast.success("Asset request returned!");
 
-        // Update filteredAsset state after return
-        setFilteredAsset((prevAssets) =>
-          prevAssets.map((asset) =>
-            asset._id === reqAssetId ? { ...asset, status: "returned" } : asset
-          )
-        );
-      }
-    })
-    .catch((err) => {
-      toast.error("Error returning asset request!");
-      console.error(err);
-    });
-};
+          // Update filteredAsset state after return
+          setFilteredAsset((prevAssets) =>
+            prevAssets.map((asset) =>
+              asset._id === reqAssetId
+                ? { ...asset, status: "returned" }
+                : asset
+            )
+          );
+        }
+      })
+      .catch((err) => {
+        toast.error("Error returning asset request!");
+        // console.error(err);
+      });
+  };
 
   // console.log(companyInfo)
   return (
     <div className="max-w-screen-xl mx-auto p-8 bg-gray-50 min-h-screen">
+      <Helmet>
+        <title>My Assets</title>
+      </Helmet>
       {/* Title and Subtitle */}
       <div className="mb-10 text-center">
         <h1 className="text-3xl font-bold text-blue-600">

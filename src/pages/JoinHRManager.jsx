@@ -8,6 +8,7 @@ import useAuth from "../hooks/useAuth";
 import imageUpload from "../hooks/imageUpload";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 
 const JoinHRManager = () => {
   const navigate = useNavigate();
@@ -55,15 +56,15 @@ const JoinHRManager = () => {
             });
           })
           .catch((err) => {
-            console.log("update failed", err.message);
+            // console.log("update failed", err.message);
           });
       })
       .catch((err) => {
-        console.log("user create failed", err.message);
+        // console.log("user create failed", err.message);
         if (err.code === "auth/email-already-in-use") {
           toast.error("User already exist!");
         } else {
-          console.log("something wrong:::", err.message);
+          // console.log("something wrong:::", err.message);
         }
       });
 
@@ -79,6 +80,9 @@ const JoinHRManager = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto lg:flex justify-center items-center my-10">
+      <Helmet>
+        <title>Join as HR Manager</title>
+      </Helmet>
       <section className="md:w-[70%] lg:w-[50%] mx-auto">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 xl:p-0 dark:bg-gray-800 dark:border-gray-700">

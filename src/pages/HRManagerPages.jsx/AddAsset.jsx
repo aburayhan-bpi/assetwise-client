@@ -4,6 +4,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import useAsset from "../../hooks/useAsset";
+import { Helmet } from "react-helmet";
 const AddAsset = () => {
   const axiosSecure = useAxiosSecure();
   const currentUser = useCurrentUser();
@@ -38,7 +39,7 @@ const AddAsset = () => {
         }
       });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
 
     // console.log("Asset Data:", assetData);
@@ -46,6 +47,9 @@ const AddAsset = () => {
 
   return (
     <div className="max-w-screen-md mx-auto p-6">
+      <Helmet>
+        <title>Add Asset</title>
+      </Helmet>
       {/* Page Header */}
       <div className="text-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800">Add an Asset</h1>

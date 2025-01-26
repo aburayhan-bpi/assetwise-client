@@ -31,7 +31,10 @@ const RejectedRequests = () => {
         </h2>
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:px-6">
           {rejectedRequests.map((singleData) => (
-            <div className="bg-white shadow-md rounded-xl p-6 w-full max-w-md hover:shadow-lg transition duration-300 ease-in-out">
+            <div
+              key={singleData?._id}
+              className="bg-white shadow-md rounded-xl p-6 w-full max-w-md hover:shadow-lg transition duration-300 ease-in-out"
+            >
               <div className="space-y-4">
                 {/* Product Name */}
                 <h3 className="text-xl font-semibold text-gray-800">

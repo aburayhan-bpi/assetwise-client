@@ -9,6 +9,7 @@ import useAuth from "../hooks/useAuth";
 import useAxiosPublic from "../hooks/useAxiosPublic";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet";
 const JoinEmployee = () => {
   const {
     register,
@@ -34,7 +35,7 @@ const JoinEmployee = () => {
     // create user
     createUser(data?.email, data?.password)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         updateUserProfile(employeeInfo?.name, employeeInfo?.photo)
           .then((result) => {
             // console.log(result);
@@ -44,20 +45,20 @@ const JoinEmployee = () => {
               if (result.data.insertedId) {
                 toast.success("Successfully created employee account!");
                 // reset();
-                navigate('/')
+                navigate("/");
               }
             });
           })
           .catch((err) => {
-            console.log("update failed", err.message);
+            // console.log("update failed", err.message);
           });
       })
       .catch((err) => {
-        console.log("user create failed", err.message);
+        // console.log("user create failed", err.message);
         if (err.code === "auth/email-already-in-use") {
           toast.error("User already exist!");
         } else {
-          console.log("something wrong:::", err.message);
+          // console.log("something wrong:::", err.message);
         }
       });
   };
@@ -86,7 +87,7 @@ const JoinEmployee = () => {
       if (error.response?.status === 403) {
         toast.error(error.response.data?.message || "Something went wrong");
       } else {
-        console.error("Error during employee creation:", error.message);
+        // console.error("Error during employee creation:", error.message);
         toast.error("An error occurred. Please try again.");
       }
     }
@@ -94,6 +95,9 @@ const JoinEmployee = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto lg:flex justify-center items-center my-10">
+      <Helmet>
+        <title>Join as Employee</title>
+      </Helmet>
       <section className="md:w-[70%] lg:w-[50%] mx-auto">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 xl:p-0 dark:bg-gray-800 dark:border-gray-700">

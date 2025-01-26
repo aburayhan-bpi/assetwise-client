@@ -7,6 +7,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const MyEmployeeList = () => {
   const axiosSecure = useAxiosSecure();
@@ -53,6 +54,9 @@ const MyEmployeeList = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-8 space-y-12">
+      <Helmet>
+        <title>My Employee List</title>
+      </Helmet>
       {/* Header Section */}
       <div className="text-center">
         <h1 className="text-4xl font-extrabold text-gray-800">Team Members</h1>

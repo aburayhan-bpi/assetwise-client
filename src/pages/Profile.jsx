@@ -4,6 +4,7 @@ import useCurrentUser from "../hooks/useCurrentUser";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Profile = () => {
   const axiosSecure = useAxiosSecure();
@@ -42,6 +43,9 @@ const Profile = () => {
 
   return (
     <div className="max-w-2xl mx-auto mt-20 p-6 bg-white shadow-lg rounded-lg">
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
         Update Profile
       </h2>

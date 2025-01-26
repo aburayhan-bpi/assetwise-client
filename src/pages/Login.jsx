@@ -8,6 +8,7 @@ import { useState } from "react";
 import Loader from "../components/shared/Loader";
 import { FcGoogle } from "react-icons/fc";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const {
@@ -40,7 +41,7 @@ const Login = () => {
           setError("Please provide valid credentails!");
           setLoading(false);
         } else {
-          console.log("something wrong:::", err.message);
+          // console.log("something wrong:::", err.message);
         }
       });
     // console.log(data);
@@ -67,13 +68,16 @@ const Login = () => {
         // }
       });
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       toast.error("Something went wrong!");
     }
   };
 
   return (
     <div className="max-w-screen-xl mx-auto lg:flex justify-center items-center">
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
       <section className="md:w-[60%] lg:w-[40%] mx-auto">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 xl:p-0 dark:bg-gray-800 dark:border-gray-700">

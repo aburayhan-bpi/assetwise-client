@@ -22,7 +22,7 @@ const TopQuantityAssets = () => {
       return res.data;
     },
   });
-  console.log(topQuantAssets);
+  // console.log(topQuantAssets);
   return (
     <div className="bg-sky-200 mt-10 pt-10 pb-4 px-3 rounded-md">
       <div className="flex flex-col justify-center items-center">

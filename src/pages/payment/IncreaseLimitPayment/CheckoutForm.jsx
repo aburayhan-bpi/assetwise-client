@@ -90,7 +90,7 @@ const CheckoutForm = ({ newPackage }) => {
     if (confirmError) {
       // console.log("confirm error");
     } else {
-      console.log("payment intent", paymentIntent);
+      // console.log("payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
         card.clear();
         toast.success(

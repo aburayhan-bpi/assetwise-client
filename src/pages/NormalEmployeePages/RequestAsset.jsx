@@ -7,6 +7,7 @@ import moment from "moment";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import Loader from "../../components/shared/Loader";
+import { Helmet } from "react-helmet";
 
 const RequestAsset = () => {
   const { user } = useAuth();
@@ -100,6 +101,9 @@ const RequestAsset = () => {
   // console.log(currentUser);
   return (
     <div>
+      <Helmet>
+        <title>Request Asset</title>
+      </Helmet>
       <div className="p-8 bg-gray-100 min-h-screen">
         {/* Title and Subtitle Section */}
         <div className="mb-10 text-center">

@@ -21,7 +21,7 @@ import TopQuantityAssets from "./HRHome/TopQuantityAssets";
 const Home = () => {
   const { user } = useAuth();
   const currentUser = useCurrentUser();
-  console.log(currentUser);
+  // console.log(currentUser);
 
   useEffect(() => {}, [user, currentUser]);
 
