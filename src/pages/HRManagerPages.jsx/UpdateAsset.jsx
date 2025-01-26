@@ -55,7 +55,7 @@ const UpdateAsset = () => {
         .patch(`/assets/${currentAsset?._id}`, newAssetData)
         .then((res) => {
           if (res.data.acknowledged) {
-            console.log(res.data);
+            // console.log(res.data);
             toast.success("Asset Updated successfull!");
             // reset(); // Reset the form after submission
             navigate("/asset-list");
@@ -65,7 +65,7 @@ const UpdateAsset = () => {
       console.log(err);
     }
 
-    console.log("Updated Asset Data:", newAssetData);
+    // console.log("Updated Asset Data:", newAssetData);
   };
   // console.log(currentAsset)
   return (

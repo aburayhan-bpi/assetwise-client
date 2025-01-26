@@ -8,7 +8,7 @@ const AddAsset = () => {
   const axiosSecure = useAxiosSecure();
   const currentUser = useCurrentUser();
   // const [assets] = useAsset();
-  console.log(currentUser);
+  // console.log(currentUser);
   const {
     register,
     handleSubmit,
@@ -32,7 +32,7 @@ const AddAsset = () => {
     try {
       axiosSecure.post("/assets", assetData).then((res) => {
         if (res.data.insertedId) {
-          console.log(res.data);
+          // console.log(res.data);
           toast.success("Asset added successfull!");
           reset(); // Reset the form after submission
         }
@@ -41,7 +41,7 @@ const AddAsset = () => {
       console.log(err);
     }
 
-    console.log("Asset Data:", assetData);
+    // console.log("Asset Data:", assetData);
   };
 
   return (

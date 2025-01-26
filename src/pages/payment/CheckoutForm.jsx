@@ -19,7 +19,7 @@ const CheckoutForm = () => {
   const axiosPublic = useAxiosPublic();
   const currentUser = useCurrentUser();
   const packagePrice = currentUser?.package;
-  console.log(currentUser);
+  // console.log(currentUser);
   // members count according to package price
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const CheckoutForm = () => {
       axiosSecure
         .post("/create-payment-intent", { price: packagePrice })
         .then((res) => {
-          console.log(res.data.clientSecret);
+          // console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         });
     }
@@ -61,11 +61,11 @@ const CheckoutForm = () => {
     });
 
     if (error) {
-      console.log("payment error", error);
+      // console.log("payment error", error);
 
       setError(error.message);
     } else {
-      console.log("payment method", paymentMethod);
+      // console.log("payment method", paymentMethod);
       setError("");
     }
 
@@ -82,7 +82,7 @@ const CheckoutForm = () => {
       });
 
     if (confirmError) {
-      console.log("confirm error");
+      // console.log("confirm error");
     } else {
       console.log("payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
@@ -112,10 +112,10 @@ const CheckoutForm = () => {
         axiosSecure
           .post("/payment", paymentData)
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
             if (err.response.data.message) {
               toast.error("Already paid for this package!");
             }
@@ -129,7 +129,7 @@ const CheckoutForm = () => {
             package: packagePrice,
           })
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
           });
       }
       navigate("/");

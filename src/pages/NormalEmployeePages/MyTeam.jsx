@@ -9,7 +9,7 @@ import { MdOutlineAdminPanelSettings } from "react-icons/md";
 const MyTeam = () => {
   const [myTeam, refetchTeam, isLoading] = useMyTeam();
 
-  console.log("My team info", myTeam);
+  // console.log("My team info", myTeam);
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Header */}

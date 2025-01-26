@@ -29,7 +29,7 @@ const JoinEmployee = () => {
       photo,
       role: "employee",
     };
-    console.log(employeeInfo);
+    // console.log(employeeInfo);
 
     // create user
     createUser(data?.email, data?.password)
@@ -37,10 +37,10 @@ const JoinEmployee = () => {
         console.log(result);
         updateUserProfile(employeeInfo?.name, employeeInfo?.photo)
           .then((result) => {
-            console.log(result);
+            // console.log(result);
             // save user to db
             axiosPublic.post("/employee", employeeInfo).then((result) => {
-              console.log(result);
+              // console.log(result);
               if (result.data.insertedId) {
                 toast.success("Successfully created employee account!");
                 // reset();
@@ -65,7 +65,7 @@ const JoinEmployee = () => {
   const googleSignIn = async () => {
     try {
       const result = await googleRegister();
-      console.log(result);
+      // console.log(result);
 
       const employeeInfo = {
         name: result.user?.displayName,

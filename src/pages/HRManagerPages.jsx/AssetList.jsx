@@ -13,7 +13,7 @@ const AssetList = () => {
   const currentUser = useCurrentUser();
   const [assets, refetch, isLoading] = useAsset();
 
-  console.log(assets);
+  // console.log(assets);
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
   // search state
@@ -21,7 +21,7 @@ const AssetList = () => {
   const [filterOption, setFilterOption] = useState("");
   const [sortOption, setSortOption] = useState("");
 
-  console.log(sortOption);
+  // console.log(sortOption);
   const [filteredAsset, setFilteredAsset] = useState(assets);
   // console.log(searchText);
 

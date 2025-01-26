@@ -3,13 +3,17 @@ import useAuth from "../hooks/useAuth";
 import useCurrentUser from "../hooks/useCurrentUser";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const axiosSecure = useAxiosSecure();
   const { user, updateUserProfile } = useAuth();
   const currentUser = useCurrentUser();
-  console.log(currentUser);
+  // console.log(currentUser);
   const [name, setName] = useState("");
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (currentUser?.name) {
       setName(currentUser.name);
@@ -21,24 +25,25 @@ const Profile = () => {
     const currentPhotoURL = user?.photoURL;
     // console.log(name, currentPhotoURL);
     await updateUserProfile(name, currentPhotoURL).then((result) => {
-      console.log(result);
+      // console.log(result);
     });
 
     // update name to database also
     axiosSecure.patch(`/update-name/${empId}?newName=${name}`).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.modifiedCount > 0) {
         toast.success("Name updated!");
+        navigate("/");
       }
     });
 
-    console.log(empId);
+    // console.log(empId);
   };
 
   return (
     <div className="max-w-2xl mx-auto mt-20 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-        Profile Page
+        Update Profile
       </h2>
 
       {/* Full Name */}

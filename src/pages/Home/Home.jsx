@@ -1,16 +1,33 @@
+import { Link } from "react-router-dom";
 import AboutUs from "../../components/AboutUs/AboutUs";
 import Banner from "../../components/Banner/Banner";
 import Packages from "../../components/Packages/Packages";
 import useAuth from "../../hooks/useAuth";
 import useCurrentUser from "../../hooks/useCurrentUser";
-import Card from "./Card";
+import Accordion from "./Accordion";
+import Pending from "./HRHome/Pending";
+
+import MonthlyRequests from "./MonthlyRequests";
+import PendingRequests from "./PendingRequests";
+import MostRequested from "./HRHome/MostRequested";
+import { Helmet } from "react-helmet";
+import { useEffect } from "react";
+import LimitedStock from "./HRHome/LimitedStock";
+import PieChart from "./HRHome/PieChart";
 
 const Home = () => {
   const { user } = useAuth();
   const currentUser = useCurrentUser();
   console.log(currentUser);
+
+  useEffect(() => {}, [user, currentUser]);
+
   return (
     <div className="max-w-screen-xl mx-auto mt-6">
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
+
       {!user && (
         <div>
           {/* Banner / Carousel */}
@@ -34,39 +51,34 @@ const Home = () => {
       )}
       {currentUser?.role === "employee" && currentUser?.affiliatedWith && (
         <>
-          <div className="flex flex-col justify-center items-center mt-10 bg-sky-200 p-2 rounded-md">
-            <h2 className="mb-8 text-center text-3xl font-bold">
-              My Pending Requst
-            </h2>
-            <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </div>
-          </div>
-          {/*  */}
-          <div className="flex flex-col justify-center items-center mt-10 bg-blue-200 p-2 rounded-md">
-            <h2 className="mb-8 text-center text-3xl font-bold">
-              My Monthly Requst
-            </h2>
-            <div className="grid gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-              <Card></Card>
-            </div>
-          </div>
+          {/* My Pending Requests */}
+          <PendingRequests />
+          {/* My Monthly Requests */}
+          <MonthlyRequests />
+
+          {/* Accordion section */}
+          <Accordion />
+        </>
+      )}
+      {/* For HR Manager */}
+      {currentUser?.role === "hr" && currentUser?.limit <= 0 && (
+        <>
+          <h2 class="text-xl font-semibold text-center mb-4">
+            Please make payment for access service
+          </h2>
+          <Link to="/payment">
+            <button class="mx-auto block px-6 py-3 bg-blue-600 text-white font-medium text-lg rounded-lg shadow-md hover:bg-blue-700 transition duration-300 focus:outline-none">
+              Make Payment
+            </button>
+          </Link>
+        </>
+      )}
+      {currentUser?.role === "hr" && currentUser?.limit > 0 && (
+        <>
+          <PieChart />
+          <Pending />
+          <MostRequested />
+          <LimitedStock />
         </>
       )}
     </div>

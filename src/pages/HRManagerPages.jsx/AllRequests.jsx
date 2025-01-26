@@ -201,11 +201,15 @@ const AllRequests = () => {
                     onClick={() => handleReject(request?._id)}
                     disabled={
                       request?.status === "rejected" ||
-                      request?.status === "approved"
+                      request?.status === "approved" ||
+                      request?.status === "cancelled" ||
+                      request?.status === "returned"
                     }
                     className={`${
                       request?.status === "rejected" ||
-                      request?.status === "approved"
+                      request?.status === "approved" ||
+                      request?.status === "cancelled" ||
+                      request?.status === "returned"
                         ? "cursor-not-allowed opacity-50"
                         : "hover:bg-red-300"
                     } bg-red-200 px-3 py-2 rounded-md text-red-500 hover:text-red-600 text-xl w-fit`}

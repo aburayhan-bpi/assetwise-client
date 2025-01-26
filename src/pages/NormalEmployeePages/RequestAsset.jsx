@@ -79,7 +79,7 @@ const RequestAsset = () => {
         axiosSecure
           .post(`/request-asset/${currentUser?.email}`, requestedAssetData)
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.insertedId) {
               Swal.fire({
                 title: "Requested!",

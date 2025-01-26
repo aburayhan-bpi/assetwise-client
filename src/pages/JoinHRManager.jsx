@@ -42,7 +42,7 @@ const JoinHRManager = () => {
       .then((result) => {
         updateUserProfile(hrInfo?.name, hrInfo?.companyPhoto)
           .then((result) => {
-            console.log(result);
+            // console.log(result);
 
             // save hr users to db
             axiosPublic.post("/hr", hrInfo).then((res) => {
@@ -67,7 +67,7 @@ const JoinHRManager = () => {
         }
       });
 
-    console.log(hrInfo);
+    // console.log(hrInfo);
 
     // Redirect to payment page or handle payment here
     // navigate("/payment");

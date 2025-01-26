@@ -17,11 +17,11 @@ const MyEmployeeList = () => {
   const hrEmail =
     currentUser?.role === "hr" && currentUser?.email === user?.email;
 
-  console.log(hrEmail);
+  // console.log(hrEmail);
 
   const handleRemoveMember = (id) => {
     // Add your remove logic here
-    console.log("Remove member with ID:", id);
+    // console.log("Remove member with ID:", id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -37,7 +37,7 @@ const MyEmployeeList = () => {
             `/delete-team-member/${id}?email=${hrEmail && currentUser?.email}`
           )
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.message === "Team member deleted successfully") {
               refetchTeam();
               Swal.fire({

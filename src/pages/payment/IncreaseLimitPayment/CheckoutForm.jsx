@@ -28,8 +28,8 @@ const CheckoutForm = ({ newPackage }) => {
   const packagePrice = currentUser?.package;
   const newPackagePrice = newPackage?.package;
   const newPackageLimit = newPackage?.limit;
-  console.log("Payment info", paymentInfo);
-  console.log("Current user", currentUser);
+  // console.log("Payment info", paymentInfo);
+  // console.log("Current user", currentUser);
   useEffect(() => {
     axiosSecure.get(`/payment/${currentUser?.email}`).then((res) => {
       setPaymentInfo(res.data);
@@ -43,7 +43,7 @@ const CheckoutForm = ({ newPackage }) => {
       axiosSecure
         .post("/create-payment-intent", { price: newPackagePrice })
         .then((res) => {
-          console.log(res.data.clientSecret);
+          // console.log(res.data.clientSecret);
           setClientSecret(res.data.clientSecret);
         });
     }
@@ -67,11 +67,11 @@ const CheckoutForm = ({ newPackage }) => {
     });
 
     if (error) {
-      console.log("payment error", error);
+      // console.log("payment error", error);
 
       setError(error.message);
     } else {
-      console.log("payment method", paymentMethod);
+      // console.log("payment method", paymentMethod);
       setError("");
     }
 
@@ -88,7 +88,7 @@ const CheckoutForm = ({ newPackage }) => {
       });
 
     if (confirmError) {
-      console.log("confirm error");
+      // console.log("confirm error");
     } else {
       console.log("payment intent", paymentIntent);
       if (paymentIntent.status === "succeeded") {
@@ -118,10 +118,10 @@ const CheckoutForm = ({ newPackage }) => {
         axiosSecure
           .patch(`/update-payment/${paymentInfo?._id}`, newPaymentData)
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
             // if (err.response.data.message) {
             //   toast.error("Already paid for this package!");
             // }
@@ -135,7 +135,7 @@ const CheckoutForm = ({ newPackage }) => {
             package: parseInt(newPackagePrice),
           })
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
           });
 
         navigate("/add-employee");

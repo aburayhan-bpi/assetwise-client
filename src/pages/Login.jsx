@@ -30,7 +30,7 @@ const Login = () => {
 
     loginUser(data?.email, data?.password)
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         toast.success("Login successfull!");
         navigate(from, { replace: true });
         navigate("/");
@@ -43,12 +43,12 @@ const Login = () => {
           console.log("something wrong:::", err.message);
         }
       });
-    console.log(data);
+    // console.log(data);
   };
   const googleSignIn = async () => {
     try {
       googleRegister().then(async (result) => {
-        console.log(result);
+        // console.log(result);
         toast.success("Login Successfull!");
         navigate("/");
 

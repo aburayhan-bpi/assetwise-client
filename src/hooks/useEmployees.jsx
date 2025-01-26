@@ -4,7 +4,7 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useEmployees = () => {
   const { user } = useAuth();
-  console.log(user?.email);
+  // console.log(user?.email);
   const axiosSecure = useAxiosSecure();
 
   const { data: employees = [], isLoading: employeesLoading, refetch } = useQuery({
@@ -14,7 +14,7 @@ const useEmployees = () => {
       const employees = res.data.filter(
         (emp) => emp?.role === "employee" && !emp?.affiliatedWith
       );
-      console.log(employees);
+      // console.log(employees);
       return employees;
     },
   });

@@ -1,10 +1,13 @@
 const Footer = () => {
   return (
-    <div className="bg-yellow-200 mt-20">
-      <div className="max-w-screen-xl mx-auto">
-        <h2>footer</h2>
-      </div>
-    </div>
+    <footer className="footer footer-center bg-sky-50 text-base-content p-4 mt-40">
+      <aside>
+        <p>
+          Copyright © {new Date().getFullYear()} - All right reserved by
+          AssetWise
+        </p>
+      </aside>
+    </footer>
   );
 };
 

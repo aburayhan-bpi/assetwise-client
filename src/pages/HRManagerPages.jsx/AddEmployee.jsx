@@ -18,8 +18,8 @@ const AddEmployee = () => {
   const currentUser = useCurrentUser();
   const hr = useHr();
   const [team, refetchTeam] = useTeam();
-  console.log(team);
-  console.log(selectedEmployees);
+  // console.log(team);
+  // console.log(selectedEmployees);
   // Fetch non-affiliated employees
   // useEffect(() => {
   //   axiosSecure.get("/users").then((res) => {
@@ -30,7 +30,7 @@ const AddEmployee = () => {
   //   });
   // }, []);
 
-  console.log("Employees", employees);
+  // console.log("Employees", employees);
   // Handle employee selection
   const handleSelectEmployee = (empId) => {
     setSelectedEmployees((prevSelected) => {
