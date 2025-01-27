@@ -114,7 +114,7 @@ const Navbar = () => {
   // Links to be rendered based on user and currentUser role
   const links = (
     <>
-      {!user && !localStorage.getItem("access-token") && (
+      {!user && (
         <>
           <li>
             <NavLink
@@ -146,8 +146,7 @@ const Navbar = () => {
         </>
       )}
       {user &&
-        currentUser?.role === "employee" &&
-        localStorage.getItem("access-token") && (
+        currentUser?.role === "employee" && (
           <>
             <li>
               <NavLink
@@ -197,8 +196,7 @@ const Navbar = () => {
           </>
         )}
       {user &&
-        currentUser?.role === "hr" &&
-        localStorage.getItem("access-token") && (
+        currentUser?.role === "hr" && (
           <>
             <li>
               <NavLink

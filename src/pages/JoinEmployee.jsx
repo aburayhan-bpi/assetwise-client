@@ -67,6 +67,7 @@ const JoinEmployee = () => {
     try {
       const result = await googleRegister();
       // console.log(result);
+      navigate("/");
 
       const employeeInfo = {
         name: result.user?.displayName,
