@@ -7,14 +7,24 @@ import useAsset from "../../hooks/useAsset";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import { useQuery } from "@tanstack/react-query";
 const UpdateAsset = () => {
   const axiosSecure = useAxiosSecure();
   const currentUser = useCurrentUser();
-  const [currentAsset, setCurrentAsset] = useState([]);
+  // const [currentAsset, setCurrentAsset] = useState([]);
   const { id } = useParams();
   const assetId = id;
   //   console.log(assetId);
   const navigate = useNavigate();
+
+  //   load asset according to id
+  const { data: currentAsset } = useQuery({
+    queryKey: ["currentAsset"],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/assets/${assetId}`);
+      return res.data;
+    },
+  });
 
   const {
     register,
@@ -32,11 +42,11 @@ const UpdateAsset = () => {
   }, [currentAsset]);
 
   //   load asset according to id
-  useEffect(() => {
-    axiosSecure.get(`/assets/${assetId}`).then((res) => {
-      setCurrentAsset(res.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axiosSecure.get(`/assets/${assetId}`).then((res) => {
+  //     setCurrentAsset(res.data);
+  //   });
+  // }, []);
 
   const onSubmit = (data) => {
     const newAssetData = {

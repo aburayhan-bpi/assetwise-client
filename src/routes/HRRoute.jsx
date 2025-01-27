@@ -8,7 +8,7 @@ const HRRoute = ({ children }) => {
   const location = useLocation();
   const { user, loading } = useAuth();
   const currentUser = useCurrentUser();
-  console.log(currentUser);
+  // console.log(currentUser);
   if (loading || !currentUser) {
     return <Loader></Loader>;
   }

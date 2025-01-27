@@ -6,6 +6,7 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useCurrentUser from "../../../hooks/useCurrentUser";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 // import React, { useEffect, useState } from "react";
 // import useCurrentUser from "../../hooks/useCurrentUser";
 // import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -18,7 +19,7 @@ const CheckoutForm = ({ newPackage }) => {
   const { user } = useAuth();
   const [error, setError] = useState("");
   const [clientSecret, setClientSecret] = useState("");
-  const [paymentInfo, setPaymentInfo] = useState(null);
+  // const [paymentInfo, setPaymentInfo] = useState(null);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -30,13 +31,21 @@ const CheckoutForm = ({ newPackage }) => {
   const newPackageLimit = newPackage?.limit;
   // console.log("Payment info", paymentInfo);
   // console.log("Current user", currentUser);
-  useEffect(() => {
-    axiosSecure.get(`/payment/${currentUser?.email}`).then((res) => {
-      setPaymentInfo(res.data);
-    });
-  }, [currentUser, user, newPackage]);
+  // useEffect(() => {
+  //   axiosSecure.get(`/payment/${currentUser?.email}`).then((res) => {
+  //     setPaymentInfo(res.data);
+  //   });
+  // }, [currentUser, user, newPackage]);
 
-  //   console.log(newPackageLimit);
+  const { data: paymentInfo = {} } = useQuery({
+    queryKey: ["paymentInfo", currentUser, user, newPackage],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/payment/${currentUser?.email}`);
+      return res.data;
+    },
+  });
+
+  // console.log(paymentInfo);
 
   useEffect(() => {
     if (newPackage?.package > 0) {

@@ -11,6 +11,7 @@ import { RxCross2 } from "react-icons/rx";
 import { IoMdReturnLeft } from "react-icons/io";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
+import { useQuery } from "@tanstack/react-query";
 
 const MyAssets = () => {
   // const [filteredAsset, setFilteredAsset] = useState(myReqAssets);
@@ -23,7 +24,8 @@ const MyAssets = () => {
     searchText,
     filterOption
   );
-  const [companyInfo, setCompanyInfo] = useState(null);
+  // const [companyInfo, setCompanyInfo] = useState(null);
+
   // console.log(filteredAsset);
 
   // useEffect(() => {
@@ -57,14 +59,25 @@ const MyAssets = () => {
   // }, [filterOption, refetch, myReqAssets]);
 
   // get company info
-  useEffect(() => {
-    axiosSecure
-      .get(`company-details?email=${currentUser?.affiliatedWith}`)
-      .then((res) => {
-        // console.log(res.data);
-        setCompanyInfo(res.data);
-      });
-  }, [currentUser, myReqAssets, refetch]);
+  // useEffect(() => {
+  //   axiosSecure
+  //     .get(`company-details?email=${currentUser?.affiliatedWith}`)
+  //     .then((res) => {
+  //       // console.log(res.data);
+  //       setCompanyInfo(res.data);
+  //     });
+  // }, [currentUser, myReqAssets, refetch]);
+
+  // get company info
+  const { data: companyInfo = [] } = useQuery({
+    queryKey: ["companyInfo", currentUser, myReqAssets, refetch],
+    queryFn: async () => {
+      const res = await axiosSecure.get(
+        `company-details?email=${currentUser?.affiliatedWith}`
+      );
+      return res.data;
+    },
+  });
 
   // cancel asset
   const handleCancel = (assetId, reqAssetId) => {

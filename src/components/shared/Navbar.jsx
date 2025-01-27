@@ -6,19 +6,20 @@ import toast from "react-hot-toast";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
+  // const [currentUser, setCurrentUser] = useState({});
   // const currentUser = useCurrentUser();
   const dropdownRef = useRef(null);
   const [users] = useUser();
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
-  const [companyPhoto, setCompanyPhoto] = useState("");
+  // const [companyPhoto, setCompanyPhoto] = useState("");
 
   // Update current user whenever user or users change
   // useEffect(() => {
@@ -28,24 +29,49 @@ const Navbar = () => {
   //   }
   // }, [user, users]);
 
-  useEffect(() => {
-    axiosPublic.get(`/current-user?email=${user?.email}`).then((res) => {
-      setCurrentUser(res.data);
-    });
-  }, [user?.email]);
+  // useEffect(() => {
+  //   axiosPublic.get(`/current-user?email=${user?.email}`).then((res) => {
+  //     setCurrentUser(res.data);
+  //   });
+  // }, [user?.email]);
+
+  const { data: currentUser = {} } = useQuery({
+    queryKey: ["currentUser", user?.email],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/current-user?email=${user?.email}`);
+      return res.data;
+    },
+  });
 
   // company info or logo for affiliatedWith employee company
-  useEffect(() => {
-    if (user?.email && currentUser?.affiliatedWith) {
-      axiosSecure
-        .get(`/company-info?email=${currentUser?.affiliatedWith}`)
-        .then((res) => {
-          setCompanyPhoto(res.data);
-        });
-    }
-  }, [user, currentUser, localStorage.getItem("access-token")]);
+  // useEffect(() => {
+  //   if (user?.email && currentUser?.affiliatedWith) {
+  //     axiosSecure
+  //       .get(`/company-info?email=${currentUser?.affiliatedWith}`)
+  //       .then((res) => {
+  //         setCompanyPhoto(res.data);
+  //       });
+  //   }
+  // }, [user, currentUser, localStorage.getItem("access-token")]);
 
-  // console.log(currentUser);
+  const { data: companyPhoto = "" } = useQuery({
+    queryKey: [
+      "companyPhoto",
+      user,
+      currentUser,
+      localStorage.getItem("access-token"),
+    ],
+    enabled: !!user?.email,
+    queryFn: async () => {
+      const res = await axiosPublic.get(
+        `/company-info?email=${currentUser?.affiliatedWith}`
+      );
+      return res.data;
+    },
+  });
+
+  // console.log(companyPhoto);
 
   // Toggle Menu for mobile view
   const toggleMenu = () => {
