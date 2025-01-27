@@ -119,6 +119,9 @@ const MyAssets = () => {
         // console.error(err);
       });
   };
+  // if(isLoading){
+  //   return <Loader/>
+  // }
 
   // console.log(companyInfo)
   return (
@@ -180,7 +183,7 @@ const MyAssets = () => {
           {/* Table Body */}
 
           <tbody>
-            {myReqAssets.length === 0 && !isLoading && (
+            {myReqAssets.length === 0 && (
               <p>No assets found for the selected criteria.</p>
             )}
 

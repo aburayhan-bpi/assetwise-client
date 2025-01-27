@@ -9,12 +9,14 @@ const useMyHRAssets = (searchText, filterOption) => {
   const { user } = useAuth();
   const currentUser = useCurrentUser();
 
+
   const {
     data: hrAssets = [],
     refetch,
     isLoading,
   } = useQuery({
     queryKey: ["hrAssets", user?.email, currentUser, searchText, filterOption],
+    enabled: !!currentUser?.affiliatedWith,
     queryFn: async () => {
       // const res = await axiosSecure.get(
       //   `/my-hr-assets?email=${currentUser?.affiliatedWith}`

@@ -11,10 +11,10 @@ import { Helmet } from "react-helmet";
 const AllRequests = () => {
   // const [filteredAsset, setFilteredAsset] = useState(allRequests);
   const [searchText, setSearchText] = useState("");
-  
+
   const axiosSecure = useAxiosSecure();
   const currentUser = useCurrentUser();
-  
+
   const [allRequests, refetch, isLoading] = useAllRequests(searchText);
   // show data by default
   // useEffect(() => {

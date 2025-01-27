@@ -16,6 +16,9 @@ import AddEmployee from "../pages/HRManagerPages.jsx/AddEmployee";
 import Payment from "../pages/Payment/Payment";
 import UpdateAsset from "../pages/HRManagerPages.jsx/UpdateAsset";
 import IncreaseLimit from "../pages/payment/IncreaseLimitPayment/IncreaseLimit";
+import EmployeeRoute from "./EmployeeRoute";
+import ProfileRoute from "./ProfileRoute";
+import HRRoute from "./HRRoute";
 
 export const router = createBrowserRouter([
   {
@@ -41,44 +44,84 @@ export const router = createBrowserRouter([
       // for normal employee routes
       {
         path: "my-assets",
-        element: <MyAssets />,
+        element: (
+          <EmployeeRoute>
+            <MyAssets />
+          </EmployeeRoute>
+        ),
       },
       {
         path: "my-team",
-        element: <MyTeam />,
+        element: (
+          <EmployeeRoute>
+            <MyTeam />
+          </EmployeeRoute>
+        ),
       },
       {
         path: "request-asset",
-        element: <RequestAsset />,
+        element: (
+          <EmployeeRoute>
+            <RequestAsset />
+          </EmployeeRoute>
+        ),
       },
       {
         path: "profile",
-        element: <Profile />,
+        element: (
+          <ProfileRoute>
+            <Profile />
+          </ProfileRoute>
+        ),
       },
       // for HR Manager routes
       {
         path: "asset-list",
-        element: <AssetList />,
+        element: (
+          <HRRoute>
+            <AssetList />
+          </HRRoute>
+        ),
       },
       {
         path: "add-asset",
-        element: <AddAsset />,
+        element: (
+          <HRRoute>
+            <AddAsset />
+          </HRRoute>
+        ),
       },
       {
         path: "all-requests",
-        element: <AllRequests />,
+        element: (
+          <HRRoute>
+            <AllRequests />
+          </HRRoute>
+        ),
       },
       {
         path: "my-employee-list",
-        element: <MyEmployeeList />,
+        element: (
+          <HRRoute>
+            <MyEmployeeList />
+          </HRRoute>
+        ),
       },
       {
         path: "add-employee",
-        element: <AddEmployee />,
+        element: (
+          <HRRoute>
+            <AddEmployee />
+          </HRRoute>
+        ),
       },
       {
         path: "update/:id",
-        element: <UpdateAsset />,
+        element: (
+          <HRRoute>
+            <UpdateAsset />
+          </HRRoute>
+        ),
       },
       {
         path: "payment",

@@ -8,7 +8,7 @@ const useMyHRAssets = (searchText, filterOption) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const currentUser = useCurrentUser();
-console.log(currentUser)
+  // console.log(currentUser);
   const {
     data: myReqAssets = [],
     refetch,
@@ -17,10 +17,11 @@ console.log(currentUser)
     queryKey: [
       "myReqAssets",
       user?.email,
-      currentUser,
+      currentUser?.email,
       searchText,
       filterOption,
     ],
+    enabled: !!currentUser?.affiliatedWith,
     queryFn: async () => {
       // const res = await axiosSecure.get(
       //   `/my-req-assets?email=${currentUser?.email}`
@@ -32,7 +33,7 @@ console.log(currentUser)
           filterOption: filterOption,
         },
       });
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     },
     // initialData: [],
