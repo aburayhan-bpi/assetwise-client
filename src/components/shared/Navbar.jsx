@@ -19,6 +19,7 @@ const Navbar = () => {
   const [users] = useUser();
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
+  const currentUser = useCurrentUser();
   // const [companyPhoto, setCompanyPhoto] = useState("");
 
   // Update current user whenever user or users change
@@ -35,15 +36,17 @@ const Navbar = () => {
   //   });
   // }, [user?.email]);
 
-  const { data: currentUser = {} } = useQuery({
-    queryKey: ["currentUser", user?.email],
-    enabled: !!user?.email,
-    queryFn: async () => {
-      const res = await axiosPublic.get(`/current-user?email=${user?.email}`);
-      return res.data;
-    },
-  });
-
+  // const { data: currentUser } = useQuery({
+  //   queryKey: ["currentUser", user?.email],
+  //   enabled: !!user?.email,
+  //   queryFn: async () => {
+  //     const res = await axiosPublic.get(`/current-user?email=${user?.email}`);
+  //     console.log(res.data);
+  //     return res.data;
+  //   },
+  // });
+  console.log(user);
+  console.log(currentUser);
   // company info or logo for affiliatedWith employee company
   // useEffect(() => {
   //   if (user?.email && currentUser?.affiliatedWith) {
@@ -146,7 +149,8 @@ const Navbar = () => {
         </>
       )}
       {user &&
-        currentUser?.role === "employee" && (
+        currentUser?.role === "employee" &&
+        localStorage.getItem("access-token") && (
           <>
             <li>
               <NavLink
@@ -196,7 +200,8 @@ const Navbar = () => {
           </>
         )}
       {user &&
-        currentUser?.role === "hr" && (
+        currentUser?.role === "hr" &&
+        localStorage.getItem("access-token") && (
           <>
             <li>
               <NavLink

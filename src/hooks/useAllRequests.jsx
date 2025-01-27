@@ -26,6 +26,8 @@ const useAllRequests = (searchText) => {
       });
       return res.data;
     },
+    // refetchOnWindowFocus: true,
+    // staleTime: 1000,
   });
 
   return [allRequests, refetch, isLoading];

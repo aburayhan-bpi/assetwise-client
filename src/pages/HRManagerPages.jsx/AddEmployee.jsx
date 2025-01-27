@@ -197,6 +197,9 @@ const AddEmployee = () => {
                   disabled={
                     emp?.affiliatedWith === currentUser?.email ||
                     (selectedEmployees.length >= currentUser?.limit &&
+                      !selectedEmployees.includes(emp?._id)) ||
+                    (selectedEmployees.length + team?.length >=
+                      currentUser?.limit &&
                       !selectedEmployees.includes(emp?._id))
                   }
                   type="checkbox"
@@ -234,7 +237,8 @@ const AddEmployee = () => {
             onClick={handleAddSelectedEmployees}
             disabled={
               team.length >= currentUser?.limit ||
-              selectedEmployees.length + team?.length > currentUser?.limit
+              selectedEmployees.length + team?.length > currentUser?.limit ||
+              selectedEmployees.length === 0
             }
             className="bg-blue-600 text-white font-semibold w-full py-3 rounded-lg hover:bg-blue-700 transition"
           >
