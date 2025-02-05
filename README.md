@@ -119,7 +119,7 @@ The project requires the following dependencies:
 
 ## 📥 Installation
 
-To set up the project locally, follow these steps:
+To set up the project locally, follow these steps: But make sure you have setup environment keys. (.env)
 
 ```bash
 # Clone the repository
