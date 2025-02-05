@@ -77,24 +77,7 @@
 | **Moment.js**       | Date and time manipulation |
 
 ---
-## 📥 Installation
 
-To set up the project locally, follow these steps:
-
-```bash
-# Clone the repository
-git clone https://github.com/aburayhan-bpi/assetwise-client.git
-
-# Navigate to the project directory
-cd assetwise
-
-# Install dependencies
-npm install
-
-# Start the development server
-npm start dev
-
----
 ## 📦 Dependencies  
 
 The project requires the following dependencies:  
@@ -132,3 +115,23 @@ The project requires the following dependencies:
     "swiper": "^11.2.1"
   }
 }
+```
+
+## 📥 Installation
+
+To set up the project locally, follow these steps:
+
+```bash
+# Clone the repository
+git clone https://github.com/aburayhan-bpi/assetwise-client.git
+
+# Navigate to the project directory
+cd assetwise
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm start dev
+
+---
