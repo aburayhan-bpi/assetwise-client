@@ -39,7 +39,7 @@
 
 ---
 
-## 📌 Key Features  
+## 📌 Core Features  
 
 - **📜 Subscription Model** – Businesses can subscribe to manage assets efficiently.  
 - **👥 Role-Based Access** – Separate roles for HR Managers and Employees.  
