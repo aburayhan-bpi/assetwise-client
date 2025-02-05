@@ -7,7 +7,7 @@
 **AssetWise** is an advanced asset management system designed to help businesses efficiently track, manage, and optimize company assets. It provides HR Managers and Employees with role-based access to streamline asset categorization, assignment, and request handling. The platform follows a **subscription model**, making it a **scalable solution** for businesses of all sizes.  
 
 ### 🔗 Live Project Link  
-[AssetWise Web Application](https://assetwise-b85cb.web.app)  
+[https://assetwise-b85cb.web.app](https://assetwise-b85cb.web.app)  
 
 ### 🛠 Technologies Used  
 - **Frontend**: React, React Router, Tailwind CSS  
@@ -20,7 +20,7 @@
 
 ## 📸 Project Screenshot  
 
-![AssetWise](https://i.ibb.co/GfJ30fTp/Screenshot-1.png)
+![AssetWise Screenshot](https://i.ibb.co/GfJ30fTp/Screenshot-1.png)  
 
 ---
 
@@ -116,20 +116,21 @@ The project requires the following dependencies:
   }
 }
 
+###
+---
+## 📥 Installation
 
-## 📥 Installation  
-
-To set up the project locally, follow these steps:  
+To set up the project locally, follow these steps:
 
 ```bash
 # Clone the repository
 git clone https://github.com/aburayhan-bpi/assetwise-client.git
 
 # Navigate to the project directory
-cd assetwise-client
+cd assetwise
 
 # Install dependencies
 npm install
 
 # Start the development server
-npm run dev
+npm start dev
