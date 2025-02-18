@@ -24,12 +24,12 @@ const RejectedRequests = () => {
   });
 
   return (
-    <div className="bg-sky-200 mt-10 pt-10 pb-4 px-6 rounded-md">
+    <div className=" mt-10 pt-10 pb-4 px-6 rounded-md">
       <div className="flex flex-col justify-center items-center">
         <h2 className="mb-8 text-center text-3xl font-bold text-gray-800">
           Rejected Requests
         </h2>
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:px-6">
+        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 xl:px-6">
           {rejectedRequests.map((singleData) => (
             <div
               key={singleData?._id}

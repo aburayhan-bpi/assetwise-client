@@ -17,6 +17,8 @@ import PieChart from "./HRHome/PieChart";
 import HRAccordion from "./HRHome/HRAccordion";
 import RejectedRequests from "./HRHome/RejectedRequests";
 import TopQuantityAssets from "./HRHome/TopQuantityAssets";
+import FAQ from "./HRHome/FAQ";
+import Support from "./HRHome/Support";
 
 const Home = () => {
   const { user } = useAuth();
@@ -26,7 +28,7 @@ const Home = () => {
   useEffect(() => {}, [user, currentUser]);
 
   return (
-    <div className="max-w-screen-xl mx-auto mt-6">
+    <div className="container mx-auto mt-6">
       <Helmet>
         <title>Home</title>
       </Helmet>
@@ -85,6 +87,8 @@ const Home = () => {
           {/* <HRAccordion /> */}
           <RejectedRequests />
           <TopQuantityAssets />
+          <FAQ />
+          <Support />
         </>
       )}
     </div>

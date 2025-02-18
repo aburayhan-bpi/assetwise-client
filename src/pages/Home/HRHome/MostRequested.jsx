@@ -25,10 +25,10 @@ const MostRequested = () => {
   });
   // console.log(mostRequested);
   return (
-    <div className="bg-sky-200 mt-10 pt-10 pb-4 px-3 rounded-md">
+    <div className=" mt-10 pt-10 pb-4 px-3 rounded-md">
       <div className="flex flex-col justify-center items-center">
         <h2 className="mb-8 text-center text-3xl font-bold">
-          Top Most Requsts
+          Top Most Requests
         </h2>
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:px-3">
           {mostRequested.map((singleReq) => (

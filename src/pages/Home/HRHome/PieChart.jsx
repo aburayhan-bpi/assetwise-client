@@ -29,7 +29,7 @@ const PieChart = () => {
     })) || [];
 
   return (
-    <div className="md:flex justify-between bg-sky-200 pt-10 pb-4 px-3 rounded-md mb-6">
+    <div className="md:flex justify-between px-3 rounded-md mb-10">
       <div className="flex-1 max-w-xl">
         <h2 className="text-xl font-semibold mb-4">
           Asset Type Distribution: Returnable vs Non-Returnable
