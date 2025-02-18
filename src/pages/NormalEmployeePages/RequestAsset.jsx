@@ -22,7 +22,7 @@ const RequestAsset = () => {
     searchText,
     filterOption
   );
-  console.log(hrAssets);
+  // console.log(hrAssets);
 
   // useEffect(() => {
   //   if (hrAssets.length > 0) {
