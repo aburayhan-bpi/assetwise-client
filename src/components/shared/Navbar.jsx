@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useUser from "../../hooks/useUser";
 import toast from "react-hot-toast";
@@ -20,43 +20,6 @@ const Navbar = () => {
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
   const currentUser = useCurrentUser();
-  // const [companyPhoto, setCompanyPhoto] = useState("");
-
-  // Update current user whenever user or users change
-  // useEffect(() => {
-  //   if (user) {
-  //     const currentUser = users.find((u) => u?.email === user?.email);
-  //     setCurrentUser(currentUser);
-  //   }
-  // }, [user, users]);
-
-  // useEffect(() => {
-  //   axiosPublic.get(`/current-user?email=${user?.email}`).then((res) => {
-  //     setCurrentUser(res.data);
-  //   });
-  // }, [user?.email]);
-
-  // const { data: currentUser } = useQuery({
-  //   queryKey: ["currentUser", user?.email],
-  //   enabled: !!user?.email,
-  //   queryFn: async () => {
-  //     const res = await axiosPublic.get(`/current-user?email=${user?.email}`);
-  //     console.log(res.data);
-  //     return res.data;
-  //   },
-  // });
-  // console.log(user);
-  // console.log(currentUser);
-  // company info or logo for affiliatedWith employee company
-  // useEffect(() => {
-  //   if (user?.email && currentUser?.affiliatedWith) {
-  //     axiosSecure
-  //       .get(`/company-info?email=${currentUser?.affiliatedWith}`)
-  //       .then((res) => {
-  //         setCompanyPhoto(res.data);
-  //       });
-  //   }
-  // }, [user, currentUser, localStorage.getItem("access-token")]);
 
   const { data: companyPhoto = "" } = useQuery({
     queryKey: [
@@ -404,7 +367,15 @@ const Navbar = () => {
     //   </nav>
     // </div>
     <>
-      <Nav links={links} companyPhoto={companyPhoto} handleSignOut={handleSignOut} user={user} currentUser={currentUser} />
+      <div className="">
+        <Nav
+          links={links}
+          companyPhoto={companyPhoto}
+          handleSignOut={handleSignOut}
+          user={user}
+          currentUser={currentUser}
+        />
+      </div>
     </>
   );
 };

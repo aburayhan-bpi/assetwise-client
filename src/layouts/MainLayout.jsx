@@ -7,15 +7,24 @@ const MainLayout = () => {
   // console.log(location);
 
   return (
-    <div className="bg-white dark:bg-black">
-      {/* {location?.pathname === "/login" ? "" : <Nav />} */}
-      {location?.pathname === "/login" ? "" : <Navbar />}
-      {/* min-h-[calc(100vh-1px)] */}
-      <div className="pt-20 min-h-screen px-4">
-        <Outlet />
+    <>
+      {location.pathname.includes("dashboard") ? (
+        ""
+      ) : (
+        <div className="bg-white dark:bg-black">
+          {/* {location?.pathname === "/login" ? "" : <Nav />} */}
+          {location?.pathname === "/login" ? "" : <Navbar />}
+        </div>
+      )}
+
+      <div>
+        {/* min-h-[calc(100vh-1px)] */}
+        <div className="pt-20 min-h-screen px-4">
+          <Outlet />
+        </div>
+        {location?.pathname === "/login" ? "" : <Footer />}
       </div>
-      {location?.pathname === "/login" ? "" : <Footer />}
-    </div>
+    </>
   );
 };
 

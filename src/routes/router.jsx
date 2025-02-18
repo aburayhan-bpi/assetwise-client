@@ -19,6 +19,9 @@ import IncreaseLimit from "../pages/payment/IncreaseLimitPayment/IncreaseLimit";
 import EmployeeRoute from "./EmployeeRoute";
 import ProfileRoute from "./ProfileRoute";
 import HRRoute from "./HRRoute";
+import DashboardLayout from "../layouts/DashboardLayout";
+import Employees from "../Dashboard/HRDashboard/Employees";
+import Request from "../Dashboard/EmployeeDashboard/Request";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +44,7 @@ export const router = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
+
       // for normal employee routes
       {
         path: "my-assets",
@@ -130,6 +134,21 @@ export const router = createBrowserRouter([
       {
         path: "increase-limit",
         element: <IncreaseLimit />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        path: "/dashboard",
+        element: <Employees />,
+      },
+      {
+        path: "request",
+        element: <Request />,
       },
     ],
   },
