@@ -96,39 +96,40 @@ const DashboardLayout = () => {
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <MdOutlineQueryStats />
+                  <MdOutlineQueryStats className="text-lg" />
                   <span>Overview</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <GoHome /> <span>Home</span>
+                  <GoHome className="text-lg" /> <span>Home</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <AiOutlineProduct />
+                  <AiOutlineProduct className="text-lg" />
                   <span>Assets</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <RiFunctionAddLine /> <span>My Team</span>
+                  <RiFunctionAddLine className="text-lg" /> <span>My Team</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <VscGitPullRequestNewChanges /> <span>Request Asset</span>
+                  <VscGitPullRequestNewChanges className="text-lg" />{" "}
+                  <span>Request Asset</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <CgProfile /> <span>Profile</span>
+                  <CgProfile className="text-lg" /> <span>Profile</span>
                 </li>
               </ul>
             )}
@@ -139,51 +140,55 @@ const DashboardLayout = () => {
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <MdOutlineQueryStats />
+                  <MdOutlineQueryStats className="text-lg" />
                   <span>Overview</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <GoHome /> <span>Home</span>
+                  <GoHome className="text-lg" /> <span>Home</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <AiOutlineProduct />
+                  <AiOutlineProduct className="text-lg" />
                   <span>Assets</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <RiFunctionAddLine /> <span>Add Assets</span>
+                  <RiFunctionAddLine className="text-lg" />{" "}
+                  <span>Add Assets</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <VscGitPullRequestNewChanges /> <span>All Requests</span>
+                  <VscGitPullRequestNewChanges className="text-lg" />{" "}
+                  <span>All Requests</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <HiOutlineUserGroup /> <span>Employees</span>
+                  <HiOutlineUserGroup className="text-lg" />{" "}
+                  <span>Employees</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <HiOutlineUserPlus /> <span>Add Employees</span>
+                  <HiOutlineUserPlus className="text-lg" />{" "}
+                  <span>Add Employees</span>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <CgProfile /> <span>Profile</span>
+                  <CgProfile className="text-lg" /> <span>Profile</span>
                 </li>
               </ul>
             )}
