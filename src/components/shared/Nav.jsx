@@ -30,7 +30,7 @@ const Nav = ({ links, companyPhoto, handleSignOut, user, currentUser }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (
-    <div className="border-b">
+    <div className="fixed top-0 left-0 w-full z-50 border-b bg-white dark:bg-black/90">
       {/* max-w-screen-xl */}
       <nav className="container mx-auto flex items-center justify-between relative px-4 md:px-4 py-4">
         {/* logo */}
@@ -67,13 +67,19 @@ const Nav = ({ links, companyPhoto, handleSignOut, user, currentUser }) => {
         </Link>
 
         {/* nav links */}
-        <ul className="items-center gap-[20px] text-[1rem] text-[#424242] md:flex hidden">
+        <ul className="items-center gap-[20px] text-[1rem] text-[#424242] dark:text-white md:flex hidden">
           {/* product megamenu */}
           {links}
         </ul>
 
         {/* user account */}
-        <div className="flex items-center gap-[15px]">
+        <div
+          className={`${
+            accountMenuOpen
+              ? "flex items-center gap-[15px]"
+              : "flex items-center gap-[15px] overflow-hidden"
+          }`}
+        >
           {user && user?.email ? (
             <div
               className="flex items-center gap-[10px] cursor-pointer relative"
@@ -88,7 +94,7 @@ const Nav = ({ links, companyPhoto, handleSignOut, user, currentUser }) => {
                 {/* <div className="w-[10px] h-[10px] rounded-full bg-green-500 absolute bottom-[0px] right-0 border-2 border-white"></div> */}
               </div>
 
-              <h1 className="text-[1rem] font-[400] text-gray-600 lg:block hidden">
+              <h1 className="text-[1rem] font-[400] text-gray-600 dark:text-white/80 lg:block hidden">
                 {user && user?.email ? user?.displayName : ""}
               </h1>
 
@@ -97,21 +103,21 @@ const Nav = ({ links, companyPhoto, handleSignOut, user, currentUser }) => {
                   accountMenuOpen
                     ? "translate-y-0 opacity-100 z-[1]"
                     : "translate-y-[10px] opacity-0 z-[-1]"
-                } bg-white w-max rounded-md absolute top-[45px] right-0 p-[10px] flex flex-col transition-all duration-300 gap-[5px]`}
+                } bg-white dark:bg-black/90 w-max rounded-md absolute top-[45px] right-0 p-[10px] flex flex-col transition-all duration-300 gap-[5px]`}
               >
                 <Link to="/dashboard">
-                  <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 hover:bg-gray-50">
+                  <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 dark:text-white/80 hover:bg-gray-50 dark:hover:bg-gray-700">
                     <RxDashboard />
                     Dashboard
                   </p>
                 </Link>
-                <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 hover:bg-gray-50">
+                <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 dark:text-white/80 hover:bg-gray-50 dark:hover:bg-gray-700">
                   <FiUser />
                   View Profile
                 </p>
                 <p
                   onClick={toggleTheme}
-                  className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 hover:bg-gray-50"
+                  className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 dark:text-white/80 hover:bg-gray-50 dark:hover:bg-gray-700"
                 >
                   {theme === "light" ? (
                     <>
@@ -129,7 +135,7 @@ const Nav = ({ links, companyPhoto, handleSignOut, user, currentUser }) => {
                 <div className="mt-3 border-t border-gray-200 pt-[5px]">
                   <p
                     onClick={handleSignOut}
-                    className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-red-500 hover:bg-red-50"
+                    className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-red-500 hover:bg-red-50 dark:hover:bg-red-950"
                   >
                     <TbLogout2 />
                     Logout
@@ -164,8 +170,8 @@ const Nav = ({ links, companyPhoto, handleSignOut, user, currentUser }) => {
         <aside
           className={`${
             mobileSidebarOpen
-              ? "translate-x-0 opacity-100 z-20"
-              : "translate-x-0 opacity-0 z-[-1]"
+              ? "translate-x-0 opacity-100 z-20 "
+              : "translate-x-0 opacity-0 z-[-1] hidden"
           } md:hidden bg-white p-4 text-center absolute top-[55px] right-0 sm:w-[300px] rounded-md transition-all duration-300`}
         >
           <ul

@@ -31,10 +31,10 @@ const FAQ = () => {
   };
   return (
     <div className="px-4 mt-14">
-      <h2 className="text-center text-2xl font-semibold mb-4">
+      <h2 className="text-center text-2xl font-semibold mb-4 dark:text-white">
         Frequently Asked Questions
       </h2>
-      <p className="text-center max-w-xl mx-auto px-2 mb-10">
+      <p className="text-center max-w-xl mx-auto px-2 mb-10 dark:text-white/80">
         Find answers to common questions about AssetWise and how our assetwise
         management system works.
       </p>
@@ -42,14 +42,16 @@ const FAQ = () => {
         {faqs.map((faq, index) => (
           <div key={index} className="border-b pb-3">
             <button
-              className="w-full text-left font-medium text-lg flex justify-between items-center"
+              className="w-full text-left font-medium text-lg flex justify-between items-center dark:text-white"
               onClick={() => toggleFAQ(index)}
             >
               {faq.question}
               <span>{openIndex === index ? "-" : "+"}</span>
             </button>
             {openIndex === index && (
-              <p className="text-gray-600 mt-2">{faq.answer}</p>
+              <p className="text-gray-600 dark:text-white/70 mt-2">
+                {faq.answer}
+              </p>
             )}
           </div>
         ))}

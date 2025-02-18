@@ -34,7 +34,7 @@ const AddAsset = () => {
       axiosSecure.post("/assets", assetData).then((res) => {
         if (res.data.insertedId) {
           // console.log(res.data);
-          toast.success("Asset added successfull!");
+          toast.success("Asset added successful!");
           reset(); // Reset the form after submission
         }
       });
@@ -52,27 +52,31 @@ const AddAsset = () => {
       </Helmet>
       {/* Page Header */}
       <div className="text-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Add an Asset</h1>
-        <p className="text-gray-600 mt-1">
-          This page is accessible only for the HR Manager.
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
+          Add an Asset
+        </h1>
+        <p className="max-w-lg mx-auto text-gray-600 dark:text-white/80 mt-1">
+          Easily add new assets to your inventory and keep your records up to
+          date.
         </p>
       </div>
 
       {/* Form Section */}
-      <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
+      <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg p-6 border border-gray-200">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           {/* Product Name */}
           <div>
             <label
               htmlFor="productName"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-white"
             >
               Product Name*
             </label>
             <input
               type="text"
               id="productName"
-              className={`mt-1 block w-full rounded-md border ${
+              className={`mt-1 block w-full dark:bg-gray-700 dark:border-none dark:text-white dark:outline-none
+                 rounded-md border ${
                 errors.productName ? "border-red-500" : "border-gray-300"
               } p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500`}
               {...register("productName", {
@@ -91,13 +95,13 @@ const AddAsset = () => {
           <div>
             <label
               htmlFor="productType"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-white"
             >
               Product Type*
             </label>
             <select
               id="productType"
-              className={`mt-1 block w-full rounded-md border ${
+              className={`mt-1 block w-full dark:bg-gray-700 dark:border-none dark:text-white dark:outline-none rounded-md border ${
                 errors.productType ? "border-red-500" : "border-gray-300"
               } p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500`}
               {...register("productType", {
@@ -119,14 +123,14 @@ const AddAsset = () => {
           <div>
             <label
               htmlFor="productQuantity"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-white"
             >
               Product Quantity*
             </label>
             <input
               type="number"
               id="productQuantity"
-              className={`mt-1 block w-full rounded-md border ${
+              className={`mt-1 block w-full dark:bg-gray-700 dark:border-none dark:text-white dark:outline-none rounded-md border ${
                 errors.productQuantity ? "border-red-500" : "border-gray-300"
               } p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500`}
               {...register("productQuantity", {

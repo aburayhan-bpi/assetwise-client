@@ -43,7 +43,7 @@ const AllRequests = () => {
   // console.log(filteredAsset);
 
   return (
-    <div className="p-4 bg-gray-100 min-h-screen container mx-auto">
+    <div className="p-4 bg-gray-100 dark:bg-transparent min-h-screen container mx-auto">
       <Helmet>
         <title>All Requests</title>
       </Helmet>
@@ -64,7 +64,7 @@ const AllRequests = () => {
             type="text"
             onChange={(e) => setSearchText(e.target.value)}
             placeholder="Search by requester name or email..."
-            className="block w-full px-4 py-2 pl-10 pr-4 text-sm rounded-md bg-white text-gray-800 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="block w-full px-4 py-2 pl-10 pr-4 text-sm rounded-md bg-white text-gray-800 dark:bg-gray-700 dark:text-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <MdSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
         </div>
@@ -123,12 +123,12 @@ const AllRequests = () => {
                 </th>
                 <td className="px-6 py-4 capitalize">
                   {request?.productType === "returnable" && (
-                    <p className=" w-fit p-1 text-xs rounded-md bg-green-50 text-green-500">
+                    <p className=" w-fit p-1 text-xs rounded-md bg-green-50 text-green-500 dark:text-green-400 dark:bg-green-700">
                       {request?.productType}
                     </p>
                   )}
                   {request?.productType === "non-returnable" && (
-                    <p className=" w-fit p-1 text-xs rounded-md bg-yellow-50 text-yellow-500">
+                    <p className=" w-fit p-1 text-xs rounded-md bg-yellow-50 text-yellow-500 dark:text-yellow-400 dark:bg-yellow-700">
                       {request?.productType}
                     </p>
                   )}
@@ -145,15 +145,15 @@ const AllRequests = () => {
                     className={` rounded-md px-2 py-1 text-xs
                       ${
                         request?.status === "pending" &&
-                        "bg-yellow-50 text-yellow-500"
+                        "bg-yellow-50 text-yellow-500 dark:text-yellow-400 dark:bg-yellow-700"
                       } 
                       ${
                         request?.status === "approved" &&
-                        "bg-green-50 text-green-500"
+                        "bg-green-50 text-green-500 dark:text-green-400 dark:bg-green-700"
                       } 
                       ${
                         request?.status === "rejected" &&
-                        "bg-red-50 text-red-500"
+                        "bg-red-50 text-red-500 dark:text-red-300 dark:bg-red-700"
                       }`}
                   >
                     {request?.status}

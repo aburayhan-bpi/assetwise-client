@@ -27,9 +27,12 @@ const MostRequested = () => {
   return (
     <div className=" mt-10 pt-10 pb-4 px-3 rounded-md">
       <div className="flex flex-col justify-center items-center">
-        <h2 className="mb-8 text-center text-3xl font-bold">
+        <h2 className="mb-2 text-center text-3xl font-bold dark:text-white">
           Top Most Requests
         </h2>
+        <p className="text-center max-w-lg mx-auto mb-8 dark:text-white/80">
+        Explore the most important and high-priority requests that need your attention first.
+        </p>
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:px-3">
           {mostRequested.map((singleReq) => (
             <MostRequestedCard

@@ -26,9 +26,13 @@ const TopQuantityAssets = () => {
   return (
     <div className=" mt-10 pt-10 pb-4 px-3 rounded-md">
       <div className="flex flex-col justify-center items-center">
-        <h2 className="mb-8 text-center text-3xl font-bold">
+        <h2 className="mb-2 text-center text-3xl font-bold dark:text-white">
           Top Quantity Assets
         </h2>
+        <p className="text-center max-w-lg mx-auto mb-8 dark:text-white/80">
+          Discover the assets with the highest quantity, ensuring you have the
+          resources you need at your fingertips.
+        </p>
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 xl:px-3">
           {topQuantAssets.map((asset) => (
             <LimitedStockCard key={asset?._id} asset={asset}></LimitedStockCard>

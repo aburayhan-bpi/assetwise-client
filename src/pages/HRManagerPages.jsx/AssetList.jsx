@@ -26,49 +26,6 @@ const AssetList = () => {
     filterOption,
     sortOption
   );
-  // console.log(assets);
-  // const [filteredAsset, setFilteredAsset] = useState([]);
-  // console.log(currentUser);
-  // useEffect(() => {
-  //   setFilteredAsset(assets);
-  // }, [assets]);
-  // useEffect(() => {
-  //   if (currentUser && currentUser?.email) {
-  //     const userAssets = assets.filter(
-  //       (asset) => asset?.email === currentUser?.email
-  //     );
-  //     setFilteredAsset(userAssets);
-  //   }
-  // }, [assets, currentUser]);
-
-  // show search based result
-  // useEffect(() => {
-  //   axiosSecure.get(`/assets?search=${searchText}`).then((res) => {
-  //     const exactData = res.data.filter(
-  //       (data) => data?.email === currentUser?.email
-  //     );
-  //     setFilteredAsset(exactData);
-  //   });
-  // }, [searchText, refetch, assets]);
-
-  // // show search based filter
-  // useEffect(() => {
-  //   axiosSecure.get(`/assets?filterOption=${filterOption}`).then((res) => {
-  //     const exactData = res.data.filter(
-  //       (data) => data?.email === currentUser?.email
-  //     );
-  //     setFilteredAsset(exactData);
-  //   });
-  // }, [filterOption, refetch, assets]);
-
-  // useEffect(() => {
-  //   axiosSecure.get(`/assets?sortOption=${sortOption}`).then((res) => {
-  //     const exactData = res.data.filter(
-  //       (data) => data?.email === currentUser?.email
-  //     );
-  //     setFilteredAsset(exactData);
-  //   });
-  // }, [sortOption, refetch, assets]);
 
   const handleDelete = (id) => {
     // console.log(id);
@@ -82,7 +39,7 @@ const AssetList = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        // delete asset from databae
+        // delete asset from database
 
         axiosSecure.delete(`/assets/${id}`).then((res) => {
           // console.log(res.data);
@@ -98,21 +55,21 @@ const AssetList = () => {
       }
     });
   };
-  // show loader while data is loadingg
+  // show loader while data is loading
   // if (isLoading) {
   //   return <Loader />;
   // }
 
   return (
-    <div className="max-w-screen-xl mx-auto p-6">
+    <div className="container mx-auto p-6">
       <Helmet>
         <title>Asset List</title>
       </Helmet>
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-800 mb-2">
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-2">
           Asset Inventory
         </h1>
-        <p className="text-lg text-gray-600">
+        <p className="text-lg text-gray-600 dark:text-white/80">
           A comprehensive overview of all assets managed within the
           organization.
         </p>
@@ -125,7 +82,7 @@ const AssetList = () => {
             <input
               type="text"
               onChange={(e) => setSearchText(e.target.value)}
-              className="mt-1 block w-full rounded-md border p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full rounded-md border p-2.5 dark:bg-gray-700 dark:border-none dark:text-white dark:outline-none text-gray-900 focus:ring-blue-500 focus:border-blue-500"
               placeholder="Search by names"
             />
           </div>
@@ -134,7 +91,7 @@ const AssetList = () => {
             <select
               id="productType"
               onChange={(e) => setFilterOption(e.target.value)}
-              className="mt-1 block w-full rounded-md border p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full rounded-md border p-2.5 dark:bg-gray-700 dark:border-none dark:text-white dark:outline-none text-gray-900 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Search by filter</option>
               <option value="returnable">Returnable</option>
@@ -148,7 +105,7 @@ const AssetList = () => {
             <select
               id="productType"
               onChange={(e) => setSortOption(e.target.value)}
-              className="mt-1 block w-full rounded-md border p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full rounded-md border p-2.5 dark:bg-gray-700 dark:border-none dark:text-white dark:outline-none text-gray-900 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Sort by Quantity</option>
               <option value="asc">
@@ -167,9 +124,7 @@ const AssetList = () => {
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Sl No.{" "}
-                  <span className="text-gray-600">
-                    ({assets.length})
-                  </span>
+                  <span className="text-gray-600">({assets.length})</span>
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Product Name
@@ -214,12 +169,12 @@ const AssetList = () => {
                       </th>
                       <td className="px-6 py-4 capitalize">
                         {filteredAsset?.productType === "returnable" && (
-                          <p className=" w-fit p-1 text-xs rounded-md bg-green-50 text-green-500">
+                          <p className=" w-fit p-1 text-xs rounded-md bg-green-50 text-green-500 dark:text-green-400 dark:bg-green-700">
                             {filteredAsset?.productType}
                           </p>
                         )}
                         {filteredAsset?.productType === "non-returnable" && (
-                          <p className=" w-fit p-1 text-xs rounded-md bg-yellow-50 text-yellow-500">
+                          <p className=" w-fit p-1 text-xs rounded-md bg-yellow-50 text-yellow-500 dark:text-yellow-400 dark:bg-yellow-700">
                             {filteredAsset?.productType}
                           </p>
                         )}
@@ -232,7 +187,7 @@ const AssetList = () => {
                       <td className="px-6 py-4">{filteredAsset?.dateAdded}</td>
 
                       <td className="px-6 py-4 flex gap-2">
-                        <button className="font-medium bg-blue-50 hover:bg-blue-100 px-3 rounded-md text-blue-600 dark:text-blue-500 transition-all duration-200">
+                        <button className="font-medium bg-blue-50 dark:bg-blue-200 dark:hover:bg-blue-100 hover:bg-blue-100 px-3 rounded-md text-blue-600 dark:text-blue-500 transition-all duration-200">
                           <Link to={`/update/${filteredAsset?._id}`}>Edit</Link>
                         </button>
                         <button

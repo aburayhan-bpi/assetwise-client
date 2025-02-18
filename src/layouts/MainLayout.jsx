@@ -8,21 +8,23 @@ const MainLayout = () => {
 
   return (
     <>
-      {location.pathname.includes("dashboard") ? (
-        ""
-      ) : (
-        <div className="bg-white dark:bg-black lg:px-8">
-          {/* {location?.pathname === "/login" ? "" : <Nav />} */}
-          {location?.pathname === "/login" ? "" : <Navbar />}
-        </div>
-      )}
+      <div className="dark:bg-black">
+        {location.pathname.includes("dashboard") ? (
+          ""
+        ) : (
+          <div className="bg-white dark:bg-black lg:px-8">
+            {/* {location?.pathname === "/login" ? "" : <Nav />} */}
+            {location?.pathname === "/login" ? "" : <Navbar />}
+          </div>
+        )}
 
-      <div>
-        {/* min-h-[calc(100vh-1px)] */}
-        <div className="pt-20 min-h-screen px-4">
-          <Outlet />
+        <div>
+          {/* min-h-[calc(100vh-1px)] */}
+          <div className="pt-28 min-h-screen px-4 z-40">
+            <Outlet />
+          </div>
+          {location?.pathname === "/login" ? "" : <Footer />}
         </div>
-        {location?.pathname === "/login" ? "" : <Footer />}
       </div>
     </>
   );

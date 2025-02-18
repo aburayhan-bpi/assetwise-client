@@ -27,7 +27,13 @@ const Pending = () => {
   return (
     <div className="pt-10 pb-4 px-3 rounded-md">
       <div className="flex flex-col justify-center items-center">
-        <h2 className="mb-8 text-center text-3xl font-bold">Pending Requests</h2>
+        <h2 className="mb-2 text-center text-3xl font-bold dark:text-white">
+          Pending Requests
+        </h2>
+        <p className="text-center max-w-lg mx-auto mb-8 dark:text-white/80">
+          Stay updated on all pending requests and take necessary actions to
+          keep things moving smoothly.
+        </p>
         <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:px-3">
           {pendingAssets.map((singleReq) => (
             <AssetCard key={singleReq?._id} singleReq={singleReq}></AssetCard>

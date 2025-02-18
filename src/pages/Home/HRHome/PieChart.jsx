@@ -29,19 +29,19 @@ const PieChart = () => {
     })) || [];
 
   return (
-    <div className="md:flex justify-between px-3 rounded-md mb-10">
+    <div className="md:flex justify-between px-3 rounded-md mb-10 dark:text-white">
       <div className="flex-1 max-w-xl">
         <h2 className="text-xl font-semibold mb-4">
           Asset Type Distribution: Returnable vs Non-Returnable
         </h2>
-        <p className="text-md text-gray-700 mb-4">
+        <p className="text-md text-gray-700 dark:text-white mb-4">
           This chart represents the percentage distribution of returnable and
           non-returnable assets requested by employees. The "Returnable" items
           can be returned after use, while "Non-Returnable" items cannot. By
           analyzing this data, HR managers can better plan for the asset
           management and identify trends in asset requests.
         </p>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-gray-600 dark:text-white">
           Returnable assets make up{" "}
           {piState?.find((item) => item.title === "returnable")?.percentage}% of
           the total requested assets, while non-returnable assets account for{" "}

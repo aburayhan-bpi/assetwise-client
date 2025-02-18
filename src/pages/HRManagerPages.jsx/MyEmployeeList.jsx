@@ -59,18 +59,20 @@ const MyEmployeeList = () => {
       </Helmet>
       {/* Header Section */}
       <div className="text-center">
-        <h1 className="text-4xl font-extrabold text-gray-800">Team Members</h1>
-        <p className="text-gray-600 mt-3 text-lg">
+        <h1 className="text-4xl font-extrabold text-gray-800 dark:text-white">
+          Team Members
+        </h1>
+        <p className="text-gray-600 dark:text-white/80 mt-3 text-lg">
           View and manage your team members efficiently.
         </p>
       </div>
 
       {/* Team Members List */}
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">
+      <div className="bg-white dark:bg-transparent p-8 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
           Your Team - ({team?.length || 0})
         </h2>
-        <p className="text-gray-600 mb-8">
+        <p className="text-gray-600 dark:text-white/80 mb-8">
           Below is a list of all team members. You can remove any member if
           needed.
         </p>
@@ -91,7 +93,7 @@ const MyEmployeeList = () => {
             {team?.map((member) => (
               <div
                 key={member?._id}
-                className="bg-gray-100 rounded-lg p-6 flex flex-col items-center"
+                className="bg-gray-100 dark:bg-gray-900 rounded-lg p-6 flex flex-col items-center"
               >
                 <div className="mb-4">
                   {member?.photo ? (
@@ -108,7 +110,9 @@ const MyEmployeeList = () => {
                     />
                   )}
                 </div>
-                <h3 className="text-lg font-semibold">{member?.name}</h3>
+                <h3 className="text-lg font-semibold dark:text-white mb-2">
+                  {member?.name}
+                </h3>
                 <p className="text-gray-500 text-sm my-1">
                   {member?.role === "admin" ? (
                     <span>
