@@ -42,13 +42,26 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-20 p-6 bg-white shadow-lg rounded-lg">
+    <div className="p-6 rounded-lg">
       <Helmet>
         <title>Profile</title>
       </Helmet>
-      <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-        Update Profile
-      </h2>
+      {/* <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+        Profile
+      </h2> */}
+      <div>
+        {user && user?.email ? (
+          <>
+            <img
+              className="w-32 h-32 mx-auto rounded-full"
+              src={user?.photoURL}
+              alt="avatar"
+            />
+          </>
+        ) : (
+          ""
+        )}
+      </div>
 
       {/* Full Name */}
       <div className="mb-4">
@@ -71,6 +84,21 @@ const Profile = () => {
           readOnly
           disabled
         />
+      </div>
+      {/* Email */}
+      <div className="mb-6">
+        {currentUser?.package && (
+          <>
+            <div className=" flex items-center gap-6">
+              <p className="bg-blue-100 w-fit px-3 rounded-lg">
+                Current Package: ${currentUser?.package}
+              </p>
+              <p className="bg-yellow-100 w-fit px-3 rounded-lg">
+                Current Limit: {currentUser?.limit}
+              </p>
+            </div>
+          </>
+        )}
       </div>
 
       {/* Buttons */}

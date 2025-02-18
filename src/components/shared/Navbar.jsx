@@ -220,7 +220,7 @@ const Navbar = () => {
                 Add Employee
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/profile"
                 className="block  rounded md:bg-transparent"
@@ -228,7 +228,7 @@ const Navbar = () => {
               >
                 Profile
               </NavLink>
-            </li>
+            </li> */}
           </>
         )}
     </>

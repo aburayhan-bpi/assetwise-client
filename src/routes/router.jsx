@@ -22,6 +22,10 @@ import HRRoute from "./HRRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Employees from "../Dashboard/HRDashboard/Employees";
 import Request from "../Dashboard/EmployeeDashboard/Request";
+import Overview from "../Dashboard/HRDashboard/Overview";
+import Assets from "../Dashboard/HRDashboard/Assets";
+import AddAssets from "../Dashboard/HRDashboard/AddAssets";
+import MyAllRequests from "../Dashboard/HRDashboard/MyAllRequests";
 
 export const router = createBrowserRouter([
   {
@@ -70,14 +74,7 @@ export const router = createBrowserRouter([
           </EmployeeRoute>
         ),
       },
-      {
-        path: "profile",
-        element: (
-          <ProfileRoute>
-            <Profile />
-          </ProfileRoute>
-        ),
-      },
+
       // for HR Manager routes
       {
         path: "asset-list",
@@ -144,11 +141,72 @@ export const router = createBrowserRouter([
       {
         index: true,
         path: "/dashboard",
-        element: <Employees />,
+        element: <Overview />,
       },
       {
-        path: "request",
-        element: <Request />,
+        path: "/dashboard/assets",
+        element: <Assets />,
+      },
+      {
+        path: "/dashboard/add-assets",
+        element: <AddAssets />,
+      },
+      {
+        path: "/dashboard/all-requests",
+        element: (
+          <HRRoute>
+            <MyAllRequests />
+          </HRRoute>
+        ),
+      },
+      {
+        path: "/dashboard/employees",
+        element: (
+          <HRRoute>
+            <MyEmployeeList />
+          </HRRoute>
+        ),
+      },
+      {
+        path: "/dashboard/add-employees",
+        element: (
+          <HRRoute>
+            <AddEmployee />
+          </HRRoute>
+        ),
+      },
+      {
+        path: "/dashboard/profile",
+        element: (
+          <ProfileRoute>
+            <Profile />
+          </ProfileRoute>
+        ),
+      },
+      // employee dashboard routes
+      {
+        path: "/dashboard/emp-assets",
+        element: (
+          <EmployeeRoute>
+            <MyAssets />
+          </EmployeeRoute>
+        ),
+      },
+      {
+        path: "/dashboard/emp-team",
+        element: (
+          <EmployeeRoute>
+            <MyTeam />
+          </EmployeeRoute>
+        ),
+      },
+      {
+        path: "/dashboard/request-asset",
+        element: (
+          <EmployeeRoute>
+            <RequestAsset />
+          </EmployeeRoute>
+        ),
       },
     ],
   },

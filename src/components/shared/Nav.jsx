@@ -31,7 +31,8 @@ const Nav = ({ links, companyPhoto, handleSignOut, user, currentUser }) => {
 
   return (
     <div className="border-b">
-      <nav className="max-w-screen-xl mx-auto flex items-center justify-between relative px-4 md:px-4 py-4">
+      {/* max-w-screen-xl */}
+      <nav className="container mx-auto flex items-center justify-between relative px-4 md:px-4 py-4">
         {/* logo */}
         <Link to="/">
           {user ? (

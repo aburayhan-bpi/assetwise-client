@@ -11,7 +11,7 @@ const MainLayout = () => {
       {location.pathname.includes("dashboard") ? (
         ""
       ) : (
-        <div className="bg-white dark:bg-black">
+        <div className="bg-white dark:bg-black lg:px-8">
           {/* {location?.pathname === "/login" ? "" : <Nav />} */}
           {location?.pathname === "/login" ? "" : <Navbar />}
         </div>

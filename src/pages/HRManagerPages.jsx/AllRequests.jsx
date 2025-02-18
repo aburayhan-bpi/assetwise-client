@@ -16,24 +16,6 @@ const AllRequests = () => {
   const currentUser = useCurrentUser();
 
   const [allRequests, refetch, isLoading] = useAllRequests(searchText);
-  // show data by default
-  // useEffect(() => {
-  //   if (allRequests.length > 0) {
-  //     setFilteredAsset(allRequests);
-  //   }
-  // }, [allRequests]);
-
-  // search based result
-  // useEffect(() => {
-  //   axiosSecure.get(`all-requests?search=${searchText}`).then((res) => {
-  //     const exactData = res.data.filter(
-  //       (data) => data?.requesterAffiliatedWith === currentUser?.email
-  //     );
-  //     // console.log(exactData);
-  //     setFilteredAsset(exactData);
-  //     // setFilteredAsset(res.data);
-  //   });
-  // }, [searchText, refetch, allRequests]);
 
   //  handleAction for approve / reject
   const handleApprove = (id) => {
@@ -61,7 +43,7 @@ const AllRequests = () => {
   // console.log(filteredAsset);
 
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
+    <div className="p-4 bg-gray-100 min-h-screen container mx-auto">
       <Helmet>
         <title>All Requests</title>
       </Helmet>

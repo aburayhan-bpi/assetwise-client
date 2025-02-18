@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   FaHome,
   FaUser,
@@ -31,7 +31,7 @@ import { RiFunctionAddLine } from "react-icons/ri";
 import { VscGitPullRequestNewChanges } from "react-icons/vsc";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { HiOutlineUserPlus } from "react-icons/hi2";
-
+import "./DashboardLayout.css";
 const DashboardLayout = () => {
   const { user, logOut } = useContext(AuthContext);
   const currentUser = useCurrentUser();
@@ -79,7 +79,7 @@ const DashboardLayout = () => {
 
   return (
     <div className="relative">
-      <div className="flex min-h-screen bg-gray-100">
+      <div className="flex min-h-screen  w-full">
         {/* Sidebar */}
         <div
           ref={sidebarRef}
@@ -96,40 +96,69 @@ const DashboardLayout = () => {
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <MdOutlineQueryStats className="text-lg" />
-                  <span>Overview</span>
+                  <NavLink
+                    to="/dashboard"
+                    className="flex items-center space-x-3"
+                    end
+                  >
+                    <MdOutlineQueryStats className="text-lg" />
+                    <span>Overview</span>
+                  </NavLink>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <GoHome className="text-lg" /> <span>Home</span>
+                  <NavLink to="/" className="flex items-center space-x-3">
+                    <GoHome className="text-lg" /> <span>Home</span>
+                  </NavLink>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <AiOutlineProduct className="text-lg" />
-                  <span>Assets</span>
+                  <NavLink
+                    to="/dashboard/emp-assets"
+                    className="flex items-center space-x-3"
+                  >
+                    <AiOutlineProduct className="text-lg" />
+                    <span>Assets</span>
+                  </NavLink>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <RiFunctionAddLine className="text-lg" /> <span>My Team</span>
+                  <NavLink
+                    to="/dashboard/emp-team"
+                    className="flex items-center space-x-3"
+                  >
+                    <RiFunctionAddLine className="text-lg" />{" "}
+                    <span>My Team</span>
+                  </NavLink>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <VscGitPullRequestNewChanges className="text-lg" />{" "}
-                  <span>Request Asset</span>
+                  <NavLink
+                    to="/dashboard/request-asset"
+                    className="flex items-center space-x-3"
+                  >
+                    <VscGitPullRequestNewChanges className="text-lg" />{" "}
+                    <span>Request Asset</span>
+                  </NavLink>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <CgProfile className="text-lg" /> <span>Profile</span>
+                  <NavLink
+                    to="/dashboard/profile"
+                    className="flex items-center space-x-3"
+                  >
+                    <CgProfile className="text-lg" /> <span>Profile</span>
+                  </NavLink>
                 </li>
               </ul>
             )}
@@ -140,55 +169,95 @@ const DashboardLayout = () => {
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <MdOutlineQueryStats className="text-lg" />
-                  <span>Overview</span>
+                  <NavLink
+                    to="/dashboard"
+                    className="flex items-center space-x-3"
+                    end
+                  >
+                    <MdOutlineQueryStats className="text-lg" />
+                    <span>Overview</span>
+                  </NavLink>
+                </li>
+
+                <li
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  onClick={handleItemClick}
+                >
+                  <NavLink to="/" className="flex items-center space-x-3">
+                    <GoHome className="text-lg" /> <span>Home</span>
+                  </NavLink>
+                </li>
+
+                <li
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  onClick={handleItemClick}
+                >
+                  <NavLink
+                    to="/dashboard/assets"
+                    className="flex items-center space-x-3"
+                  >
+                    <AiOutlineProduct className="text-lg" />
+                    <span>Assets</span>
+                  </NavLink>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <GoHome className="text-lg" /> <span>Home</span>
+                  <NavLink
+                    to="/dashboard/add-assets"
+                    className="flex items-center space-x-3"
+                  >
+                    <RiFunctionAddLine className="text-lg" />{" "}
+                    <span>Add Assets</span>
+                  </NavLink>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <AiOutlineProduct className="text-lg" />
-                  <span>Assets</span>
+                  <NavLink
+                    to="/dashboard/all-requests"
+                    className="flex items-center space-x-3"
+                  >
+                    <VscGitPullRequestNewChanges className="text-lg" />{" "}
+                    <span>All Requests</span>
+                  </NavLink>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <RiFunctionAddLine className="text-lg" />{" "}
-                  <span>Add Assets</span>
-                </li>
-                <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
-                  onClick={handleItemClick}
-                >
-                  <VscGitPullRequestNewChanges className="text-lg" />{" "}
-                  <span>All Requests</span>
-                </li>
-                <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
-                  onClick={handleItemClick}
-                >
-                  <HiOutlineUserGroup className="text-lg" />{" "}
-                  <span>Employees</span>
+                  <NavLink
+                    to="/dashboard/employees"
+                    className="flex items-center space-x-3"
+                  >
+                    <HiOutlineUserGroup className="text-lg" />{" "}
+                    <span>Employees</span>
+                  </NavLink>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <HiOutlineUserPlus className="text-lg" />{" "}
-                  <span>Add Employees</span>
+                  <NavLink
+                    to="/dashboard/add-employees"
+                    className="flex items-center space-x-3"
+                  >
+                    <HiOutlineUserPlus className="text-lg" />{" "}
+                    <span>Add Employees</span>
+                  </NavLink>
                 </li>
                 <li
                   className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 cursor-pointer"
                   onClick={handleItemClick}
                 >
-                  <CgProfile className="text-lg" /> <span>Profile</span>
+                  <NavLink
+                    to="/dashboard/profile"
+                    className="flex items-center space-x-3"
+                  >
+                    <CgProfile className="text-lg" /> <span>Profile</span>
+                  </NavLink>
                 </li>
               </ul>
             )}
@@ -279,7 +348,7 @@ const DashboardLayout = () => {
           </div>
 
           {/* Dashboard Content */}
-          <div className="px-4 py-2">
+          <div className=" overflow-x-hidden">
             <Outlet />
           </div>
         </div>
