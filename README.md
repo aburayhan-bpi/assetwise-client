@@ -1,42 +1,62 @@
-# **AssetWise**
+# **AssetWise**  
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-AssetWise-brightgreen)](https://assetwise-b85cb.web.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-AssetWise-brightgreen)](https://assetwise-b85cb.web.app)  
 
-**AssetWise** is an innovative asset management system designed for businesses to efficiently track, manage, and utilize company assets. The platform provides HR Managers and Employees with role-based access, ensuring seamless asset categorization, assignment, and request management. Companies can subscribe to AssetWise for streamlined operations, making it a versatile solution for organizations of any size.
+## 📌 Project Overview  
 
----
+**AssetWise** is an advanced asset management system designed to help businesses efficiently track, manage, and optimize company assets. It provides HR Managers and Employees with role-based access to streamline asset categorization, assignment, and request handling. The platform follows a **subscription model**, making it a **scalable solution** for businesses of all sizes.  
 
-## 🚀 Live URL
+### 🔗 Live Project Link  
+[https://assetwise-b85cb.web.app](https://assetwise-b85cb.web.app)  
 
-🔗 [AssetWise Web Application](https://assetwise-b85cb.web.app)
-
----
-
-## 🔑 Admin Credentials
-
-- **Email**: `rayhan@gmail.com`
-- **Password**: `Rayhan`
-
----
-
-## 📌 Key Features
-
-- **📜 Subscription Model** – Companies can subscribe to utilize the platform for asset and product management.
-- **👥 Role-Based Access** – Separate roles for HR Managers and Employees, ensuring secure and tailored access.
-- **📂 Asset Categorization** – Assets are classified as:
-  - **Returnable** (e.g., Laptops)
-  - **Non-Returnable** (e.g., Diaries)
-- **👨‍💼 HR Manager Features** – Add, update, assign, and manage assets efficiently.
-- **🧑‍💻 Employee Dashboard** – Employees can view assigned assets and request new ones.
-- **📩 Request Management** – Employees can request assets, and HR Managers can approve or reject requests.
-- **📊 Analytics & Insights** – HR Managers can visualize asset trends through charts and metrics.
-- **🔒 User Authentication** – Secure login and registration system.
-- **📱 Mobile-Friendly UI** – Fully responsive design for smooth usage across all devices.
-- **👨‍👩‍👧‍👦 Team Management** – Employees can be grouped into teams for better asset allocation.
+### 🛠 Technologies Used  
+- **Frontend**: React, React Router, Tailwind CSS  
+- **Backend**: Firebase Authentication  
+- **State Management**: TanStack Query  
+- **Data Visualization**: Recharts  
+- **Other Tools**: Axios, Moment.js, LottieFiles, React Hook Form  
 
 ---
 
-## 🛠️ Technologies Used
+## 📸 Project Screenshot  
+
+![AssetWise Screenshot](https://i.ibb.co/GfJ30fTp/Screenshot-1.png)  
+
+---
+
+## 🚀 Live URL  
+
+🔗 [AssetWise Web Application](https://assetwise-b85cb.web.app)  
+
+---
+
+## 🔑 Admin Credentials  
+
+- **Email**: `rayhan@gmail.com`  
+- **Password**: `Rayhan`  
+
+> **Note**: These credentials are for demo purposes only.  
+
+---
+
+## 📌 Core Features  
+
+- **📜 Subscription Model** – Businesses can subscribe to manage assets efficiently.  
+- **👥 Role-Based Access** – Separate roles for HR Managers and Employees.  
+- **📂 Asset Categorization** –  
+  - **Returnable Assets** (e.g., Laptops)  
+  - **Non-Returnable Assets** (e.g., Diaries)  
+- **👨‍💼 HR Manager Features** – Add, update, assign, and manage assets.  
+- **🧑‍💻 Employee Dashboard** – Employees can view assigned assets and request new ones.  
+- **📩 Request Management** – Employees can request assets; HR Managers can approve or reject.  
+- **📊 Analytics & Insights** – HR Managers get visualized reports and charts.  
+- **🔒 User Authentication** – Secure login & registration with Firebase.  
+- **📱 Mobile-Friendly UI** – Fully responsive across all devices.  
+- **👨‍👩‍👧‍👦 Team Management** – Employees can be grouped for better asset allocation.  
+
+---
+
+## 🛠️ Technologies Used  
 
 | Technology           | Purpose |
 |----------------------|---------|
@@ -58,9 +78,48 @@
 
 ---
 
+## 📦 Dependencies  
+
+The project requires the following dependencies:  
+
+```json
+{
+  "dependencies": {
+    "@react-pdf/renderer": "^4.1.6",
+    "@stripe/react-stripe-js": "^3.1.1",
+    "@stripe/stripe-js": "^5.5.0",
+    "@tanstack/react-query": "^5.64.1",
+    "axios": "^1.7.9",
+    "date-fns": "^4.1.0",
+    "firebase": "^11.1.0",
+    "flowbite-react": "^0.10.2",
+    "localforage": "^1.10.0",
+    "lodash": "^4.17.21",
+    "lottie-react": "^2.4.0",
+    "match-sorter": "^8.0.0",
+    "moment": "^2.30.1",
+    "react": "^18.3.1",
+    "react-datepicker": "^7.6.0",
+    "react-dom": "^18.3.1",
+    "react-helmet": "^6.1.0",
+    "react-helmet-async": "^2.0.5",
+    "react-hook-form": "^7.54.2",
+    "react-hot-toast": "^2.5.1",
+    "react-icons": "^5.4.0",
+    "react-minimal-pie-chart": "^9.1.0",
+    "react-router-dom": "^7.1.1",
+    "react-spinners": "^0.15.0",
+    "sort-by": "^1.2.0",
+    "spinners-react": "^1.0.10",
+    "sweetalert2": "^11.15.10",
+    "swiper": "^11.2.1"
+  }
+}
+```
+
 ## 📥 Installation
 
-To set up the project locally, follow these steps:
+To set up the project locally, follow these steps: But make sure you have setup environment keys. (.env)
 
 ```bash
 # Clone the repository
@@ -74,3 +133,5 @@ npm install
 
 # Start the development server
 npm start dev
+
+---
