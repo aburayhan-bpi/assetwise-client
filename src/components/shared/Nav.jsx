@@ -111,11 +111,11 @@ const Nav = ({ links, companyPhoto, handleSignOut, user, currentUser }) => {
               >
                 {theme === "light" ? (
                   <>
-                    <MdOutlineDarkMode /> Dark Mode
+                    <MdOutlineDarkMode /> Switch to Dark Mode
                   </>
                 ) : (
                   <>
-                    <MdOutlineLightMode /> Light Mode
+                    <MdOutlineLightMode /> Switch to Light Mode
                   </>
                 )}
               </p>
