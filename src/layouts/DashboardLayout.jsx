@@ -267,7 +267,7 @@ const DashboardLayout = () => {
         {/* Main Content */}
         <div className="flex-1 flex flex-col">
           {/* Top Bar */}
-          <div className="bg-white shadow-md p-4 flex items-center justify-between">
+          <div className="bg-white dark:bg-blue-900 dark:text-white shadow-md p-4 flex items-center justify-between">
             <button
               onClick={toggleSidebar}
               className="text-blue-900 text-xl lg:hidden"
@@ -290,7 +290,7 @@ const DashboardLayout = () => {
                 {/* <div className="w-[10px] h-[10px] rounded-full bg-green-500 absolute bottom-[0px] right-0 border-2 border-white"></div> */}
               </div>
 
-              <h1 className="text-[1rem] font-[400] text-gray-600 lg:block hidden">
+              <h1 className="text-[1rem] font-[400] text-gray-600 dark:text-white lg:block hidden">
                 {user && user?.email ? user?.displayName : ""}
               </h1>
 
@@ -299,21 +299,21 @@ const DashboardLayout = () => {
                   accountMenuOpen
                     ? "translate-y-0 opacity-100 z-[1]"
                     : "translate-y-[10px] opacity-0 z-[-1]"
-                } bg-white w-max rounded-md absolute top-[45px] right-0 p-[10px] flex flex-col transition-all duration-300 gap-[5px]`}
+                } bg-white dark:bg-blue-950 w-max rounded-md absolute top-[45px] right-0 p-[10px] flex flex-col transition-all duration-300 gap-[5px]`}
               >
                 <Link to="/dashboard">
-                  <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 hover:bg-gray-50">
+                  <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] dark:hover:bg-gray-900 dark:text-white text-gray-600 hover:bg-gray-50">
                     <RxDashboard />
                     Dashboard
                   </p>
                 </Link>
-                <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 hover:bg-gray-50">
+                <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] dark:hover:bg-gray-900 dark:text-white text-gray-600 hover:bg-gray-50">
                   <FiUser />
                   View Profile
                 </p>
                 <p
                   onClick={toggleTheme}
-                  className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 hover:bg-gray-50"
+                  className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] dark:hover:bg-gray-900 dark:text-white text-gray-600 hover:bg-gray-50"
                 >
                   {theme === "light" ? (
                     <>
@@ -331,7 +331,7 @@ const DashboardLayout = () => {
                 <div className="mt-3 border-t border-gray-200 pt-[5px]">
                   <p
                     onClick={handleSignOut}
-                    className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-red-500 hover:bg-red-50"
+                    className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-red-500 dark:hover:text-red-400 dark:hover:bg-red-900 hover:bg-red-50"
                   >
                     <TbLogout2 />
                     Logout
@@ -342,7 +342,7 @@ const DashboardLayout = () => {
               <IoIosArrowUp
                 className={`${
                   accountMenuOpen ? "rotate-0" : "rotate-[180deg]"
-                } transition-all duration-300 text-gray-600 lg:block hidden`}
+                } transition-all duration-300 text-gray-600 dark:text-white lg:block hidden`}
               />
             </div>
           </div>
