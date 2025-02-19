@@ -24,31 +24,6 @@ const RequestAsset = () => {
   );
   // console.log(hrAssets);
 
-  // useEffect(() => {
-  //   if (hrAssets.length > 0) {
-  //     setFilteredAsset(hrAssets);
-  //   }
-  // }, [hrAssets]);
-
-  // show search based result
-  // useEffect(() => {
-  //   axiosSecure.get(`assets?search=${searchText}`).then((res) => {
-  //     const exactData = res.data.filter(
-  //       (data) => data?.email === currentUser?.affiliatedWith
-  //     );
-  //     setFilteredAsset(exactData);
-  //   });
-  // }, [searchText, refetch, hrAssets]);
-
-  // useEffect(() => {
-  //   axiosSecure.get(`/assets?filterOption=${filterOption}`).then((res) => {
-  //     const exactData = res.data.filter(
-  //       (data) => data?.email === currentUser?.affiliatedWith
-  //     );
-  //     setFilteredAsset(exactData);
-  //   });
-  // }, [filterOption, refetch, hrAssets]);
-
   const handleRequestModal = (asset) => {
     setNoteText("");
     setSelectedAsset(asset);
@@ -107,17 +82,19 @@ const RequestAsset = () => {
       <Helmet>
         <title>Request Asset</title>
       </Helmet>
-      <div className="p-8 bg-gray-100 min-h-screen">
+      <div className="p-8 bg-gray-100 dark:bg-gray-900 rounded-lg min-h-screen">
         {/* Title and Subtitle Section */}
         <div className="mb-10 text-center">
           <h1 className="text-3xl font-bold text-blue-600">Asset Request</h1>
-          <p className="text-xl text-gray-600 mt-2">
+          <p className="text-xl text-gray-600 dark:text-white/80 mt-2">
             Easily search, filter, and request assets that suit your needs.
           </p>
         </div>
         {hrAssets && (
           <>
-            <p className="font-semibold">Assets: ({hrAssets.length})</p>
+            <p className="font-semibold dark:text-white">
+              Assets: ({hrAssets.length})
+            </p>
           </>
         )}
         <div className="grid mb-6 grid-cols-1 md:grid-cols-3 gap-5 w-full">
@@ -126,7 +103,7 @@ const RequestAsset = () => {
             <input
               type="text"
               onChange={(e) => setSearchText(e.target.value)}
-              className="mt-1 block w-full rounded-md border p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full rounded-md border p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:outline-none dark:text-white dark:border-none"
               placeholder="Search by names"
             />
           </div>
@@ -135,7 +112,7 @@ const RequestAsset = () => {
             <select
               id="productType"
               onChange={(e) => setFilterOption(e.target.value)}
-              className="mt-1 block w-full rounded-md border p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+              className="mt-1 block w-full rounded-md border p-2.5 text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:outline-none dark:text-white dark:border-none"
             >
               <option value="">Search by filter</option>
               <option value="returnable">Returnable</option>
@@ -155,12 +132,12 @@ const RequestAsset = () => {
           ) : (
             hrAssets.map((singleAsset, index) => (
               <div key={index} className="space-y-6 mb-3">
-                <div className="flex justify-between items-center p-4 bg-white shadow-md rounded-lg">
-                  <div className="flex flex-col">
-                    <span className="text-lg font-semibold">
+                <div className="flex justify-between items-center p-4 bg-white dark:bg-gray-600 shadow-md rounded-lg">
+                  <div className="flex flex-col dark:text-white">
+                    <span className="text-lg font-semibold mb-2">
                       {singleAsset?.productName}
                     </span>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-gray-500 ">
                       <p
                         className={`${
                           singleAsset?.productType === "returnable"
@@ -198,7 +175,7 @@ const RequestAsset = () => {
                     id="my_modal_5"
                     className="modal modal-bottom sm:modal-middle"
                   >
-                    <div className="modal-box">
+                    <div className="modal-box dark:bg-gray-800 dark:text-white">
                       {/* Modal Header */}
                       <h3 className="text-lg font-bold text-center mb-4">
                         Request Asset
@@ -208,7 +185,7 @@ const RequestAsset = () => {
                       <div className="mb-4">
                         <label
                           htmlFor="note"
-                          className="block text-sm font-medium text-gray-700"
+                          className="block text-sm font-medium text-gray-700 dark:text-white"
                         >
                           Add a Note
                         </label>
@@ -217,7 +194,7 @@ const RequestAsset = () => {
                           placeholder="Enter your note here..."
                           value={noteText}
                           onChange={(e) => setNoteText(e.target.value)}
-                          className="w-full p-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                          className="w-full p-2 mt-1 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:outline-none dark:ring-0 dark:border-none dark:text-white"
                           rows="4"
                         ></textarea>
                       </div>

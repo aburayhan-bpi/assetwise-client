@@ -79,7 +79,7 @@ const DashboardLayout = () => {
 
   return (
     <div className="relative">
-      <div className="flex h-screen  w-full">
+      <div className="flex h-screen w-full">
         {/* Sidebar */}
         <div
           ref={sidebarRef}
@@ -265,12 +265,12 @@ const DashboardLayout = () => {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col dark:bg-black">
+        <div className="flex-1 flex flex-col h-full dark:bg-black">
           {/* Top Bar */}
           <div className="sticky top-0 z-50 bg-white dark:bg-blue-900 dark:text-white shadow-md p-4 flex items-center justify-between">
             <button
               onClick={toggleSidebar}
-              className="text-blue-900 text-xl lg:hidden"
+              className="text-blue-900 dark:text-white text-xl lg:hidden"
             >
               <FaBars />
             </button>

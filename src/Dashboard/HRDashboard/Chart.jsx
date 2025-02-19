@@ -46,9 +46,11 @@ const Chart = ({ stats }) => {
   ];
 
   return (
-    <div>
-      <div className="w-full h-[400px] p-4 bg-white">
-        <h2 className="text-lg font-semibold mb-4">Statistics</h2>
+    <div className="">
+      <div className="w-full h-[400px] p-4 bg-white dark:bg-gray-900">
+        <h2 className="text-lg font-semibold mb-4 dark:text-white text-center">
+          Statistics
+        </h2>
         <ResponsiveContainer width="100%" height={350}>
           <LineChart
             data={data}

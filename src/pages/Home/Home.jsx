@@ -62,7 +62,7 @@ const Home = () => {
           <MonthlyRequests />
 
           {/* Accordion section */}
-          <Accordion />
+        <Accordion />
         </>
       )}
       {/* For HR Manager */}

@@ -75,7 +75,7 @@ const AssetList = () => {
         </p>
       </div>
       {/* Asset info table */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 h-full">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
           {/* Search box */}
           <div>

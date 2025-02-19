@@ -4,7 +4,7 @@ import EmpOverview from "./EmployeeDashboard/EmpOverview";
 import HROverview from "./HRDashboard/HROverview";
 
 const Overview = () => {
-  const { user } = useAuth();
+  const { user, loading, setLoading } = useAuth();
   const currentUser = useCurrentUser();
   console.log(currentUser);
   console.log(user);
@@ -13,12 +13,22 @@ const Overview = () => {
     <div className="px-4 py-2">
       {user?.email && currentUser?.role === "hr" && (
         <>
-          <HROverview user={user} currentUser={currentUser} />
+          <HROverview
+            user={user}
+            currentUser={currentUser}
+            loading={loading}
+            setLoading={setLoading}
+          />
         </>
       )}
       {user?.email && currentUser?.role === "employee" && (
         <>
-          <EmpOverview user={user} currentUser={currentUser} />
+          <EmpOverview
+            user={user}
+            currentUser={currentUser}
+            loading={loading}
+            setLoading={setLoading}
+          />
         </>
       )}
     </div>

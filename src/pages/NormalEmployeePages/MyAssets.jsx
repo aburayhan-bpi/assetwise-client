@@ -24,49 +24,6 @@ const MyAssets = () => {
     searchText,
     filterOption
   );
-  // const [companyInfo, setCompanyInfo] = useState(null);
-
-  // console.log(filteredAsset);
-
-  // useEffect(() => {
-  //   if (myReqAssets.length > 0) {
-  //     setFilteredAsset(myReqAssets);
-  //   }
-  // }, [myReqAssets]);
-
-  // // show search based result
-  // useEffect(() => {
-  //   axiosSecure.get(`my-req-assets?search=${searchText}`).then((res) => {
-  //     const exactData = res.data.filter(
-  //       (data) => data?.requesterEmail === currentUser?.email
-  //     );
-  //     setFilteredAsset(exactData);
-  //     // setFilteredAsset(res.data);
-  //   });
-  // }, [searchText, refetch, myReqAssets]);
-
-  // // filter based result
-  // useEffect(() => {
-  //   axiosSecure
-  //     .get(`my-req-assets?filterOption=${filterOption}`)
-  //     .then((res) => {
-  //       const exactData = res.data.filter(
-  //         (data) => data?.requesterEmail === currentUser?.email
-  //       );
-  //       setFilteredAsset(exactData);
-  //       // setFilteredAsset(res.data);
-  //     });
-  // }, [filterOption, refetch, myReqAssets]);
-
-  // get company info
-  // useEffect(() => {
-  //   axiosSecure
-  //     .get(`company-details?email=${currentUser?.affiliatedWith}`)
-  //     .then((res) => {
-  //       // console.log(res.data);
-  //       setCompanyInfo(res.data);
-  //     });
-  // }, [currentUser, myReqAssets, refetch]);
 
   // get company info
   const { data: companyInfo = [] } = useQuery({
@@ -88,18 +45,6 @@ const MyAssets = () => {
         if (res.data.acknowledged) {
           toast.success("Cancelled asset request!");
           refetch();
-          // Update filteredAsset state after cancellation
-          // setFilteredAsset((prevAssets) =>
-          //   prevAssets.map((asset) =>
-          //     asset._id === reqAssetId
-          //       ? {
-          //           ...asset,
-          //           status: "cancelled",
-          //           cancelledDate: new Date().toISOString(),
-          //         }
-          //       : asset
-          //   )
-          // );
         }
       })
       .catch((err) => {
@@ -117,14 +62,6 @@ const MyAssets = () => {
         if (res.data.modifiedCount > 0) {
           toast.success("Asset request returned!");
           refetch();
-          // Update filteredAsset state after return
-          // setFilteredAsset((prevAssets) =>
-          //   prevAssets.map((asset) =>
-          //     asset._id === reqAssetId
-          //       ? { ...asset, status: "returned" }
-          //       : asset
-          //   )
-          // );
         }
       })
       .catch((err) => {
@@ -138,7 +75,8 @@ const MyAssets = () => {
 
   // console.log(companyInfo)
   return (
-    <div className="max-w-screen-xl mx-auto p-8 bg-gray-50 min-h-screen">
+    // max-w-screen-xl
+    <div className="container mx-auto p-8 bg-gray-50 dark:bg-gray-900 dark:text-white/80 min-h-screen">
       <Helmet>
         <title>My Assets</title>
       </Helmet>
@@ -147,7 +85,7 @@ const MyAssets = () => {
         <h1 className="text-3xl font-bold text-blue-600">
           My Requested Assets
         </h1>
-        <p className="text-lg text-gray-600 mt-2">
+        <p className="text-lg text-gray-600 dark:text-white/80 mt-2">
           Easily track your asset requests and their current status.
         </p>
       </div>
@@ -164,13 +102,13 @@ const MyAssets = () => {
           type="text"
           onChange={(e) => setSearchText(e.target.value)}
           placeholder="Search by asset name"
-          className="input input-bordered w-full md:w-1/3"
+          className="input input-bordered w-full md:w-1/3 dark:bg-gray-700 dark:outline-none"
         />
 
         {/* Filter by Asset Type */}
         <select
           onChange={(e) => setFilterOption(e.target.value)}
-          className="select select-bordered w-full md:w-1/4"
+          className="select select-bordered w-full md:w-1/4 dark:bg-gray-700 dark:outline-none"
         >
           <option value="">Filter by Asset Type</option>
           <option value="returnable">Returnable</option>
@@ -184,7 +122,7 @@ const MyAssets = () => {
         <table className="table w-full">
           {/* Table Header */}
           <thead>
-            <tr>
+            <tr className="dark:text-white">
               <th>Asset Name</th>
               <th>Type</th>
               <th>Request Date</th>

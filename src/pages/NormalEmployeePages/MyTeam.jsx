@@ -12,14 +12,16 @@ const MyTeam = () => {
 
   // console.log("My team info", myTeam);
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-100 dark:bg-gray-900 min-h-screen">
       <Helmet>
         <title>My Team</title>
       </Helmet>
       {/* Header */}
-      <header className="text-center bg-gradient-to-r from-teal-700 to-cyan-500 text-white py-12">
+      <header className="text-center bg-gradient-to-r from-teal-700 to-cyan-500 text-white py-12 dark:bg-gradient-to-r dark:from-teal-900 dark:to-cyan-800">
         <h1 className="text-4xl font-bold">Meet Our Team</h1>
-        <p className="text-lg mt-2">The People Who Make It All Happen</p>
+        <p className="text-lg mt-2 dark:text-white/80">
+          The People Who Make It All Happen
+        </p>
       </header>
 
       {/* Team Grid */}
@@ -28,7 +30,7 @@ const MyTeam = () => {
           {myTeam.map((member, index) => (
             <div
               key={index}
-              className="bg-white shadow-md rounded-lg p-6 text-center transition transform hover:scale-105 hover:shadow-lg"
+              className="bg-white dark:bg-gray-700 dark:text-white shadow-md rounded-lg p-6 text-center transition transform hover:scale-105 hover:shadow-lg"
             >
               {member?.photo ? (
                 <img
@@ -44,7 +46,7 @@ const MyTeam = () => {
                 />
               )}
 
-              <h2 className="mt-4 text-xl font-semibold text-gray-800">
+              <h2 className="mt-4 text-xl font-semibold text-gray-800 dark:text-white mb-3">
                 {member?.name}
               </h2>
               <h2 className="flex items-center gap-1 capitalize bg-green-50 text-green-500 mb-2 w-fit mx-auto rounded-md px-3 text-xs">

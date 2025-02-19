@@ -25,12 +25,15 @@ const MonthlyRequests = () => {
   // console.log(monthRequests);
 
   return (
-    <div className="mt-10 bg-sky-200 pt-10 pb-4 px-2 rounded-md">
+    <div className="mt-10 bg-sky-200 dark:bg-transparent dark:text-white pt-10 pb-4 px-2 rounded-md">
       <div className="flex flex-col justify-center items-center">
-        <h2 className="mb-8 text-center text-3xl font-bold">
-          My Monthly Requst
+        <h2 className="mb-2 text-center text-3xl font-bold">
+          My Monthly Request
         </h2>
-        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:px-3">
+        <p className="text-center max-w-lg mx-auto mb-8 dark:text-white/80">
+          My Monthly Request — Track and Manage Your Regular Needs
+        </p>
+        <div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 xl:px-3">
           {monthRequests.map((singleReq) => (
             <AssetCard key={singleReq?._id} singleReq={singleReq}></AssetCard>
           ))}

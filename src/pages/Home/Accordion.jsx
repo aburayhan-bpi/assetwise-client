@@ -41,18 +41,18 @@ const Accordion = () => {
   };
 
   return (
-    <div className=" mx-auto mt-8 p-4 bg-white shadow-lg rounded-lg">
-      <h2 className="underline text-3xl font-semibold mb-6 text-center text-gray-900">
+    <div className=" mx-auto mt-8 p-4 bg-white dark:bg-black dark:text-white shadow-lg rounded-lg">
+      <h2 className="underline text-3xl font-semibold mb-6 text-center text-gray-900 dark:text-white">
         FAQs
       </h2>
       <div className="space-y-4">
         {questionsAnswers.map((item, index) => (
           <div
             key={index}
-            className="border border-gray-300 rounded-lg shadow-sm transition-all duration-300"
+            className="border border-gray-300  rounded-lg shadow-sm transition-all duration-300"
           >
             <button
-              className="w-full text-left p-5 focus:outline-none flex justify-between items-center text-gray-800 font-medium hover:bg-gray-100"
+              className="w-full text-left p-5 focus:outline-none flex justify-between items-center text-gray-800 dark:text-white dark:hover:bg-gray-800 font-medium hover:bg-gray-100"
               onClick={() => toggleAccordion(index)}
             >
               <span>{item.question}</span>
@@ -61,7 +61,7 @@ const Accordion = () => {
               </span>
             </button>
             {activeIndex === index && (
-              <div className="p-4 text-gray-600 border-t border-gray-200">
+              <div className="p-4 text-gray-600 dark:text-white/80 border-t border-gray-200">
                 {item.answer}
               </div>
             )}

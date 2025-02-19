@@ -10,20 +10,33 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import moment from "moment/moment";
+import Loader from "../../components/shared/Loader";
 const HROverview = ({ user, currentUser }) => {
   const axiosSecure = useAxiosSecure();
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     loadData();
   }, []);
 
   const loadData = async () => {
-    const res = await axiosSecure.get(`/hr-statistics?hrEmail=${user?.email}`);
+    setLoading(true);
+    const res = await axiosSecure.get(
+      `/hr-statistics?hrEmail=${
+        currentUser?.role === "hr" && currentUser?.email
+      }`
+    );
     console.log(res);
     setData(res.data);
+    setLoading(false);
   };
 
-  console.log(data);
+  if (loading) {
+    return <Loader />;
+  }
+
+  // console.log("Loading...", loading);
+  // console.log(data);
   const time = moment().format("MMMM Do YYYY, h:mm:ss a");
   return (
     <div className="mt-4">
@@ -39,7 +52,7 @@ const HROverview = ({ user, currentUser }) => {
       {/* stats */}
       <div className="grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full mx-auto">
         {/* 1 */}
-        <div className="bg-blue-100 rounded-lg px-5 py-3">
+        <div className="bg-blue-100 dark:bg-blue-900 dark:text-white rounded-lg px-5 py-3">
           <h2 className="text-sm font-normal">Total Added Assets</h2>
           <p className="text-4xl my-3 font-bold">
             {data?.hrStats?.totalAddedAssets}
@@ -48,13 +61,13 @@ const HROverview = ({ user, currentUser }) => {
             <Link to="/dashboard/assets">
               <p className="text-xs underline">See more</p>
             </Link>
-            <div className="bg-blue-200 p-2 rounded-lg">
+            <div className="bg-blue-200 dark:bg-blue-900 dark:border p-2 rounded-lg">
               <AiOutlineProduct className="text-xl" />
             </div>
           </div>
         </div>
         {/* 2 */}
-        <div className="bg-green-100 rounded-lg px-5 py-3">
+        <div className="bg-green-100 dark:bg-green-900 dark:text-white rounded-lg px-5 py-3">
           <h2 className="text-sm font-normal">Requested assets</h2>
           <p className="text-4xl my-3 font-bold">
             {data?.hrStats?.totalRequested}
@@ -63,13 +76,13 @@ const HROverview = ({ user, currentUser }) => {
             <Link to="/dashboard/all-requests">
               <p className="text-xs underline">See more</p>
             </Link>
-            <div className="bg-blue-200 p-2 rounded-lg">
+            <div className="bg-blue-200 dark:bg-green-900 dark:border p-2 rounded-lg">
               <VscGitPullRequestNewChanges className="text-xl" />
             </div>
           </div>
         </div>
         {/* 3 */}
-        <div className="bg-yellow-100 rounded-lg px-5 py-3">
+        <div className="bg-yellow-100 dark:bg-yellow-900 dark:text-white rounded-lg px-5 py-3">
           <h2 className="text-sm font-normal">Total Employees</h2>
           <p className="text-4xl my-3 font-bold">
             {data?.hrStats?.myTeamMembers}
@@ -78,13 +91,13 @@ const HROverview = ({ user, currentUser }) => {
             <Link to="/dashboard/employees">
               <p className="text-xs underline">See more</p>
             </Link>
-            <div className="bg-blue-200 p-2 rounded-lg">
+            <div className="bg-blue-200 dark:bg-yellow-900 dark:border p-2 rounded-lg">
               <HiOutlineUserGroup className="text-xl" />
             </div>
           </div>
         </div>
         {/* 4 */}
-        <div className="bg-red-100 rounded-lg px-5 py-3">
+        <div className="bg-red-100 dark:bg-red-900 dark:text-white rounded-lg px-5 py-3">
           <h2 className="text-sm font-normal">Current Package</h2>
           <p className="text-4xl my-3 font-bold">
             {data?.hrStats?.myPackage?.package === 5 && "Basic "}$
@@ -96,7 +109,7 @@ const HROverview = ({ user, currentUser }) => {
               <p className="text-xs underline">See more</p>
             </Link> */}
             </div>
-            <div className="bg-blue-200 p-2 rounded-lg">
+            <div className="bg-blue-200 dark:bg-red-900 dark:border p-2 rounded-lg">
               <MdOutlineCardMembership className="text-xl" />
             </div>
           </div>
@@ -109,10 +122,10 @@ const HROverview = ({ user, currentUser }) => {
           <Chart stats={data?.hrStats} />
         </div>
         {/* Calender */}
-        <div className="p-2  rounded-lg w-full">
+        <div className="p-2 dark:text-white dark:bg-gray-500 rounded-lg w-full">
           <h2 className="text-xl text-center font-semibold my-4">Calender</h2>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DateCalendar />
+            <DateCalendar className=" dark:bg-gray-500" />
           </LocalizationProvider>
         </div>
       </div>
