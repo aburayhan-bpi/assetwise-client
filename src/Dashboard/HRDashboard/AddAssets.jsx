@@ -3,7 +3,7 @@ import AddAsset from '../../pages/HRManagerPages.jsx/AddAsset';
 
 const AddAssets = () => {
     return (
-        <div>
+        <div className='dark:bg-black'>
             <AddAsset/>
         </div>
     );

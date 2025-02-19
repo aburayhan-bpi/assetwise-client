@@ -3,7 +3,7 @@ import AssetList from "../../pages/HRManagerPages.jsx/AssetList";
 
 const Assets = () => {
   return (
-    <div>
+    <div className="dark:bg-black">
       <AssetList />
     </div>
   );

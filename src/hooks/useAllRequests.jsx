@@ -3,7 +3,7 @@ import useAuth from "./useAuth";
 import useAxiosSecure from "./useAxiosSecure";
 import useCurrentUser from "./useCurrentUser";
 
-const useAllRequests = (searchText) => {
+const useAllRequests = (searchText, sortOption) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
   const currentUser = useCurrentUser();
@@ -13,7 +13,7 @@ const useAllRequests = (searchText) => {
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["allRequests", user?.email, currentUser, searchText],
+    queryKey: ["allRequests", user?.email, currentUser, searchText, sortOption],
     queryFn: async () => {
       // const res = await axiosSecure.get(
       //   `/all-requests?email=${currentUser?.email}`
@@ -22,6 +22,7 @@ const useAllRequests = (searchText) => {
         params: {
           hrEmail: currentUser?.email,
           searchQuery: searchText,
+          sortOption: sortOption,
         },
       });
       return res.data;

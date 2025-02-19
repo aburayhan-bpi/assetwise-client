@@ -22,10 +22,11 @@ import HRRoute from "./HRRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Employees from "../Dashboard/HRDashboard/Employees";
 import Request from "../Dashboard/EmployeeDashboard/Request";
-import Overview from "../Dashboard/HRDashboard/Overview";
+
 import Assets from "../Dashboard/HRDashboard/Assets";
 import AddAssets from "../Dashboard/HRDashboard/AddAssets";
 import MyAllRequests from "../Dashboard/HRDashboard/MyAllRequests";
+import Overview from "../Dashboard/Overview";
 
 export const router = createBrowserRouter([
   {

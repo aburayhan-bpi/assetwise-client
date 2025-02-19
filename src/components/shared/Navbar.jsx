@@ -151,7 +151,7 @@ const Navbar = () => {
                 Request Asset
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink
                 to="/profile"
                 className="block py-2 px-3 rounded md:bg-transparent"
@@ -159,7 +159,7 @@ const Navbar = () => {
               >
                 Profile
               </NavLink>
-            </li>
+            </li> */}
           </>
         )}
       {user &&

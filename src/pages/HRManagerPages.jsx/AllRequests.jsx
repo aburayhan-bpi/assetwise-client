@@ -7,15 +7,19 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
+import { PiSortAscendingLight, PiSortDescendingLight } from "react-icons/pi";
 
 const AllRequests = () => {
   // const [filteredAsset, setFilteredAsset] = useState(allRequests);
   const [searchText, setSearchText] = useState("");
-
+  const [sortOption, setSortOption] = useState("");
   const axiosSecure = useAxiosSecure();
   const currentUser = useCurrentUser();
 
-  const [allRequests, refetch, isLoading] = useAllRequests(searchText);
+  const [allRequests, refetch, isLoading] = useAllRequests(
+    searchText,
+    sortOption
+  );
 
   //  handleAction for approve / reject
   const handleApprove = (id) => {
@@ -58,7 +62,19 @@ const AllRequests = () => {
       </div>
 
       {/* Search Bar Section */}
-      <div className="mb-6 flex justify-center">
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <select
+            onChange={(e) => setSortOption(e.target.value)}
+            className="mt-1 block w-full rounded-md border py-1 px-3 dark:bg-gray-700 dark:border-none dark:text-white dark:outline-none text-gray-900 focus:outline-blue-500 focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="">Sort by Status</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+            <option value="returned">Returned</option>
+          </select>
+        </div>
         <div className="relative w-full max-w-lg">
           <input
             type="text"
@@ -76,7 +92,7 @@ const AllRequests = () => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Sl no.
+                Sl no. ({allRequests.length})
               </th>
               <th scope="col" className="px-6 py-3">
                 Asset Name

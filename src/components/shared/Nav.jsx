@@ -111,10 +111,12 @@ const Nav = ({ links, companyPhoto, handleSignOut, user, currentUser }) => {
                     Dashboard
                   </p>
                 </Link>
-                <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 dark:text-white/80 hover:bg-gray-50 dark:hover:bg-gray-700">
-                  <FiUser />
-                  View Profile
-                </p>
+                <Link to="/dashboard/profile">
+                  <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 dark:text-white/80 hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <FiUser />
+                    View Profile
+                  </p>
+                </Link>
                 <p
                   onClick={toggleTheme}
                   className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] text-gray-600 dark:text-white/80 hover:bg-gray-50 dark:hover:bg-gray-700"

@@ -4,7 +4,7 @@ import useAuth from "./useAuth";
 import axios from "axios";
 
 export const axiosSecure = axios.create({
-  baseURL: "https://assetwise-server.vercel.app",
+  baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 

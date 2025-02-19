@@ -53,7 +53,7 @@ const Profile = () => {
         {user && user?.email ? (
           <>
             <img
-              className="w-32 h-32 mx-auto rounded-full"
+              className="w-32 h-32 mx-auto rounded-full border-4 border-blue-600"
               src={user?.photoURL}
               alt="avatar"
             />
@@ -70,7 +70,7 @@ const Profile = () => {
           type="text"
           onChange={(e) => setName(e.target.value)}
           defaultValue={user?.displayName}
-          className="w-full p-2 border border-gray-300 rounded-md mt-2"
+          className="w-full p-2 border border-gray-300 dark:bg-gray-600 dark:border-none dark:outline-none dark:text-white rounded-md mt-2"
         />
       </div>
 
@@ -80,7 +80,7 @@ const Profile = () => {
         <input
           type="email"
           value="johndoe@example.com"
-          className="w-full p-2 border border-gray-300 rounded-md mt-2"
+          className="w-full p-2 border border-gray-300 dark:border-none dark:outline-none dark:text-white rounded-md mt-2"
           readOnly
           disabled
         />

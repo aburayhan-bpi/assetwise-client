@@ -79,11 +79,11 @@ const DashboardLayout = () => {
 
   return (
     <div className="relative">
-      <div className="flex min-h-screen  w-full">
+      <div className="flex h-screen  w-full">
         {/* Sidebar */}
         <div
           ref={sidebarRef}
-          className={`bg-blue-100 text-black dark:bg-blue-950 dark:text-gray-200 w-52 py-5 space-y-6 fixed inset-y-0 left-0 transition-transform duration-300 transform ${
+          className={`overflow-hidden bg-blue-100 text-black dark:bg-blue-950 dark:text-[#FFAB5B] w-52 py-5 space-y-6 fixed top-0 inset-y-0 left-0 transition-transform duration-300 transform ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           } lg:translate-x-0 lg:relative lg:block z-50`}
         >
@@ -93,7 +93,7 @@ const DashboardLayout = () => {
             {user?.email && currentUser?.role === "employee" && (
               <ul className="space-y-4">
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -106,7 +106,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink to="/" className="flex items-center space-x-3">
@@ -114,7 +114,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -126,7 +126,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -138,7 +138,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -150,7 +150,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -166,7 +166,7 @@ const DashboardLayout = () => {
             {user?.email && currentUser?.role === "hr" && (
               <ul className="space-y-4">
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -180,7 +180,7 @@ const DashboardLayout = () => {
                 </li>
 
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink to="/" className="flex items-center space-x-3">
@@ -189,7 +189,7 @@ const DashboardLayout = () => {
                 </li>
 
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -201,7 +201,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -213,7 +213,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -225,7 +225,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 transition-colors duration-300 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 transition-colors duration-300 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -237,7 +237,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -249,7 +249,7 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
                 <li
-                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 cursor-pointer"
+                  className="flex items-center space-x-3 py-2 px-6 hover:bg-blue-200 dark:hover:bg-blue-900 cursor-pointer"
                   onClick={handleItemClick}
                 >
                   <NavLink
@@ -265,9 +265,9 @@ const DashboardLayout = () => {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col dark:bg-black">
           {/* Top Bar */}
-          <div className="bg-white dark:bg-blue-900 dark:text-white shadow-md p-4 flex items-center justify-between">
+          <div className="sticky top-0 z-50 bg-white dark:bg-blue-900 dark:text-white shadow-md p-4 flex items-center justify-between">
             <button
               onClick={toggleSidebar}
               className="text-blue-900 text-xl lg:hidden"
@@ -297,8 +297,8 @@ const DashboardLayout = () => {
               <div
                 className={`${
                   accountMenuOpen
-                    ? "translate-y-0 opacity-100 z-[1]"
-                    : "translate-y-[10px] opacity-0 z-[-1]"
+                    ? "translate-y-0 opacity-100 z-[1] "
+                    : "translate-y-[10px] opacity-0 z-[-1] hidden"
                 } bg-white dark:bg-blue-950 w-max rounded-md absolute top-[45px] right-0 p-[10px] flex flex-col transition-all duration-300 gap-[5px]`}
               >
                 <Link to="/dashboard">
@@ -307,10 +307,12 @@ const DashboardLayout = () => {
                     Dashboard
                   </p>
                 </Link>
-                <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] dark:hover:bg-gray-900 dark:text-white text-gray-600 hover:bg-gray-50">
-                  <FiUser />
-                  View Profile
-                </p>
+                <Link to="/dashboard/profile">
+                  <p className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] dark:hover:bg-gray-900 dark:text-white text-gray-600 hover:bg-gray-50">
+                    <FiUser />
+                    View Profile
+                  </p>
+                </Link>
                 <p
                   onClick={toggleTheme}
                   className="flex items-center gap-[5px] rounded-md p-[8px] pr-[45px] py-[3px] text-[1rem] dark:hover:bg-gray-900 dark:text-white text-gray-600 hover:bg-gray-50"
