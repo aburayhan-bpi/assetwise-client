@@ -6,7 +6,7 @@ const Packages = () => {
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
             Simplifying Asset Management for Your Business
           </h2>
-          <p className="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
+          <p className="max-w-2xl mx-auto mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
             At AssetWise, we empower businesses with innovative tools to
             efficiently manage and track assets, optimize operations, and
             achieve long-term growth.
@@ -93,12 +93,12 @@ const Packages = () => {
                 </span>
               </li>
             </ul>
-            <a
+            {/* <a
               //   href=""
               className="cursor-pointer bg-blue-600 text-white hover:bg-blue-700 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-primary-900"
             >
               Get started
-            </a>
+            </a> */}
           </div>
           {/* Starter Plan */}
           <div className="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
@@ -179,12 +179,12 @@ const Packages = () => {
                 </span>
               </li>
             </ul>
-            <a
+            {/* <a
               //   href=""
               className="cursor-pointer bg-blue-600 text-white hover:bg-blue-700 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-primary-900"
             >
               Get started
-            </a>
+            </a> */}
           </div>
           {/* Golden Plan */}
           <div className="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
@@ -265,12 +265,12 @@ const Packages = () => {
                 </span>
               </li>
             </ul>
-            <a
+            {/* <a
               //   href=""
               className="cursor-pointer bg-blue-600 text-white hover:bg-blue-700 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white dark:focus:ring-primary-900"
             >
               Get started
-            </a>
+            </a> */}
           </div>
           {/* Add remaining plans similarly */}
         </div>

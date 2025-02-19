@@ -19,6 +19,12 @@ import RejectedRequests from "./HRHome/RejectedRequests";
 import TopQuantityAssets from "./HRHome/TopQuantityAssets";
 import FAQ from "./HRHome/FAQ";
 import Support from "./HRHome/Support";
+import HowItWork from "../../components/HowItWork/HowItWork";
+import Testimonial from "../../components/Testimonial/Testimonial";
+import WhyChoose from "../../components/WhyChoose/WhyChoose";
+import ContactUs from "../../components/ContactUs/ContactUs";
+import HowToRequest from "../../components/HowToRequest/HowToRequest";
+import TipsAndTricks from "../../components/TipsAndTricks/TipsAndTricks";
 
 const Home = () => {
   const { user } = useAuth();
@@ -41,6 +47,11 @@ const Home = () => {
           <Packages />
           {/* About Section */}
           <AboutUs />
+          <HowItWork />
+          <Testimonial />
+          <WhyChoose />
+          <ContactUs />
+          <FAQ />
         </div>
       )}
 
@@ -60,9 +71,13 @@ const Home = () => {
           <PendingRequests />
           {/* My Monthly Requests */}
           <MonthlyRequests />
-
+          <HowToRequest />
+          <Support />
+          <Testimonial />
+          <WhyChoose />
+          <TipsAndTricks/>
           {/* Accordion section */}
-        <Accordion />
+          <Accordion />
         </>
       )}
       {/* For HR Manager */}

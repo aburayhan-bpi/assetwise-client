@@ -25,7 +25,7 @@ const PendingRequests = () => {
   });
   // console.log(pendingRequests);
   return (
-    <div className="mt-10 bg-sky-200 dark:bg-black pt-10 pb-4 px-2 rounded-md">
+    <div className="mt-10  pt-10 pb-4 px-2 rounded-md">
       <div className="flex flex-col justify-center items-center ">
         <h2 className="mb-2 text-center text-3xl font-bold dark:text-white">
           My Pending Request

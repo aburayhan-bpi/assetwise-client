@@ -49,7 +49,7 @@ const Accordion = () => {
         {questionsAnswers.map((item, index) => (
           <div
             key={index}
-            className="border border-gray-300  rounded-lg shadow-sm transition-all duration-300"
+            className="border border-gray-300 dark:border-gray-800  rounded-lg shadow-sm transition-all duration-300"
           >
             <button
               className="w-full text-left p-5 focus:outline-none flex justify-between items-center text-gray-800 dark:text-white dark:hover:bg-gray-800 font-medium hover:bg-gray-100"

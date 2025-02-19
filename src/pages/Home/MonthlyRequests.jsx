@@ -25,7 +25,7 @@ const MonthlyRequests = () => {
   // console.log(monthRequests);
 
   return (
-    <div className="mt-10 bg-sky-200 dark:bg-transparent dark:text-white pt-10 pb-4 px-2 rounded-md">
+    <div className="mt-10  dark:bg-transparent dark:text-white pt-10 pb-4 px-2 rounded-md">
       <div className="flex flex-col justify-center items-center">
         <h2 className="mb-2 text-center text-3xl font-bold">
           My Monthly Request
