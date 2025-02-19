@@ -18,7 +18,7 @@ const MainLayout = () => {
           </div>
         )}
 
-        <div>
+        <div className="">
           {/* min-h-[calc(100vh-1px)] */}
           <div className="pt-28 min-h-screen px-4 z-40">
             <Outlet />

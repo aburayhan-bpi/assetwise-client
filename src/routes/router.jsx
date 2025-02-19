@@ -27,11 +27,13 @@ import Assets from "../Dashboard/HRDashboard/Assets";
 import AddAssets from "../Dashboard/HRDashboard/AddAssets";
 import MyAllRequests from "../Dashboard/HRDashboard/MyAllRequests";
 import Overview from "../Dashboard/Overview";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",

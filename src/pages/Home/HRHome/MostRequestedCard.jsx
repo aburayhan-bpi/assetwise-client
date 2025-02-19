@@ -19,7 +19,7 @@ const MostRequestedCard = ({ singleReq }) => {
           <span
             className={`${
               productType === "returnable"
-                ? "text-violet-500"
+                ? "text-yellow-500"
                 : "text-yellow-500"
             }`}
           >
